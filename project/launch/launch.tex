@@ -1,7 +1,8 @@
 \documentclass{report}
 
 \usepackage[margin=1in]{geometry}
-
+\usepackage{datetime}
+\newdateformat{required}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}/\THEYEAR}
 \begin{document}
 
 \begin{titlepage}
@@ -10,23 +11,22 @@
         Project name \\[1cm]
         Team name \\[2.2cm]
         { \bfseries Launch Report } \\[1cm]
-        Cycle \# \\[2.2cm]
-        Date: \\[1cm]
-        Month/Day/Year
+        Cycle \# 1\\[2.2cm]
+        Date: \required\today\\[1cm]
         \end{huge}
     \end{center}
     \null \vfill
     \begin{large}
         Team Members: \\[0.5cm]
-        Name \\[0.5cm]
-        Name \\[0.5cm]
-        Name \\[0.5cm]
-        Name \\[0.5cm]
-        Name
+        Name: Samuel Bever\\[0.5cm]
+        Name: Michael Conway\\[0.5cm]
+        Name: Joseph Muoio\\[0.5cm]
+        Name: Kyle Patron\\[0.5cm]
+        Name: Kevin Zakszewski
     \end{large}
 \end{titlepage}
 
-\section*{The System/Product}
+\section*{\centering The System/Product}
 
 \subsection*{System/Product Name}
 
@@ -38,7 +38,8 @@
 
 \subsection*{Issues}
 
-\section*{The Team}
+\newpage
+\section*{\centering The Team}
 
 \subsection*{Team Name}
 
@@ -48,7 +49,8 @@
 
 \subsection*{Team Issues}
 
-\section*{The Plan}
+\newpage
+\section*{\centering The Plan}
 
 \subsection*{Objectives}
 
@@ -61,4 +63,64 @@
     Lorem & ipsum & dolor sit amet \\ \hline
 \end{tabular}
 
+\newpage
+\section*{\centering Table of Contributions}
+\begin{tabular}{| l | l | l | l |}
+    \hline
+     & Section & Writing & Editing \\
+    \hline \hline
+    1 & Project & & \\ \hline
+    2 & Team & & \\ \hline
+    3 & Plan & & \\ \hline
+\end{tabular}
+\newpage
+\noindent I certify that:
+\begin{itemize}
+\item This paper/project/exam is entirely my own work.
+\item I have not quoted the words of any other person from a printed source or a website without indicating what has been quoted and providing an appropriate citation.
+\item I have not submitted this paper / project to satisfy the requirements of any other course.
+\end{itemize}
+
+\vspace{1cm}
+\noindent\makebox[\textwidth][l]{
+Signiture:
+\makebox[5cm][l] {\hrulefill} 
+\ \ Date:
+\makebox[4cm][l] {\hrulefill} 
+}
+
+\vspace{0.5cm}
+\noindent\makebox[\textwidth][l]{
+Signiture:
+\makebox[5cm][l] {\hrulefill} 
+\ \ Date:
+\makebox[4cm][l] {\hrulefill} 
+}
+
+\vspace{0.5cm}
+\noindent\makebox[\textwidth][l]{
+Signiture:
+\makebox[5cm][l] {\hrulefill} 
+\ \ Date:
+\makebox[4cm][l] {\hrulefill} 
+}
+
+\vspace{0.5cm}
+\noindent\makebox[\textwidth][l]{
+Signiture:
+\makebox[5cm][l] {\hrulefill} 
+\ \ Date:
+\makebox[4cm][l] {\hrulefill} 
+}
+
+\vspace{0.5cm}
+\noindent\makebox[\textwidth][l]{
+Signiture:
+\makebox[5cm][l] {\hrulefill} 
+\ \ Date:
+\makebox[4cm][l] {\hrulefill} 
+}
+\vspace{\fill}
+\subsection*{Grading}
+The grade is given on the basis of quality, clarity, presentation, completeness, and writing of each section in the report. This is the grade of the group. Individual grades will be assigned at the end of the term when peer reviews are collected.
 \end{document}
