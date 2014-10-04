@@ -40,15 +40,21 @@
 % Describe ALS
 % Patients with late ALS can't move, so brain interface would help. Want to
 % make a system to connect BCI to home automation and social media.
+Amyotrophic lateral sclerosis (ALS) (also called ``Lou Gehrig's Disease'' is a neurodegenerative disease affecting the brain and spinal cord's motor nuerons. The motor nuerons progressively degenerate and eventually die off leading to the loss of muscle control. Eventually, this leads to full paralysis. Since the disease culminates in paralysis, affected individuals lose the ability to interact in the world. Even something as simple as turning on a light switch becomes impossible.
+
 
 % Existing things:
 % Last year's work???
 % Bunch of research
 % At least one thing that sounds rather similar (Thought-Wired)
 
+he goal of the project is to build a system which people afflicted with ALS can use to interact with their house through Home Automation Systems (HAS) . This includes controlling the thermostat, lights, stereo, and television as well as interfacing with social media. By having a Brain Computer Interface (BCI) to their automated house, individuals with ALS can still interact with their environment despite full paralysis. This will build off of a project from last year. The interface will be improved and new devices will be experimented with.  
+
 \subsection*{Highlighted Features}
 
 \begin{itemize}
+\item Allow users with ALS to perform basic household tasks without needing to move
+\item Integrate different BCI devices to different HAS
 \end{itemize}
 
 \subsection*{Sponsor or Proxy User}
@@ -61,12 +67,15 @@ of Hope, Drexel University College of Medicine.
 \subsection*{Issues}
 
 % Initial impression: unclear what they want (requirements gathering tricky)
-
+The initial impression is it will be difficult to gather requirements from the external stakeholder. There seems to not be a real plan as to what exactly they want. 
 % BCIs not yet precise
+BCIs are probably not the most precise devices. They also need to be trained for a particular user. Making this process as easy as possible and as accurate as possible will be a big challenge.
 
 % Different ones out there (confirm? at least different levels of
 % invasiveness); design to handle all of them with appropriate module?
+Another challenge will be integrating different BCI devices with different types of home control systems. There are multiple different BCI devices and multiple different home automation systems. Our software design has to be extremely flexible in order to handle the cases of different BCI devices integrating with different home control systems. 
 
+Investigating all the HAS and BCI systems as part of the requirements gathering will be a very important task to see everything that is out there on the market today and the assumptions those products make about their users's limitations.
 % Different home control systems (ditto???)
 % Usual target audience of home control is the non-handicapped. Will we need
 % to fight resulting assumptions (i.e. what's out there isn't what we'd need)?
@@ -166,6 +175,7 @@ Signature:
 \ \ Date:
 \makebox[4cm][l] {\hrulefill} 
 }
+
 
 \vspace{0.5cm}
 \noindent\makebox[\textwidth][l]{
