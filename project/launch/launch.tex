@@ -2,7 +2,10 @@
 
 \usepackage[margin=1in]{geometry}
 \usepackage{datetime}
+\usepackage{pgfgantt}
+
 \newdateformat{required}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}/\THEYEAR}
+
 \begin{document}
 
 \begin{titlepage}
@@ -30,20 +33,67 @@
 
 \subsection*{System/Product Name}
 
+% TODO
+
 \subsection*{Introduction}
+
+% Describe ALS
+% Patients with late ALS can't move, so brain interface would help. Want to
+% make a system to connect BCI to home automation and social media.
+
+% Existing things:
+% Last year's work???
+% Bunch of research
+% At least one thing that sounds rather similar (Thought-Wired)
 
 \subsection*{Highlighted Features}
 
+\begin{itemize}
+\end{itemize}
+
 \subsection*{Sponsor or Proxy User}
 
+Our outside stakeholder is \textbf{Sara Feldman}, PT, DPT, ATP, MDA/ALS Center
+of Hope, Drexel University College of Medicine.
+
+% We will be meeting with Dr. Feldman to...
+
 \subsection*{Issues}
+
+% Initial impression: unclear what they want (requirements gathering tricky)
+
+% BCIs not yet precise
+
+% Different ones out there (confirm? at least different levels of
+% invasiveness); design to handle all of them with appropriate module?
+
+% Different home control systems (ditto???)
+% Usual target audience of home control is the non-handicapped. Will we need
+% to fight resulting assumptions (i.e. what's out there isn't what we'd need)?
 
 \newpage
 \section*{\centering The Team}
 
 \subsection*{Team Name}
 
+% TODO
+
 \subsection*{Team Members and their specialties}
+
+Samuel Bever
+
+Michael Conway
+
+Joseph Muoio
+
+Kyle Patron
+
+Kevin Zakszewski
+
+% Roles:
+
+% Team leader
+% ...
 
 \subsection*{Team Communication}
 
@@ -54,6 +104,15 @@
 
 \subsection*{Objectives}
 
+\begin{itemize}
+    \item Research available technologies and choose the one(s) we will use
+        \begin{itemize}
+            \item Home control
+            \item BCI
+        \end{itemize}
+    \item % TODO
+\end{itemize}
+
 \subsection*{Schedule}
 
 \begin{tabular}{| l | l | l |}
@@ -62,6 +121,24 @@
     \hline \hline
     Lorem & ipsum & dolor sit amet \\ \hline
 \end{tabular}
+
+\begin{ganttchart}{1}{11}
+    \gantttitle{Fall Term}{11} \\
+    \gantttitlelist{1,...,11}{1} \\
+
+    % These are all "at the end of week #"
+    \ganttbar{Write launch report}{2}{2} \\
+    \ganttlinkedmilestone{Launch Report 1}{2} \\
+    \ganttbar{Gather requirements}{3}{5} \\
+    \ganttlinkedmilestone{SRS 1}{5} \\
+    \ganttbar{Design}{5}{7} \\
+    \ganttlinkedmilestone{SDS 1}{7} \\
+    \ganttbar{Implement prototype}{7}{9} \\
+    \ganttlinkedmilestone{Prototype 1}{9} \\
+    \ganttbar{Prepare presentation}{8}{10} \\
+    \ganttlinkedmilestone{Presentation 1}{10}
+
+\end{ganttchart}
 
 \newpage
 \section*{\centering Table of Contributions}
@@ -83,7 +160,7 @@
 
 \vspace{1cm}
 \noindent\makebox[\textwidth][l]{
-Signiture:
+Signature:
 \makebox[5cm][l] {\hrulefill} 
 \ \ Date:
 \makebox[4cm][l] {\hrulefill} 
@@ -91,7 +168,7 @@ Signiture:
 
 \vspace{0.5cm}
 \noindent\makebox[\textwidth][l]{
-Signiture:
+Signature:
 \makebox[5cm][l] {\hrulefill} 
 \ \ Date:
 \makebox[4cm][l] {\hrulefill} 
@@ -99,7 +176,7 @@ Signiture:
 
 \vspace{0.5cm}
 \noindent\makebox[\textwidth][l]{
-Signiture:
+Signature:
 \makebox[5cm][l] {\hrulefill} 
 \ \ Date:
 \makebox[4cm][l] {\hrulefill} 
@@ -107,7 +184,7 @@ Signiture:
 
 \vspace{0.5cm}
 \noindent\makebox[\textwidth][l]{
-Signiture:
+Signature:
 \makebox[5cm][l] {\hrulefill} 
 \ \ Date:
 \makebox[4cm][l] {\hrulefill} 
@@ -115,7 +192,7 @@ Signiture:
 
 \vspace{0.5cm}
 \noindent\makebox[\textwidth][l]{
-Signiture:
+Signature:
 \makebox[5cm][l] {\hrulefill} 
 \ \ Date:
 \makebox[4cm][l] {\hrulefill} 
