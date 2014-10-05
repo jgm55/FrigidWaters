@@ -1,6 +1,7 @@
 \documentclass{report}
 
 \usepackage[margin=1in]{geometry}
+\usepackage{parskip}
 \usepackage{datetime}
 \usepackage{pgfgantt}
 
@@ -37,48 +38,65 @@
 
 \subsection*{Introduction}
 
-% Describe ALS
-% Patients with late ALS can't move, so brain interface would help. Want to
-% make a system to connect BCI to home automation and social media.
-Amyotrophic lateral sclerosis (ALS) (also called ``Lou Gehrig's Disease'' is a neurodegenerative disease affecting the brain and spinal cord's motor nuerons. The motor nuerons progressively degenerate and eventually die off leading to the loss of muscle control. Eventually, this leads to full paralysis. Since the disease culminates in paralysis, affected individuals lose the ability to interact in the world. Even something as simple as turning on a light switch becomes impossible.
+Amyotrophic lateral sclerosis (ALS) (also called ``Lou Gehrig's Disease'') is
+a neurodegenerative disease affecting the brain and spinal cord. The motor
+neurons progressively degenerate and die off, leading to the loss of muscle
+control and death. Affected individuals in later stages of the disease may
+become paralyzed, losing the ability to interact with the world in even simple
+ways like turning on a light switch. Fully paralyzed patients are unable to
+move or even to speak, making communication impossible, let alone interfacing
+with conventional assistive technologies.
 
+The goal of the project is to build a system which people afflicted with ALS
+can use to interact with their houses through Home Automation Systems (HAS).
+This includes controlling the thermostat, lights, stereo, and television as
+well as interfacing with social media. By having a Brain Computer Interface
+(BCI) to their automated house, individuals with ALS can still interact with
+their environment despite full paralysis. This will build off of a project
+from last year. The interface will be improved and new devices will be
+experimented with.
 
-% Existing things:
-% Last year's work???
-% Bunch of research
 % At least one thing that sounds rather similar (Thought-Wired)
-
-he goal of the project is to build a system which people afflicted with ALS can use to interact with their house through Home Automation Systems (HAS) . This includes controlling the thermostat, lights, stereo, and television as well as interfacing with social media. By having a Brain Computer Interface (BCI) to their automated house, individuals with ALS can still interact with their environment despite full paralysis. This will build off of a project from last year. The interface will be improved and new devices will be experimented with.  
+% http://www.thought-wired.com/
 
 \subsection*{Highlighted Features}
 
 \begin{itemize}
-\item Allow users with ALS to perform basic household tasks without needing to move
-\item Integrate different BCI devices to different HAS
+\item Allow users with ALS to perform basic household tasks without needing to
+    move
+\item Integrate different BCI devices with different HAS
 \end{itemize}
 
 \subsection*{Sponsor or Proxy User}
 
 Our outside stakeholder is \textbf{Sara Feldman}, PT, DPT, ATP, MDA/ALS Center
-of Hope, Drexel University College of Medicine.
-
-% We will be meeting with Dr. Feldman to...
+of Hope, Drexel University College of Medicine. We will be meeting with Dr.
+Feldman to establish the specific goals of the project and the requirements
+that it must meet to be usable for ALS patients.
 
 \subsection*{Issues}
 
-% Initial impression: unclear what they want (requirements gathering tricky)
-The initial impression is it will be difficult to gather requirements from the external stakeholder. There seems to not be a real plan as to what exactly they want. 
+There are many potential features of this product that would be useful to a
+patient suffering from ALS. 
+
 % BCIs not yet precise
-BCIs are probably not the most precise devices. They also need to be trained for a particular user. Making this process as easy as possible and as accurate as possible will be a big challenge.
+%BCIs are probably not the most precise devices. They also need to be trained
+%for a particular user. Making this process as easy as possible and as
+%accurate as possible will be a big challenge.
+% We would need a ref for this
 
 % Different ones out there (confirm? at least different levels of
 % invasiveness); design to handle all of them with appropriate module?
-Another challenge will be integrating different BCI devices with different types of home control systems. There are multiple different BCI devices and multiple different home automation systems. Our software design has to be extremely flexible in order to handle the cases of different BCI devices integrating with different home control systems. 
+Another challenge will be integrating different BCI devices with different
+types of home control systems. There are multiple different BCI devices and
+multiple different home automation systems. Our goal is for our software
+design to be flexible enough to handle the cases of different BCI devices
+integrating with different home control systems.
 
-Investigating all the HAS and BCI systems as part of the requirements gathering will be a very important task to see everything that is out there on the market today and the assumptions those products make about their users's limitations.
-% Different home control systems (ditto???)
-% Usual target audience of home control is the non-handicapped. Will we need
-% to fight resulting assumptions (i.e. what's out there isn't what we'd need)?
+However, the different assumptions made by these different products may limit
+our ability to do so effectively and still ship a useful product. For example,
+HASs targeting the general population may not cover some simple tasks that are
+nonetheless impossible for a paralyzed patient.
 
 \newpage
 \section*{\centering The Team}
@@ -91,7 +109,8 @@ Investigating all the HAS and BCI systems as part of the requirements gathering 
 
 Samuel Bever
 
-Michael Conway
+Michael Conway has experience and interests in the areas of algorithms,
+programming languages and computer security. % TODO project role
 
 Joseph Muoio
 
@@ -105,25 +124,39 @@ Kevin Zakszewski
 % ...
 
 \subsection*{Team Communication}
-Our team will be meeting at least once a week to discuss our progress, outline our tasks for that week, and  address anything else that needs to be worked out. If necessary, more meetings will be scheduled. Most group communication will be done via email. We have also created a git repository to track our work and share the necessary files and documents.
+
+Our team will be meeting at least once a week to discuss our progress, outline
+our tasks for that week, and address any other issues. If necessary, more
+meetings will be scheduled. Most group communication outside of these meetings
+will be done via email. For source code management, we will be using a GitHub
+repository, which comes with an issue tracker and a project wiki.
 
 \subsection*{Team Issues}
 
-% Discuss scheduling issues, issues with "specialty" (too many backend, not enough front end developers etc), or other forseen issues
+% Discuss scheduling issues, issues with "specialty" (too many backend, not
+% enough front end developers etc), or other forseen issues
 
 \newpage
 \section*{\centering The Plan}
 
 \subsection*{Objectives}
-Currently, we are in the first cycle of CI491. This means that the bulk of our goals and objectives for this term will focus heavily on the preparation, documentation, and rough prototype of our project. Our first goal is to complete the launch report documentation. This will outline our plan for the project. Secondly, we will also have our SRS complete. Here, we will outline the requirements of the system that we are developing. Once we have these markers and guidelines in place, we can focus on our system design. Fianlly, by the end of the term we will have a first prototype of our system. The deliverables from all these initial goals will then be compiled into a final presentation for the term demonstrating our progress, our successes, and our failures. 
 
+Our goals for this first cycle are geared towards gaining the information that
+will be vital to the success of the project and preparing a specific plan for
+the remaining two cycles. We intend to do the following:
 \begin{itemize}
-    \item Research available technologies and choose the one(s) we will use
+    \item Research the problem space, including the BCI and HAS technologies
+        that are available to us
+    \item Gather requirements from prospective users
+    \item Develop an initial system design
+    \item Build a prototype in order to
         \begin{itemize}
-            \item Home control
-            \item BCI
+            \item test the feasibility of the design
+            \item identify the most important challenges to focus on in the
+                remaining cycles
         \end{itemize}
-    \item % TODO
+    \item Present the prototype to prospective users in order to clearly
+        define assumed, unstated or non-obvious requirements
 \end{itemize}
 
 \subsection*{Schedule}
