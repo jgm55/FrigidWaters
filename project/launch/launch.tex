@@ -4,6 +4,8 @@
 \usepackage{parskip}
 \usepackage{datetime}
 \usepackage{pgfgantt}
+\usepackage{url}
+\usepackage{hyperref}
 
 \newdateformat{required}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}/\THEYEAR}
 
@@ -12,8 +14,8 @@
 \begin{titlepage}
     \begin{center}
         \begin{huge}
-        ALS Project \\[1cm]
-        Team Doocy \\[2.2cm]
+        ALS Project (working title) \\[1cm]
+        Team Frigid Waters \\[2.2cm]
         { \bfseries Launch Report } \\[1cm]
         Cycle \# 1\\[2.2cm]
         Date: \required\today\\[1cm]
@@ -107,16 +109,17 @@ nonetheless impossible for a paralyzed patient.
 
 \subsection*{Team Members and their specialties}
 
-Samuel Bever
+Samuel Bever Tester.
 
 Michael Conway has experience and interests in the areas of algorithms,
-programming languages and computer security. % TODO project role
+programming languages and computer security. Technical Lead. % TODO project role
 
-Joseph Muoio has experience and interests in the areas of AI, mobile app development and software development.
+Joseph Muoio has experience and interests in the areas of AI, mobile app
+development and software development. Team Leader.
 
-Kyle Patron
+Kyle Patron is a master of concurrency, networks, and algorithms. Tools lead.
 
-Kevin Zakszewski
+Kevin Zakszewski has experience in UI/UX design and front end implementation. Lead Designer.
 
 % Roles:
 
@@ -135,6 +138,10 @@ repository, which comes with an issue tracker and a project wiki.
 
 % Discuss scheduling issues, issues with "specialty" (too many backend, not
 % enough front end developers etc), or other forseen issues
+We are all busy and taking many classes and have other jobs. Finding time to
+meet on a regular basis will be important but possibly difficult. There is
+some difference of opinion in what technologies to use as development tools
+along with differences in coding styles that will need to be resolved. 
 
 \newpage
 \section*{\centering The Plan}
@@ -165,7 +172,11 @@ the remaining two cycles. We intend to do the following:
     \hline
     Week & Person & Contribution \\
     \hline \hline
-    Lorem & ipsum & dolor sit amet \\ \hline
+    2-3 & Everyone & Write launch report \\ \hline
+    3-6 & Kyle Patron & Gather requirements \\ \hline
+    5-8 & & Design \\ \hline
+    7-10 & Mike Conway & Implement prototype \\ \hline
+    8-11 & & Prepare presentation \\ \hline
 \end{tabular}
 
 \begin{ganttchart}{1}{11}
@@ -192,13 +203,15 @@ the remaining two cycles. We intend to do the following:
     \hline
      & Section & Writing & Editing \\
     \hline \hline
-    1 & Project & & \\ \hline
-    2 & Team & & \\ \hline
-    3 & Plan & & \\ \hline
+    1 & Project & Joe Muoio  & Mike Conway \\ \hline
+    2 & Team & Everyone & Sam Bever \\ \hline
+    3 & Plan & Kyle Patron & Kevin Zakszewski \\ \hline
 \end{tabular}
 \begin{thebibliography}{1}
 
-\bibitem{ALSsource} The ALS Association. (2014, October, 5). What is ALS? [Online]. Available: http://www.alsa.org/about-als/what-is-als.html
+    \bibitem{ALSsource} The ALS Association. (2014, October, 5). \textit{What
+        is ALS?} [Online]. Available:
+        \url{http://www.alsa.org/about-als/what-is-als.html}
 
 \end{thebibliography}
 \newpage
