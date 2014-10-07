@@ -15,7 +15,7 @@
     \begin{center}
         \begin{huge}
         ALS Project (working title) \\[1cm]
-        Team Frigid Waters \\[2.2cm]
+        Team Ten Degree Water \\[2.2cm]
         { \bfseries Launch Report } \\[1cm]
         Cycle \# 1\\[2.2cm]
         Date: \required\today\\[1cm]
@@ -43,10 +43,10 @@
 Amyotrophic lateral sclerosis (ALS) (also called ``Lou Gehrig's Disease'') is
 a neurodegenerative disease affecting the brain and spinal cord. The motor
 neurons progressively degenerate and die off, leading to the loss of muscle
-control and death. Affected individuals in later stages of the disease may
-become paralyzed, losing the ability to interact with the world in even simple
-ways like turning on a light switch. Fully paralyzed patients are unable to
-move or even to speak, making communication impossible, let alone interfacing
+control and death. Affected indivuals suffer a spectrum of symptoms
+culminating in total lock-in. In this state, the patient is aware but cannot
+move their body in any way. They cannot breathe on their own or even blink
+their eyes. Because of this, late-stage ALS patients are unable to interface
 with conventional assistive technologies.\cite{ALSsource}
 
 The goal of the project is to build a system which people afflicted with ALS
@@ -54,9 +54,10 @@ can use to interact with their houses through Home Automation Systems (HAS).
 This includes controlling the thermostat, lights, stereo, and television as
 well as interfacing with social media. By having a Brain Computer Interface
 (BCI) to their automated house, individuals with ALS can still interact with
-their environment despite full paralysis. This will build off of a project
-from last year. The interface will be improved and new devices will be
-experimented with.
+their environment despite full paralysis. This builds off of a previous
+senior design project. The interface will be improved, methods of
+input training and processing will be experimented with, and a more robust
+array of input options will be used.
 
 % At least one thing that sounds rather similar (Thought-Wired)
 % http://www.thought-wired.com/
@@ -64,43 +65,48 @@ experimented with.
 \subsection*{Highlighted Features}
 
 \begin{itemize}
-\item Allow users with ALS to perform basic household tasks without needing to
-    move
-\item Integrate different BCI devices with different HAS
+\item Interpret brain waves
+\item Calibrate interface to individual users
+\item Allow users with ALS to perform basic household tasks
 \end{itemize}
 
 \subsection*{Sponsor or Proxy User}
 
 Our outside stakeholder is \textbf{Sara Feldman}, PT, DPT, ATP, MDA/ALS Center
 of Hope, Drexel University College of Medicine. We will be meeting with Dr.
-Feldman to establish the specific goals of the project and the requirements
-that it must meet to be usable for ALS patients.
+Feldman on an ongoing basis to continually reevaluate the progress and
+project goals to ensure that this product will be useful to ALS patients.
 
 \subsection*{Issues}
 
-There are many potential features of this product that would be useful to a
-patient suffering from ALS. 
+Brains are complicated, and so expecting them to perform a task in a
+deterministic way is not necessarily realistic. This means that we will have
+to have a sophisticated signal processing system in place. There is no one
+correct way to do this, and since the current method is not robust enough
+for general use, we predict that this will occupy a significant portion of
+the project development cycle.
 
-% BCIs not yet precise
-%BCIs are probably not the most precise devices. They also need to be trained
-%for a particular user. Making this process as easy as possible and as
-%accurate as possible will be a big challenge.
-% We would need a ref for this
-
-% Different ones out there (confirm? at least different levels of
-% invasiveness); design to handle all of them with appropriate module?
- 
-
-However, the different assumptions made by these different products may limit
-our ability to do so effectively and still ship a useful product. For example,
-HASs targeting the general population may not cover some simple tasks that are
-nonetheless impossible for a paralyzed patient.
+Gathering project requirements will present difficulties because we cannot
+easily identify with the daily experiences of ALS patients and communicating
+directly with late-stage ALS patients is challenging. To circumvent this, we
+will have to depend heavily on our contacts at Drexel Medicine, who work
+with ALS patients.
 
 \subsection*{Project Costs}
-The Emotiv device costs \$300 to \$500. This will be covered by the school for our development purposes. Before being able to be used, the device will have to be trained, costing the user time. The software will be fully open source, so it will be free for users to download and use as long as they have the Emotiv device.
+The Emotiv device costs \$300 to \$500. This will be covered by the school
+for our development purposes. Before being able to be used, the device will
+have to be trained, costing the user time. The software will be fully open
+source, so it will be free for users to download and use as long as they
+have the Emotiv device.
 
 \subsection*{Benefits}
-The biggest benefit will be the quality of life improvement for patients who are suffering from ALS, specifically, those that are totally paralyzed and cannot even move their eyes. The device we are developing software for is much cheaper than other devices on the market which are prohibitively expensive for ALS patients, costing upwards of \$17,000. Since this is open source, there is a large potential for this project to grow and be built upon, contributing to future projects.
+The biggest benefit will be the quality of life improvement for patients who
+are suffering from ALS, specifically, those that are totally paralyzed and
+cannot even move their eyes. The device we are developing software for is
+much cheaper than other devices on the market which are prohibitively
+expensive for ALS patients, costing upwards of \$17,000. Since this is open
+source, there is a large potential for this project to grow and be built
+upon, contributing to future projects.
 
 \newpage
 \section*{\centering The Team}
@@ -109,56 +115,58 @@ The biggest benefit will be the quality of life improvement for patients who are
 
 % TODO
 
-\subsection*{Team Members and their specialties}
+\subsection*{Team Members and Their Specialties}
 
-Samuel Bever Tester.
+Samuel Bever enjoys working in algorithms, artificial intelligence, and
+graphics. Role: Tester.
 
 Michael Conway has experience and interests in the areas of algorithms,
-programming languages and computer security. Technical Lead. % TODO project role
+programming languages and computer security. Role: Technical Lead.
 
 Joseph Muoio has experience and interests in the areas of AI, mobile app
-development and software development. Team Leader.
+development and software development. Role: Team Leader.
 
-Kyle Patron is a master of concurrency, networks, and algorithms. Tools lead.
+Kyle Patron is interested in mathematics, particularly as it relates to
+signal processing and machine control. Role: Tools lead.
 
-Kevin Zakszewski has experience in UI/UX design and front end implementation. Lead Designer.
-
-% Roles:
-
-% Team leader
-% ...
+Kevin Zakszewski has experience in UI/UX design and front end
+implementation. Role: Lead Designer.
 
 \subsection*{Team Communication}
 
-Our team will be meeting at least once a week to discuss our progress, outline
-our tasks for that week, and address any other issues. If necessary, more
-meetings will be scheduled. Most group communication outside of these meetings
-will be done via email. For source code management, we will be using a GitHub
-repository, which comes with an issue tracker and a project wiki. We will also do code reviews for each other.
+Our team will be meeting at least once a week to discuss our progress,
+outline our tasks for that week, and address any other issues. If necessary,
+more meetings will be scheduled. Most group communication outside of these
+meetings will be done via email and Google Hangouts. For source code
+management, we will be using a GitHub repository, which comes with an issue
+tracker and a project wiki. We will also be using review board in order to
+organize and distribute code reviews to the team. 
 
 \subsection*{Team Issues}
 
-% Discuss scheduling issues, issues with "specialty" (too many backend, not
-% enough front end developers etc), or other forseen issues
-We are all busy and taking many classes and have other jobs. Finding time to
-meet on a regular basis will be important, but possibly difficult. There is
-some difference of opinion in what technologies to use as development tools
-along with differences in coding styles that will need to be resolved. 
+We are all busy and have many other school and work commitments. Finding
+time to meet on a regular basis will be important but possibly difficult.
+
+There are some differences of opinion when it comes to technical aspects of
+this project. We are still debating which language we should use.
 
 \newpage
 \section*{\centering The Plan}
 
 \subsection*{Objectives}
 
-Our goals for this first cycle are geared towards gaining the information that
-will be vital to the success of the project and preparing a specific plan for
-the remaining two cycles. We intend to do the following:
+Our goals for this first cycle are meant to begin each of the portions of
+the project so that we can use the other terms to integrate our different
+subsystems and poslish the resulting amalgamation.
+
 \begin{itemize}
-    \item Research the problem space, including the BCI and HAS technologies
-        that are available to us
-    \item Gather requirements from prospective users
-    \item Develop an initial system design
-    \item Build a prototype in order to
+    \item Begin experimenting with the Emotiv system to determine its
+capabilities and limitations
+    \item Gather requirements from our stakeholder
+    \item Construct a rough UI that will serve as a baseline for future
+iterations
+    \item Combine these initial elements to create a rough prototype, which
+will serve to
         \begin{itemize}
             \item test the feasibility of the design
             \item identify the most important challenges to focus on in the
@@ -174,11 +182,15 @@ the remaining two cycles. We intend to do the following:
     \hline
     Week & Person & Contribution \\
     \hline \hline
+
     2-3 & Everyone & Write launch report \\ \hline
-    3-6 & Kyle Patron & Gather requirements \\ \hline
-    5-8 & & Design \\ \hline
-    7-10 & Mike Conway & Implement prototype \\ \hline
-    8-11 & & Prepare presentation \\ \hline
+    3-5 & Joe Muoio & Set up coding infrastructure \\ \hline
+    3-5 & Kyle Patron & Gather requirements and meet with stakeholder \\ \hline
+    3-7 & Sam Bever & Experiment with default Emotiv functionality \\ \hline
+    4-8 & Kevin Zakszewski & Develop prototype UI \\ \hline
+		5-8 & Kyle Patron & Develop initial system design \\ \hline
+    7-10 & Mike Conway & Combine parts into prototype \\ \hline
+    8-11 & Everyone & Prepare presentation \\ \hline
 \end{tabular}
 
 \begin{ganttchart}{1}{11}
@@ -188,11 +200,14 @@ the remaining two cycles. We intend to do the following:
     % These are all "at the end of week #"
     \ganttbar{Write launch report}{2}{2} \\
     \ganttlinkedmilestone{Launch Report 1}{2} \\
-    \ganttbar{Gather requirements}{3}{5} \\
+    \ganttbar{Set up coding infrastructure}{3}{4} \\
+    \ganttbar{Gather requirements and meet with stakeholder}{3}{5} \\
+    \ganttbar{Experiment with default Emotiv functionality}{3}{6} \\
     \ganttlinkedmilestone{SRS 1}{5} \\
-    \ganttbar{Design}{5}{7} \\
+    \ganttbar{Develop prototype UI}{4}{7} \\
+    \ganttbar{Develop initial system design}{5}{7} \\
     \ganttlinkedmilestone{SDS 1}{7} \\
-    \ganttbar{Implement prototype}{7}{9} \\
+    \ganttbar{Combine parts into prototype}{7}{9} \\
     \ganttlinkedmilestone{Prototype 1}{9} \\
     \ganttbar{Prepare presentation}{8}{10} \\
     \ganttlinkedmilestone{Presentation 1}{10}
