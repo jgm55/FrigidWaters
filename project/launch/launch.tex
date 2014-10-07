@@ -14,8 +14,8 @@
 \begin{titlepage}
     \begin{center}
         \begin{huge}
-        ALS Project (working title) \\[1cm]
-        Team Ten Degree Water \\[2.2cm]
+        House in Your Head \\[1cm]
+        Team G1-FrigidWaters \\[2.2cm]
         { \bfseries Launch Report } \\[1cm]
         Cycle \# 1\\[2.2cm]
         Date: \required\today\\[1cm]
@@ -36,7 +36,7 @@
 
 \subsection*{System/Product Name}
 
-% TODO
+House in Your Head
 
 \subsection*{Introduction}
 
@@ -93,7 +93,7 @@ will have to depend heavily on our contacts at Drexel Medicine, who work
 with ALS patients.
 
 \subsection*{Project Costs}
-The Emotiv device costs \$300 to \$500. This will be covered by the school
+The Emotiv device\cite{Emotiv} costs \$300 to \$500. This will be covered by the school
 for our development purposes. Before being able to be used, the device will
 have to be trained, costing the user time. The software will be fully open
 source, so it will be free for users to download and use as long as they
@@ -113,7 +113,7 @@ upon, contributing to future projects.
 
 \subsection*{Team Name}
 
-% TODO
+G1-FrigidWaters
 
 \subsection*{Team Members and Their Specialties}
 
@@ -188,7 +188,7 @@ will serve to
     3-5 & Kyle Patron & Gather requirements and meet with stakeholder \\ \hline
     3-7 & Sam Bever & Experiment with default Emotiv functionality \\ \hline
     4-8 & Kevin Zakszewski & Develop prototype UI \\ \hline
-		5-8 & Kyle Patron & Develop initial system design \\ \hline
+	5-8 & Kyle Patron & Develop initial system design \\ \hline
     7-10 & Mike Conway & Combine parts into prototype \\ \hline
     8-11 & Everyone & Prepare presentation \\ \hline
 \end{tabular}
@@ -200,17 +200,21 @@ will serve to
     % These are all "at the end of week #"
     \ganttbar{Write launch report}{2}{2} \\
     \ganttlinkedmilestone{Launch Report 1}{2} \\
-    \ganttbar{Set up coding infrastructure}{3}{4} \\
     \ganttbar{Gather requirements and meet with stakeholder}{3}{5} \\
-    \ganttbar{Experiment with default Emotiv functionality}{3}{6} \\
     \ganttlinkedmilestone{SRS 1}{5} \\
-    \ganttbar{Develop prototype UI}{4}{7} \\
     \ganttbar{Develop initial system design}{5}{7} \\
     \ganttlinkedmilestone{SDS 1}{7} \\
+    \ganttbar{Experiment with default Emotiv functionality}{3}{6} \\
+    \ganttbar{Set up coding infrastructure}{3}{4} \\
+    \ganttbar{Develop prototype UI}{4}{7} \\
     \ganttbar{Combine parts into prototype}{7}{9} \\
     \ganttlinkedmilestone{Prototype 1}{9} \\
     \ganttbar{Prepare presentation}{8}{10} \\
     \ganttlinkedmilestone{Presentation 1}{10}
+
+    \ganttlink{elem6}{elem9}
+    \ganttlink{elem7}{elem9}
+    \ganttlink{elem8}{elem9}
 
 \end{ganttchart}
 
@@ -229,6 +233,9 @@ will serve to
     \bibitem{ALSsource} The ALS Association. (2014, October, 5). \textit{What
         is ALS?} [Online]. Available:
         \url{http://www.alsa.org/about-als/what-is-als.html}
+ 
+    \bibitem{Emotiv} Emotiv, Inc. (2014, October, 6). \textit{Emotiv|EEG
+        System} [Online]. Available: \url{http://emotiv.com/}
 
 \end{thebibliography}
 \newpage
