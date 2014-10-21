@@ -1,0 +1,261 @@
+\documentclass{report}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage{datetime}
+\usepackage{pgfgantt}
+\usepackage{url}
+\usepackage{hyperref}
+
+\newdateformat{required}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}/\THEYEAR}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \begin{huge}
+        House in Your Head \\[1cm]
+        Team G1-FrigidWaters \\[2.2cm]
+        { \bfseries System Requirements Specification } \\[1cm]
+        Cycle \# 1\\[2.2cm]
+        Date: \required\today\\[1cm]
+        \end{huge}
+    \end{center}
+    \null \vfill
+    \begin{large}
+        Team Members: \\[0.5cm]
+        Name: Samuel Bever\\[0.5cm]
+        Name: Michael Conway\\[0.5cm]
+        Name: Joseph Muoio\\[0.5cm]
+        Name: Kyle Patron\\[0.5cm]
+        Name: Kevin Zakszewski
+    \end{large}
+\end{titlepage}
+
+\section*{\centering Table of Contents}
+
+\newpage
+
+\section{Introduction}
+
+[See IEEE 830 Section 5.1 for reference.]
+
+\subsection{Purpose}
+The purpose of this document is to describe the implementation of the House in Your Head system that 
+was described in the House in Your Head launch report document. In the proceeding sections, you will 
+find the scope, necessary language and definitions, overview of the project, and system requirements 
+defined.
+
+\subsection{Scope}
+
+This system is intended as a way for user's to make basic state changes in automated home setting
+using a Brain Computer Interface. Basic state changes are characterized, generally, by having a binary 
+setting (on or off). This system also includes a user interface that is controlled by binary actions. Complex 
+systems with multiple or intermediate states are out of the scope of the Brain Computer Interface portion 
+this project. Some settings that have multiple states can be maintained by a administrator. This 
+administrator will need to do so via a mouse and keyboard. 
+
+The potential users of this system will be people who suffer from ALS as well as administrators 
+who will be assisting the general users set up the program and software. Dr. Sara Feldman, The ALS 
+Center of Hope at Drexel University, and Professor Jeff Salvage are the primary stakeholders and 
+sponsors of this project.
+
+\subsection{Definitions, Acronyms, and Abbreviations}
+EEG – Can refer to:
+\begin{itemize}
+	\item Electroencephalography – Recording of the brain's electrical activity 
+	\item Electroencephalogram - The device that is used to record the brain's electrical activity
+\end{itemize}
+Emotiv – The electroencephalogram hardware device, created by Emotiv Limited, used to read the user's 
+brain activity (EEG)
+Brain Computer Interface (BCI) – The class of devices that the Emotiv belongs to
+Amyotrophic lateral sclerosis (ALS) – A neurodegenerative disorder that our target users suffer from. 
+The main characteristics of ALS that we are concerned with in the scope of this project are the limited 
+movement and mobility to complete paralysis.
+
+\subsection{References}
+[If this report is citing information from other documents such as the prior reports, list the references here. 
+For example, the S report may make reference to the launch report or the system design specification 
+report may reference to the system requirement specification report.]
+
+\subsection{Overview}
+[The section is describing the rest of the SRS document, providing a roadmap of what are going to be 
+covered in the next few sections.]
+
+Over the next few sections, this document will cover the overall product description and the 
+specific system requirements. The product description consists of specific product data such including 
+interfaces, constraints, functions, user profile, and requirements and dependencies. The specific system 
+requirements include external interfaces, required functions, performance requirements, database 
+requirements, design constraints, and software system attributes.
+
+\newpage
+
+\section{Overall Description}
+
+\subsection{Product Perspective}
+
+\subsubsection{System Interface}
+
+[Describe the information that is passed to and from other external systems. Detailed descriptions 
+will be presented in Section 3.1.1 System Interfaces. A context diagram is good to illustrate the 
+information flow between your system and the external entities and datastores.]
+
+\subsubsection{User Interface}
+
+[Overview description of the user interface as seen by the users. You might want to show the navigational path, site map, or wireframe here. Examples of typical screen layout are also good. Detailed descriptions will be presented in Section 3.2.1 User Interfaces]
+	The user interface consists of the Emotiv device which is attached to the user's head and reads their brain's electrical impulses. These are converted into commands that are then used as input. The exact input will be one of two states – neutral or active. The user will use the Emotiv as input to interact with the graphical user interface.
+
+\subsubsection{Hardware Interfaces}
+
+The Emotive device transmits the EEG to the computer through Bluetooth to a receiver which attaches to a Windows computer's USB port.
+
+\subsubsection{Software Interfaces}
+
+The Emotiv framework provides a set of functions which allows access 	to the EEG data.
+
+\subsubsection{Communication Interfaces}
+
+\subsubsection{Memory Constraints}
+
+This system is supposed to run on consumer systems, so it cannot use more than 2GB of RAM.
+
+\subsubsection{Operations}
+
+\subsubsection{Site Adaption Requirements}
+
+[If your system is going to be used in multiple physical locations, what changes are needed for the system to adapt to another location?]
+It must be able to run in both a home and a hospital setup. To do this, it will be made to run on standard Windows PCs.
+
+\subsection{Product Functions - kyle}
+[This section provides a summary of the key functions of the system. Using bullet points is good. You will provide details of these functions in Section 3.2.]
+
+\subsection{User Characteristics - Kevin}
+
+[Identify the groups of users and describe how each group will use your system. These user groups
+can be administrators, managers, general users, ... This is the section that you want to present the use 
+case analysis.]
+
+The House in Your Head system is designed specifically for general users who suffer from ALS. 
+
+The severity of the disorder in each user can range from limited mobility and movement to complete 
+paralysis. 
+
+One other user that could be categorized as general user or administrator would be those helping the 
+ALS inflicted user to start the program, adjust the program, or maintain it in some way.
+
+\subsection{Constraints - Sam}
+
+\subsection{Assumptions and Dependencies - Sam}
+
+\subsection{Apportioning of Requirements - Kyle}
+
+\newpage
+
+\section{Specific Requirements}
+
+\subsection{External Interfaces}
+
+\subsubsection{System Interfaces}
+
+\subsubsection{User Interfaces}
+
+\subsection{Functions - Mike}
+
+\subsection{Performance Requirements - Kyle}
+
+\subsection{Logical Database Requirements - Kyle}
+
+\subsection{Design Constraints}
+
+\subsubsection{Standards Compliance}
+
+\subsection{Software Systems Attributes - Kyle}
+
+\subsubsection{Reliability}
+
+\subsubsection{Availability}
+
+\subsubsection{Security}
+
+\subsubsection{Maintainability}
+
+\subsubsection{Portability}
+
+\subsubsection{Scalability}
+[Really important Dont forget this one, kyle]
+
+%TODO: fix bottom
+
+\newpage
+\section*{\centering Table of Contributions}
+\begin{tabular}{| l | l | l | l |}
+    \hline
+     & Section & Writing & Editing \\
+    \hline \hline
+    1 & Project & Joe Muoio  & Mike Conway \\ \hline
+    2 & Team & Everyone & Sam Bever \\ \hline
+    3 & Plan & Kyle Patron & Kevin Zakszewski \\ \hline
+\end{tabular}
+\begin{thebibliography}{1}
+
+    \bibitem{ALSsource} The ALS Association. (2014, October, 5). \textit{What
+        is ALS?} [Online]. Available:
+        \url{http://www.alsa.org/about-als/what-is-als.html}
+ 
+    \bibitem{Emotiv} Emotiv, Inc. (2014, October, 6). \textit{Emotiv|EEG
+        System} [Online]. Available: \url{http://emotiv.com/}
+
+\end{thebibliography}
+\newpage
+\noindent I certify that:
+\begin{itemize}
+\item This paper/project/exam is entirely my own work.
+\item I have not quoted the words of any other person from a printed source or a website without indicating what has been quoted and providing an appropriate citation.
+\item I have not submitted this paper / project to satisfy the requirements of any other course.
+\end{itemize}
+
+\vspace{1cm}
+\noindent\makebox[\textwidth][l]{
+Signature:
+\makebox[5cm][l] {\underline{Samuel Bever}} 
+\ \ Date:
+\makebox[4cm][l] {\underline{\required\today}} 
+}
+
+
+\vspace{0.5cm}
+\noindent\makebox[\textwidth][l]{
+Signature:
+\makebox[5cm][l] {\underline{Michael Conway}} 
+\ \ Date:
+\makebox[4cm][l] {\underline{\required\today}} 
+}
+
+\vspace{0.5cm}
+\noindent\makebox[\textwidth][l]{
+Signature:
+\makebox[5cm][l] {\underline{Joe Muoio}} 
+\ \ Date:
+\makebox[4cm][l] {\underline{\required\today}} 
+}
+
+\vspace{0.5cm}
+\noindent\makebox[\textwidth][l]{
+Signature:
+\makebox[5cm][l] {\underline{Kyle Patron}} 
+\ \ Date:
+\makebox[4cm][l] {\underline{\required\today}} 
+}
+
+\vspace{0.5cm}
+\noindent\makebox[\textwidth][l]{
+Signature:
+\makebox[5cm][l] {\underline{Kevin Zakszewski}} 
+\ \ Date:
+\makebox[4cm][l] {\underline{\required\today}} 
+}
+
+\vspace{\fill}
+\subsection*{Grading}
+The grade is given on the basis of quality, clarity, presentation, completeness, and writing of each section in the report. This is the grade of the group. Individual grades will be assigned at the end of the term when peer reviews are collected.
+\end{document}
