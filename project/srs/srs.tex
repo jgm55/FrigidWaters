@@ -61,18 +61,19 @@ Center of Hope at Drexel University, and Professor Jeff Salvage are the primary 
 sponsors of this project.
 
 \subsection{Definitions, Acronyms, and Abbreviations}
-EEG – Can refer to:
 \begin{itemize}
-	\item Electroencephalography – Recording of the brain's electrical activity 
+\item \textbf{EEG} – Can refer to:
+\begin{itemize}
+	\item Electroencephalography - Recording of the brain's electrical activity 
 	\item Electroencephalogram - The device that is used to record the brain's electrical activity
 \end{itemize}
-Emotiv – The electroencephalogram hardware device, created by Emotiv Limited, used to read the user's 
+\item \textbf{Emotiv} - The electroencephalogram hardware device, created by Emotiv Limited, used to read the user's 
 brain activity (EEG)
-Brain Computer Interface (BCI) – The class of devices that the Emotiv belongs to
-Amyotrophic lateral sclerosis (ALS) – A neurodegenerative disorder that our target users suffer from. 
+\item \textbf{Brain Computer Interface (BCI)} - The class of devices that the Emotiv belongs to
+\item \textbf{Amyotrophic lateral sclerosis (ALS)} - A neurodegenerative disorder that our target users suffer from. 
 The main characteristics of ALS that we are concerned with in the scope of this project are the limited 
 movement and mobility to complete paralysis.
-
+\end{itemize}
 \subsection{References}
 [If this report is citing information from other documents such as the prior reports, list the references here. 
 For example, the S report may make reference to the launch report or the system design specification 
@@ -100,9 +101,10 @@ requirements, design constraints, and software system attributes.
 will be presented in Section 3.1.1 System Interfaces. A context diagram is good to illustrate the 
 information flow between your system and the external entities and datastores.]
 
+The user wears an Emotiv headset which sends information about their thoughts to the connected computer. From here, the information is interpreted and sent to the home automation controller. The home automation controller controls the home components such as the television and lights. 
+
 \subsubsection{User Interface}
 
-[Overview description of the user interface as seen by the users. You might want to show the navigational path, site map, or wireframe here. Examples of typical screen layout are also good. Detailed descriptions will be presented in Section 3.2.1 User Interfaces]
 	The user interface consists of the Emotiv device which is attached to the user's head and reads their brain's electrical impulses. These are converted into commands that are then used as input. The exact input will be one of two states – neutral or active. The user will use the Emotiv as input to interact with the graphical user interface.
 
 \subsubsection{Hardware Interfaces}
@@ -152,12 +154,18 @@ ALS inflicted user to start the program, adjust the program, or maintain it in s
 \newpage
 
 \section{Specific Requirements}
+This section contains a detailed description of all of the requirements for the system and its features. 
 
 \subsection{External Interfaces}
+This section gives a description of the hardware and software interfaces. Also included is a basic prototype of the UI.
 
 \subsubsection{System Interfaces}
 
+The user will use a device called the Emotive to provide input to the system through their thoguht. The system will interpret the data and communicate with the home automation controller which will control all the aspects of the home automation. Included in this will be turning the lights on and off, working the television, and adjusting the thermostat. This will all happen through the home automation controller interface.
+
 \subsubsection{User Interfaces}
+
+TODO INSERT MOCKUPS AND WRITE THIS SECTION - Joe
 
 \subsection{Functions - Mike}
 
