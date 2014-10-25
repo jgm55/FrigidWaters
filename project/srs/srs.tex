@@ -1,4 +1,4 @@
-\documentclass{report}
+\documentclass{article}
 
 \usepackage[margin=1in]{geometry}
 \usepackage{parskip}
@@ -6,7 +6,7 @@
 \usepackage{pgfgantt}
 \usepackage{url}
 \usepackage{hyperref}
-
+\usepackage[utf8]{inputenc}
 \newdateformat{required}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}/\THEYEAR}
 
 \begin{document}
@@ -33,10 +33,15 @@
 \end{titlepage}
 
 \section*{\centering Table of Contents}
-
+\makeatletter
+\@starttoc{toc}
+\makeatother
 \newpage
 
+
+{\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxTODO: Remove names from sectionsxxxxxxxx}
 \section{Introduction}
+{\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxTODO: Who is doing this?xxxxxxxxxxxxxxxxx}
 
 [See IEEE 830 Section 5.1 for reference.]
 
@@ -119,7 +124,7 @@ The Emotiv framework provides a set of functions which allows access 	to the EEG
 
 \subsubsection{Memory Constraints}
 
-This system is supposed to run on consumer systems, so it cannot use more than 2GB of RAM.
+This system is supposed to run on consumer systems, so it cannot use more than 500 MB of RAM.
 
 \subsubsection{Operations}
 
@@ -129,7 +134,13 @@ This system is supposed to run on consumer systems, so it cannot use more than 2
 It must be able to run in both a home and a hospital setup. To do this, it will be made to run on standard Windows PCs.
 
 \subsection{Product Functions - kyle}
-[This section provides a summary of the key functions of the system. Using bullet points is good. You will provide details of these functions in Section 3.2.]
+\begin{itemize}
+\item Gathering EEG data from the user
+\item Analyse and filter the EEG data to make a reliable signal
+\item Create a system to control an automated house
+\item Develop a front-end system that uses the reliable signal to control the house
+
+\end{itemize}
 
 \subsection{User Characteristics - Kevin}
 
@@ -150,7 +161,7 @@ ALS inflicted user to start the program, adjust the program, or maintain it in s
 \subsection{Assumptions and Dependencies - Sam}
 
 \subsection{Apportioning of Requirements - Kyle}
-
+During the first term, we will focus on getting a reliable signal from the EEG and developing the initial ideas for our user interfaces. For the second term, we will mostly finish those two tasks and begin working on the home automation portion of the project. The final term will consist mostly of finishing the integration with the home automation portion and wrapping up any loose ends.
 \newpage
 
 \section{Specific Requirements}
@@ -164,37 +175,47 @@ This section gives a description of the hardware and software interfaces. Also i
 The user will use a device called the Emotive to provide input to the system through their thoguht. The system will interpret the data and communicate with the home automation controller which will control all the aspects of the home automation. Included in this will be turning the lights on and off, working the television, and adjusting the thermostat. This will all happen through the home automation controller interface.
 
 \subsubsection{User Interfaces}
-
-TODO INSERT MOCKUPS AND WRITE THIS SECTION - Joe
+{\color{red}xxxxxxxxxxxxxxxxxxxxTODO: INSERT MOCKUPS AND WRITE THIS SECTION - Joexxxxxxxxx}
 
 \subsection{Functions - Mike}
 
 \subsection{Performance Requirements - Kyle}
+Our system must run on a standard Windows machine. This means that we are limited to approximately 500 MB of RAM and our program should be designed to run smoothly on relatively slow processors.
+
+In terms of input, our goal is to be able to determine which of two options the user is thinking of 90\% of the time. Each option should take at most five seconds to be selected.
 
 \subsection{Logical Database Requirements - Kyle}
+There are only two sets of data that will be stored in the system. The first is the user brain characteristics. Since every person's brain is different, we will probably have to store some settings related to how the EEG should be transformed into control signals. In particular, this will consist of weights for each independent signal. If the linear combination of signals with these weights is above a threshold, then it is interpreted as a click.
+
+The second set of data will be what the options are on each screen and how to control that device. There will be three fields. They are the name, communication channel (what is the unique id so that we can address it through the home automation system), and the type of control (boolean, numeric, etc). This data will allow our system to control different types of houses just by changing the data stored there.
 
 \subsection{Design Constraints}
+{\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxTODO: Who is doing this?xxxxxxxxxxxxxxxxxxxxxxxxxx}
 
 \subsubsection{Standards Compliance}
 
 \subsection{Software Systems Attributes - Kyle}
 
-\subsubsection{Reliability}
+\subsubsection{Reliability} \label{sec:reliability}
+Our system must be fairly reliable, since it will be the only way in which the user can control their house. To this end, we will do extensive testing to ensure that it will allow the user to control their house as much as possible.
 
 \subsubsection{Availability}
+Since our system only runs on one machine availability is not a huge priority. It must always be able to run on the given device, but this falls under reliability more than availability. For more details see Section \ref{sec:reliability}.
 
 \subsubsection{Security}
+We are dealing with a home automation system and so we have to be very cautious when it comes to the security of our system. Fortunately, we do not rely on connecting to outside sources. Therefore, the only way that a user could compromise the security of the home would be to take over the computer remotely, which we cannot help, or to physically be at the computer. A person that is physically there could change the state of the house without our system, and so we do not have to worry about security in this case. Overall, we do not foresee security being an issue, despite the risks involved in using a home automation system.
 
 \subsubsection{Maintainability}
+While it would be very nice to provide constant updates to our product, we believe that the risks outweigh the benefits. In order to provide updates, we would have to problematically download large files to a computer and then run them with the express purpose of controlling your house. In light of this, we will only provide updates by releasing the new files online and leaving it to the users to download and run them.
 
 \subsubsection{Portability}
+The purpose of our design is to control a house from within the house at a computer that does not move. As a result, there are no concerns about portability.
 
-\subsubsection{Scalability}
-[Really important Dont forget this one, kyle]
 
 %TODO: fix bottom
 
 \newpage
+{\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxTODO: FIX THE CONTRIBUTIONSxxxxxxxxxxxxxxxxxxxxxxxxxx}
 \section*{\centering Table of Contributions}
 \begin{tabular}{| l | l | l | l |}
     \hline
@@ -204,16 +225,6 @@ TODO INSERT MOCKUPS AND WRITE THIS SECTION - Joe
     2 & Team & Everyone & Sam Bever \\ \hline
     3 & Plan & Kyle Patron & Kevin Zakszewski \\ \hline
 \end{tabular}
-\begin{thebibliography}{1}
-
-    \bibitem{ALSsource} The ALS Association. (2014, October, 5). \textit{What
-        is ALS?} [Online]. Available:
-        \url{http://www.alsa.org/about-als/what-is-als.html}
- 
-    \bibitem{Emotiv} Emotiv, Inc. (2014, October, 6). \textit{Emotiv|EEG
-        System} [Online]. Available: \url{http://emotiv.com/}
-
-\end{thebibliography}
 \newpage
 \noindent I certify that:
 \begin{itemize}
