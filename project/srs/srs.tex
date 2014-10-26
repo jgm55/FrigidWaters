@@ -8,7 +8,7 @@
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \newdateformat{required}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}/\THEYEAR}
-
+\raggedbottom
 \begin{document}
 
 \begin{titlepage}
@@ -31,13 +31,28 @@
         Name: Kevin Zakszewski
     \end{large}
 \end{titlepage}
-
 \section*{\centering Table of Contents}
 \makeatletter
 \@starttoc{toc}
+\newcommand{\hsubsubsection}{
+\@startsection{subsubsection}{3}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {-1.5ex \@plus -.2ex}% Formerly 1.5ex \@plus .2ex
+                                     {R\normalfont\normalsize}}
+\newcommand{\hparagraph}{
+\@startsection{paragraph}{4}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {-1.5ex \@plus -.2ex}% Formerly 1.5ex \@plus .2ex
+                                     {R\normalfont\normalsize}}
+\newcommand{\hsubparagraph}{
+\@startsection{subparagraph}{5}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {-1.5ex \@plus -.2ex}% Formerly 1.5ex \@plus .2ex
+                                     {R\normalfont\normalsize}}
+\setcounter{secnumdepth}{5}
 \makeatother
 \newpage
-
+ 
 
 {\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxTODO: Remove names from sectionsxxxxxxxx}
 \section{Introduction}
@@ -310,16 +325,34 @@ The user will use a device called the Emotive to provide input to the system thr
     \item[Notes:] Depends on calibration data
     \item[Priority:] Must Have
 \end{description}
-
+\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
 \subsection{Performance Requirements - Kyle}
-Our system must run on a standard Windows machine. This means that we are limited to approximately 500 MB of RAM and our program should be designed to run smoothly on relatively slow processors.
+\textbf{R3300} Must run well on a standard computer
 
-In terms of input, our goal is to be able to determine which of two options the user is thinking of 90\% of the time. Each option should take at most five seconds to be selected.
+\setlength\parindent{24pt}
+\textbf{R3301} Must utilize less than 500 MB of RAM
+
+\textbf{R3302} Must utilize less than 5 GB of disk
+
+\textbf{R3303} Must run smoothly with an 3.2 GHz Intel i3 processor
+
+\setlength\parindent{0pt}
+
+\textbf{R3310} Must support one and only one terminal
+
+\textbf{R3320} Must support one and only one user at a time
+
+\textbf{R3330} User interaction must be smooth
+\setlength\parindent{24pt} 
+
+\textbf{R3333} 90\% of time, selection must take less than 5 seconds
+
+\textbf{R3334} A trained user must be able to select 10 options within 2 minutes
+\setlength\parindent{0pt}
 
 \subsection{Logical Database Requirements - Kyle}
-There are only two sets of data that will be stored in the system. The first is the user brain characteristics. Since every person's brain is different, we will probably have to store some settings related to how the EEG should be transformed into control signals. In particular, this will consist of weights for each independent signal. If the linear combination of signals with these weights is above a threshold, then it is interpreted as a click.
+\textbf{R3400} No databases shall be used
 
-The second set of data will be what the options are on each screen and how to control that device. There will be three fields. They are the name, communication channel (what is the unique id so that we can address it through the home automation system), and the type of control (boolean, numeric, etc). This data will allow our system to control different types of houses just by changing the data stored there.
 
 \subsection{Design Constraints}
 {\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxTODO: Who is doing this?xxxxxxxxxxxxxxxxxxxxxxxxxx}
@@ -328,22 +361,32 @@ The second set of data will be what the options are on each screen and how to co
 
 \subsection{Software Systems Attributes - Kyle}
 
-\subsubsection{Reliability} \label{sec:reliability}
-Our system must be fairly reliable, since it will be the only way in which the user can control their house. To this end, we will do extensive testing to ensure that it will allow the user to control their house as much as possible.
+\subsubsection{Reliability} 
+\textbf{R3610} Our system must fail to detect a selection no more than 10\% of the time
+
+\textbf{R3611} Our system must unintentionally select no more than once every 30 minutes
 
 \subsubsection{Availability}
-Since our system only runs on one machine availability is not a huge priority. It must always be able to run on the given device, but this falls under reliability more than availability. For more details see Section \ref{sec:reliability}.
+\textbf{R3620} Our system must be able to run for 24 hours without restarting 99\% of the time
 
 \subsubsection{Security}
-We are dealing with a home automation system and so we have to be very cautious when it comes to the security of our system. Fortunately, we do not rely on connecting to outside sources. Therefore, the only way that a user could compromise the security of the home would be to take over the computer remotely, which we cannot help, or to physically be at the computer. A person that is physically there could change the state of the house without our system, and so we do not have to worry about security in this case. Overall, we do not foresee security being an issue, despite the risks involved in using a home automation system.
+\textbf{R3630} Our system must have no network communication
+
+\textbf{R3631} Our system must not log client interactions
 
 \subsubsection{Maintainability}
-While it would be very nice to provide constant updates to our product, we believe that the risks outweigh the benefits. In order to provide updates, we would have to problematically download large files to a computer and then run them with the express purpose of controlling your house. In light of this, we will only provide updates by releasing the new files online and leaving it to the users to download and run them.
+\textbf{R3640} The menu selections must be defined by a configuration file
+
+\textbf{R3641} New home automation features must be able to be added through a configuration file
 
 \subsubsection{Portability}
-The purpose of our design is to control a house from within the house at a computer that does not move. As a result, there are no concerns about portability.
+\textbf{R3650} Our system will only run on Windows 7 and Windows 8 machines 
 
+\textbf{R3651} There shall be no machine specific code
 
+\textbf{R3652} There must only be one version of the code that can run on all machines
+
+\addtocontents{toc}{\protect\setcounter{tocdepth}{3}}
 %TODO: fix bottom
 
 \newpage
