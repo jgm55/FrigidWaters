@@ -149,17 +149,100 @@ It must be able to run in both a home and a hospital setup. To do this, it will 
 
 \subsection{User Characteristics - Kevin}
 
-[Identify the groups of users and describe how each group will use your system. These user groups
-can be administrators, managers, general users, ... This is the section that you want to present the use 
-case analysis.]
+Two categories of users are considered:
 
-The House in Your Head system is designed specifically for general users who suffer from ALS. 
+\begin{description}
+    \item[Patients] are those suffering from ALS who are the primary users of
+        the system. The severity of the disorder in each patient can range
+        from limited mobility to full paralysis; the system assumes the
+        latter.
+    \item[Caretakers] are individuals not suffering from ALS who are
+        responsible for Patients. They are assumed to be present during system
+        setup and administrative tasks, but \textbf{not} during other use
+        cases.
+\end{description}
 
-The severity of the disorder in each user can range from limited mobility and movement to complete 
-paralysis. 
+\subsubsection{Use Cases}
 
-One other user that could be categorized as general user or administrator would be those helping the 
-ALS inflicted user to start the program, adjust the program, or maintain it in some way.
+% Template
+%\begin{description}
+%    \item[Scenario Name:]
+%    \item[ID number:]
+%    \item[Description:]
+%    \item[Trigger:]
+%    \item[Type:]
+%    \item[Major Inputs:] \hfill \\
+%        \begin{tabular}{l l}
+%            \textbf{Description} & \textbf{Source} \\
+%        \end{tabular}
+%    \item[Major Outputs:] \hfill \\
+%        \begin{tabular}{l l}
+%            \textbf{Description} & \textbf{Destination} \\
+%        \end{tabular}
+%    \item[Major Steps Performed:] \hfill
+%        \begin{enumerate}
+%        \end{enumerate}
+%\end{description}
+
+\begin{description}
+    \item[Scenario Name:] Calibrate for Patient
+    \item[ID number:] UC005
+    \item[Description:] Caretaker sets up and calibrates the system for a Patient.
+    \item[Trigger:] Caretaker puts the device on a Patient, starts the
+        software and makes the menu selection to calibrate the device.
+    \item[Type:] External
+    \item[Major Inputs:] \hfill \\
+        \begin{tabular}{l l}
+            \textbf{Description} & \textbf{Source} \\
+            EEG data & Patient (via device) \\
+            Supporting data & Patient (via Caretaker) \\
+        \end{tabular}
+    \item[Major Outputs:] \hfill \\
+        \begin{tabular}{l l}
+            \textbf{Description} & \textbf{Destination} \\
+            Instructions and menus & Patient, Caretaker \\
+        \end{tabular}
+    \item[Major Steps Performed:] \hfill
+        \begin{enumerate}
+            \item Begin calibration routine.
+            \item Confirm that device is functioning correctly.
+            \item Guide Patient and Caretaker through calibration steps.
+            \item Save calibration data and display confirmation message.
+        \end{enumerate}
+\end{description}
+
+\hfill \\
+
+\begin{description}
+    \item[Scenario Name:] Turn Lights On
+    \item[ID number:] UC010
+    \item[Description:] Patient turns a light on. (This is a representative
+        home automation task; others will work similarly.)
+    \item[Trigger:] Patient wants to turn a light on and thinks the activation thought.
+    \item[Type:] External
+    \item[Major Inputs:] \hfill \\
+        \begin{tabular}{l l}
+            \textbf{Description} & \textbf{Source} \\
+            EEG data & Patient (via device) \\
+        \end{tabular}
+    \item[Major Outputs:] \hfill \\
+        \begin{tabular}{l l}
+            \textbf{Description} & \textbf{Destination} \\
+            Menu display & Patient \\
+            Light activation signal & Home Automation System
+        \end{tabular}
+    \item[Major Steps Performed:] \hfill
+        \begin{enumerate}
+            \item Display initial menu on screen.
+            \item Accept thought input from user and accept selection when
+                appropriate level of certainty is met.
+            \item Display next menu on screen and repeat until leaf (turn
+                lights on task) is reached.
+            \item Display confirmation screen and send signal to turn lights
+                on.
+            \item Return to idle state.
+        \end{enumerate}
+\end{description}
 
 \subsection{Constraints - Sam}
 
