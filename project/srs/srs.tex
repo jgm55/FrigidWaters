@@ -140,11 +140,10 @@ It must be able to run in both a home and a hospital setup. To do this, it will 
 
 \subsection{Product Functions - kyle}
 \begin{itemize}
-\item Gathering EEG data from the user
+\item Gather EEG data from the user
 \item Analyse and filter the EEG data to make a reliable signal
-\item Create a system to control an automated house
-\item Develop a front-end system that uses the reliable signal to control the house
-
+\item Provide user with a menu from which to select home automation actions
+\item Perform selected home automation actions
 \end{itemize}
 
 \subsection{User Characteristics - Kevin}
@@ -266,6 +265,51 @@ The user will use a device called the Emotive to provide input to the system thr
 {\color{red}xxxxxxxxxxxxxxxxxxxxTODO: INSERT MOCKUPS AND WRITE THIS SECTION - Joexxxxxxxxx}
 
 \subsection{Functions - Mike}
+
+%Template
+%\textbf{SR2XX - NAME}
+%\begin{description}
+%    \item[Input:]
+%    \item[Action:]
+%    \item[Output:]
+%    \item[Notes:] 
+%    \item[Priority:]
+%\end{description}
+
+\textbf{SR205 - Calibrate}
+\begin{description}
+    \item[Input:] EEG data, supporting data from Caretaker
+    \item[Action:] Derive calibration parameters for the Patient
+    \item[Output:] Calibration parameters (internal; to be saved)
+    \item[Notes:] The parameters (including the input thoughts requested from
+        the user) should be chosen to give a reliable signal. Recalibration
+        should be possible, as Patients' thought patterns may change over
+        time.
+    \item[Priority:] Must Have
+\end{description}
+
+\hfill \\
+
+\textbf{SR210 - Activate menu via EEG}
+\begin{description}
+    \item[Input:] EEG data
+    \item[Action:] Detect activation signal
+    \item[Output:] Display menu
+    \item[Notes:] Necessary for fully-paralyzed patients; others may have some
+        other method of activation. Depends on calibration data.
+    \item[Priority:] Must Have
+\end{description}
+
+\hfill \\
+
+\textbf{SR215 - Perform Home Automation Action}
+\begin{description}
+    \item[Input:] EEG data
+    \item[Action:] Interpret signal as menu selections
+    \item[Output:] Signal to HAS corresponding to user request
+    \item[Notes:] Depends on calibration data
+    \item[Priority:] Must Have
+\end{description}
 
 \subsection{Performance Requirements - Kyle}
 Our system must run on a standard Windows machine. This means that we are limited to approximately 500 MB of RAM and our program should be designed to run smoothly on relatively slow processors.
