@@ -6,6 +6,8 @@
 \usepackage{url}
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
 \newdateformat{required}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}/\THEYEAR}
 \raggedbottom
 \begin{document}
@@ -331,7 +333,23 @@ a television upon user request.
 \textbf{SR115} The system will interface with a home control system to adjust
 the thermostat upon user request.
 
+See figure \ref{fig:contextdia} for a context diagram of the system.
+
+\begin{figure}
+\includegraphics[width=\textwidth]{Senior_Design_Context_Diagram_V1.png}
+\caption{Context Diagram of the system}
+\label{fig:contextdia}
+\end{figure}
+
 \subsubsection{User Interfaces}
+
+At the top of the screen, there will exist a loading bar. By concentrating, the bar will load to the right, and by not concentrating, the bar will load to the left. This load will happen over a period of one to two seconds. When the bar reaches an end, that choice is selected and the next bar shows up. This requires all the information to be binary searchable. If the capability exists to include more bits than just a simple concentrating or not concentrating, then more choices can be had and the non-concentrating state will not need to be used in the loading bar. See Figure \ref{fig:mockup}.
+
+\begin{figure}
+\includegraphics[width=\textwidth]{mockup_v1.png}
+\caption{As the user concentrates, the bar fills up. When it reaches the end, the next binary choice will take its place}
+\label{fig:mockup}
+\end{figure}
 
 \subsection{Functions}
 
