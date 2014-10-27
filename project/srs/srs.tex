@@ -56,10 +56,6 @@
 
 {\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxTODO: Remove names from sectionsxxxxxxxx}
 \section{Introduction}
-{\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxTODO: Who is doing this?xxxxxxxxxxxxxxxxx}
-
-[See IEEE 830 Section 5.1 for reference.]
-
 \subsection{Purpose}
 The purpose of this document is to describe the implementation of the House in Your Head system that 
 was described in the House in Your Head launch report document. In the proceeding sections, you will 
@@ -99,14 +95,8 @@ sponsors of this project.
         limited movement and mobility to complete paralysis.
 \end{description}
 
-\subsection{References}
-[If this report is citing information from other documents such as the prior reports, list the references here. 
-For example, the S report may make reference to the launch report or the system design specification 
-report may reference to the system requirement specification report.]
 
 \subsection{Overview}
-[The section is describing the rest of the SRS document, providing a roadmap of what are going to be 
-covered in the next few sections.]
 
 Over the next few sections, this document will cover the overall product description and the 
 specific system requirements. The product description consists of specific product data such including 
@@ -121,10 +111,6 @@ requirements, design constraints, and software system attributes.
 \subsection{Product Perspective}
 
 \subsubsection{System Interface}
-
-[Describe the information that is passed to and from other external systems. Detailed descriptions 
-will be presented in Section 3.1.1 System Interfaces. A context diagram is good to illustrate the 
-information flow between your system and the external entities and datastores.]
 
 The user wears an Emotiv headset which sends information about their thoughts to the connected computer. From here, the information is interpreted and sent to the home automation controller. The home automation controller controls the home components such as the television and lights. 
 
@@ -142,6 +128,8 @@ The Emotiv framework provides a set of functions which allows access 	to the EEG
 
 \subsubsection{Communication Interfaces}
 
+We will have no network communication.
+
 \subsubsection{Memory Constraints}
 
 This system is supposed to run on consumer systems, so it cannot use more than 500 MB of RAM.
@@ -150,10 +138,9 @@ This system is supposed to run on consumer systems, so it cannot use more than 5
 
 \subsubsection{Site Adaption Requirements}
 
-[If your system is going to be used in multiple physical locations, what changes are needed for the system to adapt to another location?]
-It must be able to run in both a home and a hospital setup. To do this, it will be made to run on standard Windows PCs.
+It must be able to run in both a home and a hospital setup. No modifications will be required to change between these two environments.
 
-\subsection{Product Functions - kyle}
+\subsection{Product Functions}
 \begin{itemize}
 \item Gather EEG data from the user
 \item Analyse and filter the EEG data to make a reliable signal
@@ -259,7 +246,6 @@ Two categories of users are considered:
 \end{description}
 
 \subsection{Constraints - Sam}
-
 One of the most immediately obvious constraints on the entire system is the
 users muscular degeneration. This is the inspiration for the system and the
 prime motivator for this project. This limitation must be kept in mind at
@@ -279,7 +265,6 @@ red-green selector, then a red-green colorblind user will be unable to use
 those toggles.
 
 \subsection{Assumptions and Dependencies - Sam}
-
 There are many assumptions contained in the design of the system. First and
 foremost is that users must have the ability to read and write English.
 While the system can later be adapted to other languages, being unable to
@@ -301,19 +286,17 @@ device and the computer it interfaces with will not work.
 Additionally, the computer that the user owns must meet the minimum system
 requirements. Without this assumption, the program may behave unpredictably.
 
-\subsection{Apportioning of Requirements - Kyle}
+\subsection{Apportioning of Requirements}
 During the first term, we will focus on getting a reliable signal from the EEG and developing the initial ideas for our user interfaces. For the second term, we will mostly finish those two tasks and begin working on the home automation portion of the project. The final term will consist mostly of finishing the integration with the home automation portion and wrapping up any loose ends.
 \newpage
 
 \section{Specific Requirements}
-This section contains a detailed description of all of the requirements for the system and its features. 
-
 \subsection{External Interfaces}
 This section gives a description of the hardware and software interfaces. Also included is a basic prototype of the UI.
 
 \subsubsection{System Interfaces}
 
-The user will use a device called the Emotive to provide input to the system through their thoguht. The system will interpret the data and communicate with the home automation controller which will control all the aspects of the home automation. Included in this will be turning the lights on and off, working the television, and adjusting the thermostat. This will all happen through the home automation controller interface.
+The user will use a device called the Emotive to provide input to the system through their thought. The system will interpret the data and communicate with the home automation controller which will control all the aspects of the home automation. Included in this will be turning the lights on and off, working the television, and adjusting the thermostat. This will all happen through the home automation controller interface.
 
 \subsubsection{User Interfaces}
 {\color{red}xxxxxxxxxxxxxxxxxxxxTODO: INSERT MOCKUPS AND WRITE THIS SECTION - Joexxxxxxxxx}
@@ -365,7 +348,7 @@ The user will use a device called the Emotive to provide input to the system thr
     \item[Priority:] Must Have
 \end{description}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
-\subsection{Performance Requirements - Kyle}
+\subsection{Performance Requirements}
 \textbf{R3300} Must run well on a standard computer
 
 \setlength\parindent{24pt}
@@ -384,12 +367,12 @@ The user will use a device called the Emotive to provide input to the system thr
 \textbf{R3330} User interaction must be smooth
 \setlength\parindent{24pt} 
 
-\textbf{R3333} 90\% of time, selection must take less than 5 seconds
+\textbf{R3331} 90\% of time, selection must take less than 5 seconds
 
-\textbf{R3334} A trained user must be able to select 10 options within 2 minutes
+\textbf{R3332} A trained user must be able to select 10 options within 2 minutes
 \setlength\parindent{0pt}
 
-\subsection{Logical Database Requirements - Kyle}
+\subsection{Logical Database Requirements}
 \textbf{R3400} No databases shall be used
 
 
@@ -397,8 +380,9 @@ The user will use a device called the Emotive to provide input to the system thr
 {\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxTODO: Who is doing this?xxxxxxxxxxxxxxxxxxxxxxxxxx}
 
 \subsubsection{Standards Compliance}
+\textbf{R3510} We do not have any standards to comply with
 
-\subsection{Software Systems Attributes - Kyle}
+\subsection{Software Systems Attributes}
 
 \subsubsection{Reliability} 
 \textbf{R3610} Our system must fail to detect a selection no more than 10\% of the time
@@ -435,9 +419,7 @@ The user will use a device called the Emotive to provide input to the system thr
     \hline
      & Section & Writing & Editing \\
     \hline \hline
-    1 & Project & Joe Muoio  & Mike Conway \\ \hline
-    2 & Team & Everyone & Sam Bever \\ \hline
-    3 & Plan & Kyle Patron & Kevin Zakszewski \\ \hline
+    1 & 2.2, 2.6, 3.3, 3.4, 3.6  & Kyle Patron & \\ \hline
 \end{tabular}
 \newpage
 \noindent I certify that:
