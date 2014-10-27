@@ -3,7 +3,6 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{parskip}
 \usepackage{datetime}
-\usepackage{pgfgantt}
 \usepackage{url}
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
@@ -54,7 +53,6 @@
 \newpage
  
 
-{\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxTODO: Remove names from sectionsxxxxxxxx}
 \section{Introduction}
 
 \subsection{Purpose}
@@ -141,9 +139,16 @@ limited accordingly.
 
 \subsubsection{Operations}
 
+The system has two modes of operation, calibration, and active. Calibration
+consists of having the Patient (as described in section \ref{sec:UserChar})
+train the system to associate certain brainwaves with actions.
+
+Active mode occurs after calibration has finished, and is the general
+operations described in this document.
+
 \subsubsection{Site Adaption Requirements}
 
-The system must be able to run in both a home and a hospital setup. No
+The system must be able to run in both a home and a healthcare setup. No
 modifications will be required to change between these two environments.
 
 \subsection{Product Functions}
@@ -155,8 +160,8 @@ modifications will be required to change between these two environments.
 \item Perform selected home automation actions
 \end{itemize}
 
-\subsection{User Characteristics - Kevin}
-
+\subsection{User Characteristics}
+\label{sec:UserChar}
 Two categories of users are considered:
 
 \begin{description}
@@ -252,7 +257,7 @@ Two categories of users are considered:
         \end{enumerate}
 \end{description}
 
-\subsection{Constraints - Sam}
+\subsection{Constraints}
 
 One of the most immediately obvious constraints on the entire system is the
 user's muscular degeneration. This limitation is the inspiration for the
@@ -265,14 +270,14 @@ for an inexperienced computer user. Designing for the inexperienced user is
 necessary.
 
 A final issue is that users may have other medical issues that need to be kept
-in mind. Those that correlate with ALS are most important, as are vision
-issues, specifically color blindness, as the primary feedback from our system
-to the user will be visual. A user that cannot distinguish between different
-shades may be completely unable to use key features of the system. For
-example, if button toggles are set up as a red-green selector, then a
-red-green colorblind user will be unable to use those toggles.
+in mind. Those that occur with ALS are most important, as are vision issues,
+specifically color blindness, as the primary feedback from our system to the
+user will be visual. A user that cannot distinguish between different shades
+may be completely unable to use key features of the system. For example, if
+button toggles are set up as a red-green selector, then a red-green
+colorblind user will be unable to use those toggles.
 
-\subsection{Assumptions and Dependencies - Sam}
+\subsection{Assumptions and Dependencies}
 
 There are many assumptions contained in the design of the system. First and
 foremost is that users must have the ability to read and write English.
@@ -289,7 +294,7 @@ program. A user that is unable to see or hear will have no other methods of
 interfacing with the program, making it unusable.
 
 Users of the system must have access to all of the equipment required to
-power a computer, as well as reliable electricity service. Without this the
+power a computer, as well as reliable electricity service. Without this, the
 device and the computer it interfaces with will not work.
 
 Additionally, the computer that the user owns must meet the minimum system
@@ -328,9 +333,7 @@ the thermostat upon user request.
 
 \subsubsection{User Interfaces}
 
-{\color{red}xxxxxxxxxxxxxxxxxxxxTODO: INSERT MOCKUPS AND WRITE THIS SECTION - Joexxxxxxxxx}
-
-\subsection{Functions - Mike}
+\subsection{Functions}
 
 %Template
 %\textbf{SR2XX - NAME}
@@ -400,10 +403,6 @@ minutes.
 
 \subsection{Design Constraints}
 
-{\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxTODO: Who is doing this?xxxxxxxxxxxxxxxxxxxxxxxxxx}
-
-{\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxDoes any more need to be done?xxxxxxxxxxxxxxxxxxxxxxxxxx}
-
 \subsubsection{Standards Compliance}
 
 The system does not need to comply with any external standards.
@@ -446,7 +445,6 @@ meeting the minimum requirements.
 %TODO: fix bottom
 
 \newpage
-{\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxTODO: FIX THE CONTRIBUTIONSxxxxxxxxxxxxxxxxxxxxxxxxxx}
 \section*{\centering Table of Contributions}
 \begin{tabular}{| l | l | l | l |}
     \hline
