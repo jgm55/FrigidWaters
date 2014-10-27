@@ -56,27 +56,33 @@
 
 {\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxTODO: Remove names from sectionsxxxxxxxx}
 \section{Introduction}
+
 \subsection{Purpose}
-The purpose of this document is to describe the implementation of the House in Your Head system that 
-was described in the House in Your Head launch report document. In the proceeding sections, you will 
-find the scope, necessary language and definitions, overview of the project, and system requirements 
-defined.
+
+The purpose of this document is to describe the requirements of the House in
+Your Head system. The remaining sections define the scope of the project,
+introduce necessary language and definitions, give an overview of the project,
+and lay out the requirements for the system.
 
 \subsection{Scope}
 
-This system is intended as a way for user's to make basic state changes in automated home setting
-using a Brain Computer Interface. Basic state changes are characterized, generally, by having a binary 
-setting (on or off). This system also includes a user interface that is controlled by binary actions. Complex 
-systems with multiple or intermediate states are out of the scope of the Brain Computer Interface portion 
-this project. Some settings that have multiple states can be maintained by a administrator. This 
-administrator will need to do so via a mouse and keyboard. 
+This system is intended as a way for users to make basic state changes in an
+automated home setting using a Brain Computer Interface. Basic states to be
+changed are characterized by having a binary setting (on or off). This system
+also includes a user interface that is controlled by binary actions. Complex
+systems with multiple or intermediate states are out of the scope of the Brain
+Computer Interface portion of this project. Some settings that have multiple
+states can be maintained by a administrator. This administrator will need to
+do so via a mouse and keyboard. 
 
-The potential users of this system will be people who suffer from ALS as well as administrators 
-who will be assisting the general users set up the program and software. Dr. Sara Feldman, The ALS 
-Center of Hope at Drexel University, and Professor Jeff Salvage are the primary stakeholders and 
+The potential users of this system will be people who suffer from ALS, as well
+as the administrators who will be assisting the general users set up the
+program and software. Dr. Sara Feldman, The ALS Center of Hope at Drexel
+University, and Professor Jeff Salvage are the primary stakeholders and
 sponsors of this project.
 
 \subsection{Definitions, Acronyms, and Abbreviations}
+
 \begin{description}
     \item[EEG] Can refer to:
         \begin{itemize}
@@ -98,11 +104,9 @@ sponsors of this project.
 
 \subsection{Overview}
 
-Over the next few sections, this document will cover the overall product description and the 
-specific system requirements. The product description consists of specific product data such including 
-interfaces, constraints, functions, user profile, and requirements and dependencies. The specific system 
-requirements include external interfaces, required functions, performance requirements, database 
-requirements, design constraints, and software system attributes.
+Section 2 discusses the background and context of this system and indicates
+general requirements and constraints. Section 3 lists specific requirements
+for the system.
 
 \newpage
 
@@ -116,7 +120,7 @@ The user wears an Emotiv headset which sends information about their thoughts to
 
 \subsubsection{User Interface}
 
-	The user interface consists of the Emotiv device which is attached to the user's head and reads their brain's electrical impulses. These are converted into commands that are then used as input. The exact input will be one of two states – neutral or active. The user will use the Emotiv as input to interact with the graphical user interface.
+The user interface consists of the Emotiv device which is attached to the user's head and reads their brain's electrical impulses. These are converted into commands that are then used as input. The exact input will be one of two states – neutral or active. The user will use the Emotiv as input to interact with the graphical user interface.
 
 \subsubsection{Hardware Interfaces}
 
@@ -124,23 +128,26 @@ The Emotive device transmits the EEG to the computer through Bluetooth to a rece
 
 \subsubsection{Software Interfaces}
 
-The Emotiv framework provides a set of functions which allows access 	to the EEG data.
+The Emotiv framework provides a set of functions which allows access to the EEG data.
 
 \subsubsection{Communication Interfaces}
 
-We will have no network communication.
+The system will have no direct network communication.
 
 \subsubsection{Memory Constraints}
 
-This system is supposed to run on consumer systems, so it cannot use more than 500 MB of RAM.
+The system will be run on consumer systems, so its RAM footprint must be
+limited accordingly.
 
 \subsubsection{Operations}
 
 \subsubsection{Site Adaption Requirements}
 
-It must be able to run in both a home and a hospital setup. No modifications will be required to change between these two environments.
+The system must be able to run in both a home and a hospital setup. No
+modifications will be required to change between these two environments.
 
 \subsection{Product Functions}
+
 \begin{itemize}
 \item Gather EEG data from the user
 \item Analyse and filter the EEG data to make a reliable signal
@@ -246,25 +253,27 @@ Two categories of users are considered:
 \end{description}
 
 \subsection{Constraints - Sam}
+
 One of the most immediately obvious constraints on the entire system is the
-users muscular degeneration. This is the inspiration for the system and the
-prime motivator for this project. This limitation must be kept in mind at
+user's muscular degeneration. This limitation is the inspiration for the
+system and the prime motivator for this project and must be kept in mind at
 all times.
 
-Another constraint is the average users familiarity with computers. An
+Another constraint is the average user's familiarity with computer systems. An
 interface that may work well for an experienced programmer may not work well
 for an inexperienced computer user. Designing for the inexperienced user is
-best.
+necessary.
 
-A final issue is that users may have other medical issues that need to be
-kept in mind. While this is vague, the most common things to be kept in mind
-are vision issues, specifically color blindness. A user that cannot
-distinguish between different shades may be completely unable to use key
-features of the system. For example, if button toggles are set up as a
-red-green selector, then a red-green colorblind user will be unable to use
-those toggles.
+A final issue is that users may have other medical issues that need to be kept
+in mind. Those that correlate with ALS are most important, as are vision
+issues, specifically color blindness, as the primary feedback from our system
+to the user will be visual. A user that cannot distinguish between different
+shades may be completely unable to use key features of the system. For
+example, if button toggles are set up as a red-green selector, then a
+red-green colorblind user will be unable to use those toggles.
 
 \subsection{Assumptions and Dependencies - Sam}
+
 There are many assumptions contained in the design of the system. First and
 foremost is that users must have the ability to read and write English.
 While the system can later be adapted to other languages, being unable to
@@ -287,18 +296,38 @@ Additionally, the computer that the user owns must meet the minimum system
 requirements. Without this assumption, the program may behave unpredictably.
 
 \subsection{Apportioning of Requirements}
-During the first term, we will focus on getting a reliable signal from the EEG and developing the initial ideas for our user interfaces. For the second term, we will mostly finish those two tasks and begin working on the home automation portion of the project. The final term will consist mostly of finishing the integration with the home automation portion and wrapping up any loose ends.
+
+During the first term, we will focus on getting a reliable signal from the EEG
+and developing the initial ideas for our user interfaces. For the second term,
+we will mostly finish those two tasks and begin working on the home automation
+portion of the project. The final term will consist of finishing the
+integration with the home automation portion and resolving any remaining
+issues.
+
 \newpage
 
 \section{Specific Requirements}
+
 \subsection{External Interfaces}
+
 This section gives a description of the hardware and software interfaces. Also included is a basic prototype of the UI.
 
 \subsubsection{System Interfaces}
 
-The user will use a device called the Emotive to provide input to the system through their thought. The system will interpret the data and communicate with the home automation controller which will control all the aspects of the home automation. Included in this will be turning the lights on and off, working the television, and adjusting the thermostat. This will all happen through the home automation controller interface.
+\textbf{SR105} The system will accept input from the Emotiv device and
+distinguish at least two thought-states of the patient.
+
+\textbf{SR110} The system will interface with a home control system to turn
+lights on and off upon user request.
+
+\textbf{SR115} The system will interface with a home control system to operate
+a television upon user request.
+
+\textbf{SR115} The system will interface with a home control system to adjust
+the thermostat upon user request.
 
 \subsubsection{User Interfaces}
+
 {\color{red}xxxxxxxxxxxxxxxxxxxxTODO: INSERT MOCKUPS AND WRITE THIS SECTION - Joexxxxxxxxx}
 
 \subsection{Functions - Mike}
@@ -349,65 +378,69 @@ The user will use a device called the Emotive to provide input to the system thr
 \end{description}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
 \subsection{Performance Requirements}
-\textbf{R3300} Must run well on a standard computer
 
-\setlength\parindent{24pt}
-\textbf{R3301} Must utilize less than 500 MB of RAM
+\textbf{SR305} The system must use less than 512 MB of RAM at all times while running.
 
-\textbf{R3302} Must utilize less than 5 GB of disk
+\textbf{SR310} The system must use less than 5 GB of persistent storage space when installed.
 
-\textbf{R3303} Must run smoothly with an 3.2 GHz Intel i3 processor
+\textbf{SR315} The system must run smoothly on a 3.2 GHz Intel i3 processor.
 
-\setlength\parindent{0pt}
+\textbf{SR320} The system will support one and only one terminal.
 
-\textbf{R3310} Must support one and only one terminal
+\textbf{SR325} The system will support one and only one user at a time.
 
-\textbf{R3320} Must support one and only one user at a time
+\textbf{SR330} 90\% of time, menu selection must take less than 5 seconds.
 
-\textbf{R3330} User interaction must be smooth
-\setlength\parindent{24pt} 
-
-\textbf{R3331} 90\% of time, selection must take less than 5 seconds
-
-\textbf{R3332} A trained user must be able to select 10 options within 2 minutes
-\setlength\parindent{0pt}
+\textbf{SR335} A trained user must be able to select 10 options within 2
+minutes.
 
 \subsection{Logical Database Requirements}
-\textbf{R3400} No databases shall be used
 
+\textbf{SR405} The system will store calibration data for one user.
 
 \subsection{Design Constraints}
+
 {\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxTODO: Who is doing this?xxxxxxxxxxxxxxxxxxxxxxxxxx}
 
-\subsubsection{Standards Compliance}
-\textbf{R3510} We do not have any standards to comply with
+{\color{red}xxxxxxxxxxxxxxxxxxxxxxxxxxxxDoes any more need to be done?xxxxxxxxxxxxxxxxxxxxxxxxxx}
 
-\subsection{Software Systems Attributes}
+\subsubsection{Standards Compliance}
+
+The system does not need to comply with any external standards.
+
+\subsection{Software System Attributes}
 
 \subsubsection{Reliability} 
-\textbf{R3610} Our system must fail to detect a selection no more than 10\% of the time
 
-\textbf{R3611} Our system must unintentionally select no more than once every 30 minutes
+\textbf{SR612} The system must fail to detect a selection no more than 10\% of
+the time.
+
+\textbf{SR615} The system must unintentionally select no more than once every
+30 minutes.
 
 \subsubsection{Availability}
-\textbf{R3620} Our system must be able to run for 24 hours without restarting 99\% of the time
+
+\textbf{SR622} The system must be able to run for 24 hours without restarting
+99\% of the time.
 
 \subsubsection{Security}
-\textbf{R3630} Our system must have no network communication
 
-\textbf{R3631} Our system must not log client interactions
+\textbf{SR632} The system must have no network communication.
+
+\textbf{SR635} The system must not log client interactions other than storing
+calibration data..
 
 \subsubsection{Maintainability}
-\textbf{R3640} The menu selections must be defined by a configuration file
 
-\textbf{R3641} New home automation features must be able to be added through a configuration file
+\textbf{SR642} The menu selections must be defined by a configuration file.
+
+\textbf{SR645} New home automation features must be able to be added through a
+configuration file.
 
 \subsubsection{Portability}
-\textbf{R3650} Our system will only run on Windows 7 and Windows 8 machines 
 
-\textbf{R3651} There shall be no machine specific code
-
-\textbf{R3652} There must only be one version of the code that can run on all machines
+\textbf{SR652} The system will run on all Windows 7 and Windows 8 machines
+meeting the minimum requirements.
 
 \addtocontents{toc}{\protect\setcounter{tocdepth}{3}}
 %TODO: fix bottom
