@@ -90,6 +90,7 @@ Same??
         that our target users suffer from. The main characteristics of ALS
         that we are concerned with in the scope of this project are the
         limited movement and mobility to complete paralysis.
+    \item[API] software level functions which allow other parts of the system (or external systems) to interact and share data.
 \end{description}
 
 
@@ -148,20 +149,76 @@ There is no need for a programming interface because it is a generic, self-conta
 
 \subsection{Component Template Description - Joe}
 
-\subsection{<Entity ID> - <Entity Name>}
- [Read IEEE 1016 Sections 5.2 and 5.3 about design entities and design entity attributes.  
-A design entity is an element of a design that is structurally and functionally distinct from othere elements and that is separately named and referenced.  Entities can be a system, subsystems, data stores, modules, programs, and processes.  Each entity has a set of entity attributes including, name, identification, type, purpose, function, subordinates, dependencies, interface, resources, processing, and data.]
+\subsection{1.0 - EEG Interpreter}
 
-\textbf{Type} [the kind of entity]
-\textbf{Purpose} [why the entity exist?]
-\textbf{Function} [a statement of what the entity does.]
-\textbf{Subordinates} [the identification of all entities composing this entity]
-\textbf{Dependencies} [the relationship of this entity with other entities]
-\textbf{Interface} [how this entity interact with other entities]
-\textbf{Resources} [the description of the elements used by this entity that are external to the system]
-\textbf{Processing} [the algorithm used by this entity to perform its function]
-\textbf{Data} [the data elements, should be the same those in data dictionary]
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & Module \\ \hline
+\textbf{Purpose} & Determines if the current brain scan information matches the trained data \\ \hline
+\textbf{Function} & Uses statistical techniques to look at the current EEG information coming from the user's brainwaves and compares this to the data that was trained to see if it matches one of the trained classes. \\ \hline
+\textbf{Subordinates} & None \\ \hline
+\textbf{Dependencies} & Relies on Training datastore (2.2). There needs to be trained models to compare the stream of data to. \\ \hline
+\textbf{Interface} & The EEG Interpreter will have an API that can be polled by other components. \\ \hline
+\textbf{Resources} & The EEG information comes from the emotive device. \\ \hline
+\textbf{Processing} & Various statistical techniques will be explored. At first, a simple algorithm that checks whether the EEG information falls within a given threshold to the training data, but more advanced techniques will be explored as well. \\ \hline
+\textbf{Data} & See ERD in Section 3 \\ \hline
+\end{tabular}
 
+\subsection{2.0 - Training Module}
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & Module \\ \hline
+\textbf{Purpose} & Trains a model for the current user for each state. \\ \hline
+\textbf{Function} & Delegates to state trainers for each state that needs to be trained for the current user. Then stores this in the Training Datastore (2.2). \\ \hline
+\textbf{Subordinates} & State Trainer (2.1). Every state that needs to be trained will be trained through a specific state trainer for that state. \\ \hline
+\textbf{Dependencies} & Training Datastore(2.2). This is needed to save the trained models. \\ \hline
+\textbf{Interface} & None \\ \hline
+\textbf{Resources} & None \\ \hline
+\textbf{Processing} & For each State Trainer(2.1) that is untrained, train the state model for that trainer. Then, save the results to the Training Datastore(2.2). \\ \hline
+\textbf{Data} & See ERD in Section 3 \\ \hline
+\end{tabular}
+
+\subsection{2.1 - State Trainer}
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & Module \\ \hline
+\textbf{Purpose} & Trains a model for a single state. \\ \hline
+\textbf{Function} & Trains a model for a specific state. Each state trainer trains on one state, so there will be a State Trainer for the resting state, active state, and any other states deemed necessary in the future. \\ \hline
+\textbf{Subordinates} & None \\ \hline
+\textbf{Dependencies} & GUI Module (3.0). To train a model, interaction with the user of the system is required. This is done through a Graphic User Interface.  \\ \hline
+\textbf{Interface} & None \\ \hline
+\textbf{Resources} & None \\ \hline
+\textbf{Processing} & Interact with the user on the screen until a model is built based on the user's personal EEG. \\ \hline
+\textbf{Data} & See ERD in Section 3 \\ \hline
+\end{tabular}
+
+\subsection{2.2 - Training Datastore}
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & Data store \\ \hline
+\textbf{Purpose} & Holds the trained data for the current user \\ \hline
+\textbf{Function} & Holds all the trained states for the current user of the system. This includes the resting state and the active state at a minimum. Other states will be explored in the future. \\ \hline
+\textbf{Subordinates} & None \\ \hline
+\textbf{Dependencies} & None \\ \hline
+\textbf{Interface} & The training datastore will have an API that allows read and write access to it. \\ \hline
+\textbf{Resources} & May need hard disk space if it will be saved permanently.  \\ \hline
+\textbf{Processing} & The currently loaded user's data will be the only data retrieved. Loading from disk and saving to disk are allowed. \\ \hline
+\textbf{Data} & See ERD in Section 3 \\ \hline
+\end{tabular}
+
+\subsection{3.0 - GUI Module}
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & Module \\ \hline
+\textbf{Purpose} & Hands output from the system to an external monitor. \\ \hline
+\textbf{Function} & All interaction with the user is through an external monitor. This system handles all output to the screen. \\ \hline
+\textbf{Subordinates} & None \\ \hline
+\textbf{Dependencies} & None \\ \hline
+\textbf{Interface} & There will be a writer API to allow other parts of the system to output to the screen \\ \hline
+\textbf{Resources} & External Monitor \\ \hline
+\textbf{Processing} & The GUI module will wait until given something to write to the screen. When it is given a request, it will write taht request to the screen. \\ \hline
+\textbf{Data} & See ERD in Section 3 \\ \hline
+\end{tabular}
 
 \newpage
 
