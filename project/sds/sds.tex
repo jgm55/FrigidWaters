@@ -7,9 +7,15 @@
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{listings}
+
+\lstset{
+    basicstyle=\ttfamily
+}
 
 \newdateformat{required}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}/\THEYEAR}
 \raggedbottom
+
 \begin{document}
 
 \begin{titlepage}
@@ -256,9 +262,67 @@ why brain
 
 \section{Psuedocode for components - Mike}
 
+\subsection*{1.0 - EEG Interpreter}
+
+% TODO Does this make any sense?
+
+\begin{lstlisting}
+repeat forever:
+    monitor EEG
+    if EEG in a trained state:
+        notify all registered listeners
+        % TODO OR call all registered callbacks
+\end{lstlisting}
+
+\subsection*{2.0 - Training Module}
+
+Upon training request:
+
+\begin{lstlisting}
+for each untrained State Trainer:
+    run the trainer
+save results to Training Datastore
+\end{lstlisting}
+
+Each State Trainer:
+
+\begin{lstlisting}
+repeat until trained:
+    display prompt
+    collect data from EEG Interpreter
+    update training parameters
+\end{lstlisting}
+
+\subsection*{3.0 - GUI Module}
+
+Upon menu display request:
+\begin{lstlisting}
+% TODO OPTION A
+display menu
+for each menu option:
+    register callback for corresponding state in EEG Interpreter
+% TODO OPTION B
+display menu
+register self as EEG Interpreter listener for necessary states
+upon state notification, perform action
+\end{lstlisting}
+
+\subsection*{4.0 - Home Automation Interface}
+
+Upon receiving a control request:
+
+\begin{lstlisting}
+if request is valid:
+    perform action
+else:
+    report error
+\end{lstlisting}
+
 \newpage
 
 \section{Appendicies - Mike}
+
+% N/A?
 
 \newpage
 
