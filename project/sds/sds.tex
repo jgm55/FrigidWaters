@@ -249,14 +249,47 @@ reject requests that are not valid in the current state. \\ \hline
 \newpage
 
 \section{Reuse and Relationships to other Products [optional] - Sam}
+\label{sec:ReuseRel}
+
+There has been previous related work done with the Emotiv device by related
+researchers, however their interface was unappealing, and their code messy.
+It may be referenced to help understand the Emotiv device, however, it will
+not directly be reused.
+
+There exist very few commercially available BCI devices, and often there is
+no software available for them.  The few that do exist are prohibitively
+expensive. Having the Emotiv available at a reasonable price point will
+improve the quality of life for many ALS patients.
 
 \newpage
 
 \section{Design decisions and tradeoffs [optional] - Sam}
-why pick emotiv
-why binary
-why house
-why brain
+
+The first design decision that was made was what type of interface to use.
+The options available were EEG sensor devices, eye movement trackers, or
+facial muscle detecting devices. EEG sensors seemed the best fit as they
+will work for all ALS patients, including those that are locked in. A locked
+in patient may be unable to use their facial muscles or move their eyes. In
+addition, the means that a patient will not have to relearn multiple
+interfaces as their disease progresses.
+
+Another design decision was what device should be used to best assist ALS
+patients. As seen above, in section \ref{sec:ReuseRel}, there already exist
+devices with similar functionality, however they are much more expensive.
+The Emotiv is \$500, which is affordable when compared to its alternatives.
+The Emotiv is capable of detecting up to four thoughts plus a neutral state,
+which provides enough flexibility to design features in a number of ways.
+
+Now with this flexiblity in mind, deciding how users should interface with
+the system was the next step. The binary interface was chosen based on
+previous user reviews that training the Emotiv to recognize multiple
+thoughts was challenging. With this in mind, an interface that takes
+advantage of substantial branching will enable users to navigate it much
+more quickly.
+
+The main purpose of the interface, home automation, was decided upon because
+it allows patients to regain capabilities that they have lost. It also
+serves as a proof of concept for interfacing with nontrivial systems.
 
 \newpage
 
