@@ -3,4 +3,4 @@ sds.pdf : sds.tex
 	pdflatex $<
 
 clean :
-	-rm *.pdf *.log *.aux *.out *.toc *.synctex.gz
+	-rm *.pdf *.log *.aux *.out *.toc *.synctex.gz *.dvi
