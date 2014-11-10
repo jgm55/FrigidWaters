@@ -68,7 +68,7 @@ The purpose of this document is to describe the data, interface, architectural, 
 
 \subsection{Scope}
 
-This system is intended to be a Brain Computer Interface that will act as a facade between data received from the Emotiv device and a home automation system. The system on the end of the Emotiv device and the home automation system are a a bit like black boxes. We are more concerned with taking the data, interpreting it correctly and triggering the correct actions in the home automation system. The functionality of the other two systems are out of our scope. 
+This system is intended to be a Brain Computer Interface that will act as a bridge between data received from the Emotiv device and a home automation system. The Emotiv device and the home automation system are black boxes. We are more concerned with taking the data from the Emotiv device, interpreting it correctly and triggering the correct actions in the home automation system. Changing the functionality of the other two systems are out of the scope of this project. 
 
 \subsection{Definitions, Acronyms, and Abbreviations}
 \begin{description}
@@ -78,6 +78,7 @@ This system is intended to be a Brain Computer Interface that will act as a faca
                 activity 
 	        \item Electroencephalogram - The device that is used to record the
 	            brain's electrical activity
+
         \end{itemize}
     \item[Emotiv] The electroencephalogram hardware device, created by Emotiv
         Limited, used to read the user's brain activity (EEG)
@@ -103,9 +104,30 @@ Blank – the design entity does not implement any of that requirement
 P for Primary - the design entity implements all or most of the requirement
 S for Secondary – the design entity implements a smaller but essential part of the requirement
 
+\begin{tabular}{ | l | l |}
+
+\end{tabular}
+
 \newpage
 
 \section{Architectural Description}
+
+\subsection{External Interfaces}
+
+We will only have two software interfaces that we will need to conform to. The
+first is the input interface. For this we will have to use the pre-made
+drivers to access the EEG. This confines our project to machines running a
+relatively modern version of Windows, since the driver is not available for
+any other operating system. The second interface that we have to conform to is
+that of the home automation system.
+
+The UI will consist of a binary tree of possibilities. At any one time only
+one node is being displayed to the user and one of the two child nodes is
+being selected to recursively repeat this process on. Leaf nodes will result
+in actions, such as turning on the lights in a particular room. Which leaf is
+selected will be based on the input of the EEG.
+
+This section gives a description of the hardware and software interfaces. Also included is a basic prototype of the UI.
 
 \subsection{Overview of modules / components}
 
@@ -126,8 +148,16 @@ S for Secondary – the design entity implements a smaller but essential part of
 \end{figure}
 
 % TODO probably change this
+<<<<<<< HEAD
 Figure~\ref{fig:dfd1} indicates the two external systems that
 provide data to or accept data from our product. Our
+=======
+\autoref{fig:dfd1} indicates the four external systems that
+provide data to or accept data from our product. Three of these are trivial.
+These are Id 2, Id 3, and Id 6. We accept input from the mouse and keyboard in
+order to configure our system and we store the resulting configuration,
+locally or externally as seems appropriate at the time. Apart from these, our
+>>>>>>> c06a66fb746ea0d3c9c587ae894139e2e811eac9
 system accepts data from the Emotiv device through their driver and output
 controlling signals to the home automation system.
 
@@ -205,21 +235,6 @@ There is no need for a programming interface because it is a generic, self-conta
 \section{Detailed Design}
 
 \subsection{Component Template Description}
-
-The design entities include the following:
-
-\begin{tabular}{ | l |  p{13.3cm} |}
-\hline
-\textbf{Type} & The type of Entity. This could be one of the following: Module, or Data Store. \\ \hline
-\textbf{Purpose} & The reson the entity exists.  \\ \hline
-\textbf{Function} & What the entity does. \\ \hline
-\textbf{Subordinates} & All entities that compose the entity. \\ \hline
-\textbf{Dependencies} & The relationship of the entity to others. \\ \hline
-\textbf{Interface} & How this entity interacts with other entities \\ \hline
-\textbf{Resources} & External elements used by the system. \\ \hline
-\textbf{Processing} & The algorithm used for the entity. \\ \hline
-\textbf{Data} & View ERD for the data. \\ \hline
-\end{tabular}
 
 \subsection{Design Entities}
 
@@ -417,6 +432,12 @@ if request is valid:
 else:
     report error
 \end{lstlisting}
+
+\newpage
+
+\section{Appendicies}
+
+% N/A?
 
 \newpage
 
