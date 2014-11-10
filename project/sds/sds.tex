@@ -143,21 +143,17 @@ This section gives a description of the hardware and software interfaces. Also i
 \end{figure}
 
 % TODO probably change this
-\autoref{fig:dfd1} indicates the four external systems that
-provide data to or accept data from our product. Two of these are trivial.
-These are Id 2 and Id 3/6. We accept input from the mouse and keyboard in
-order to configure our system and we store the resulting configuration,
-locally or externally as seems appropriate at the time. Apart from these, our
+Figure~\ref{fig:dfd1} indicates the two external systems that
+provide data to or accept data from our product. Our
 system accepts data from the Emotiv device through their driver and output
 controlling signals to the home automation system.
 
-\autoref{fig:dfd2} is a broken-out version of \autoref{fig:dfd1}. The System
-Configuration Process (Id 7) must deal with system configuration. This
-involves reading it (from an external source if necessary), modifying it,
+Figure~\ref{fig:dfd2} is a broken-out version of Figure~\ref{fig:dfd1}. The System
+Configuration Process (CP13) must deal with system configuration. This
+involves reading it, modifying it,
 writing it back for later use and providing it to the other parts of the
-program. The EEG converter process (Id 8) takes in the EEG data and is
-responsible for getting a clear signal out of it. The Controller process (Id
-9) is responsible for storing the current state of the system, transitioning
+program. The EEG converter process (CP11) takes in the EEG data and is
+responsible for getting a clear signal out of it. The Controller process (CP12) is responsible for storing the current state of the system, transitioning
 states when appropriate and sending signals to the home automation system that
 match the state.
 
@@ -213,7 +209,7 @@ The data flowing into our program will consist of a tuple of floats,
 representing the EEG data at any given time. There will also be a JSON blob
 that stores the parameters that should be used in signal extraction. The
 output will be in the form of calling methods of the home automation system.
-\autoref{fig:erd} shows the internal representation of the user, house and
+Figure~\ref{fig:erd} shows the internal representation of the user, house and
 state. This consists of a binary tree of UI structures, which may or may not
 reference a device to call the method of.
 % XXX Huh?
@@ -346,7 +342,7 @@ eyes. In addition, this means that a patient will not have to relearn how to
 use the system with new interfaces as their disease progresses.
 
 Another design decision was what device should be used to best assist ALS
-patients. As noted in \autoref{sec:ReuseRel}, there already exist devices with
+patients. As noted in Figure~\ref{sec:ReuseRel}, there already exist devices with
 similar functionality, but they are much more expensive. The Emotiv is \$500,
 which is affordable when compared to its alternatives. The Emotiv is capable
 of detecting up to four thoughts plus a neutral state, which provides enough
