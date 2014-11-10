@@ -92,9 +92,7 @@ This system is intended to be a Brain Computer Interface that will act as a brid
 
 
 \subsection{Overview}
-In the next section is the architectural description. In that section you will find overview of components and modules as well as a description of the system structure and component relationships. In the third section the system interfaces are laid out. This pertains to user interface, data interface, as well as the programming interface. The fourth section is composed of a subsections describing the detailed design of the system. 
-
-Section 2 discusses ...
+The next section is the architectural description. In that section you will find overview of components and modules as well as a description of the system structure and component relationships. In the third section, the system interfaces are laid out. This contains user interface, data interface, as well as the programming interface. The fourth section is composed of a subsections describing the detailed design of the system. The fifth section looks at the relationship of the system to other products. The sixth section details the design decisions and tradeoffs of the system. The final section shows some rough psuedocode of the main components of the system.
 
 \subsection{Requirements Traceability Matrix}
 \begin{tabular}{ | l | l | l | l | l | l | l | l | l | l |}
@@ -148,7 +146,7 @@ match the state.
 \subsection{Structure and relationships}
 
 \subsubsection{Component CI01}
-This component is the brain computer interface that provides an EEG signal into our system to control it.
+This component is the brain computer interface that provides an EEG signal into the system to control it.
 
 \subsubsection{Component CP01}
 This represents the totality of our product. It performs every action and completely controls the house given the EEG as input.
@@ -430,11 +428,11 @@ else:
     \hline
      & Section & Writing & Editing \\
     \hline \hline
-		1 & 2, 3.2 & Kyle Patron & \\ \hline
-		2 & & Joe Muoio & \\ \hline
-		3 & & Sam Bever & \\ \hline
-		4 & & Michael Conway &  \\ \hline
-		5 & & Kevin Zakszewski &  \\ \hline
+		1 & 2, 3.2 & Kyle Patron & Michael Conway \\ \hline
+		2 & 1.5, 4 & Joe Muoio & Kyle Patron \\ \hline
+		3 & 5, 6 & Sam Bever &  Kevin Zakszewski \\ \hline
+		4 & 7 & Michael Conway &  Sam Bever \\ \hline
+		5 & 1, 3.1 & Kevin Zakszewski &  Joe Muoio \\ \hline
 \end{tabular}
 \newpage
 \noindent I certify that:
