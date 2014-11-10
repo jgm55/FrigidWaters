@@ -61,27 +61,16 @@
 \newpage
  
 
-\section{Introduction - Kevin all unless otherwise marked}
-
-[The structure of this introduction is similar to the introduction section of SRS.]
+\section{Introduction}
 
 \subsection{Purpose}
-
-[This subsection talks about the purpose of this SDS report not about the purpose of the project.]
 The purpose of this document is to describe the data, interface, architectural, and component-level design for our project. The architectural section will go over the modules and components, their relationship, and will describe the structure of the system as a whole. The interface section contains more detail on the system's user interface, data interface,  and the programming interface. Finally, in the remaining portion of this document, any other design details or relationships will be layed out .
 
 \subsection{Scope}
 
-[This subsection describes a short overview of the system.  Defining the scope of the project and identify aspects that are NOT included in the system.  Make it clear to the readers of the report who are the developers.  Write it from the system perspective (not from the user perspective in SRS).]
-
-This system is intended to be a Brain Computer Interface that will act as a facade between data received from the Emotiv device and a home automation system. The system on the end of the Emotiv device and the home automation system are a a bit like black boxes. We are more concerned with taking the data, interpreting it correctly and triggering the correct actions in the home automation system. The functionality of the other two systems are out of our scope. 
+This system is intended to be a Brain Computer Interface that will act as a bridge between data received from the Emotiv device and a home automation system. The Emotiv device and the home automation system are black boxes. We are more concerned with taking the data from the Emotiv device, interpreting it correctly and triggering the correct actions in the home automation system. Changing the functionality of the other two systems are out of the scope of this project. 
 
 \subsection{Definitions, Acronyms, and Abbreviations}
-
-[If there are definitions, acronyms, and abbreviation that you are using frequently in the report, define them here in this subsection so that the readers can always refer to here.]
-
-Same??
-
 \begin{description}
     \item[EEG] Can refer to:
         \begin{itemize}
@@ -89,6 +78,7 @@ Same??
                 activity 
 	        \item Electroencephalogram - The device that is used to record the
 	            brain's electrical activity
+
         \end{itemize}
     \item[Emotiv] The electroencephalogram hardware device, created by Emotiv
         Limited, used to read the user's brain activity (EEG)
@@ -104,17 +94,19 @@ Same??
 
 \subsection{Overview}
 
-
-[The section is describing the rest of the SDS document, providing a roadmap of what are going to be covered in the next few sections.]
 Section 2 discusses ...
 
-\subsection{Requirements Traceability Matrix - Joe}
+\subsection{Requirements Traceability Matrix}
 This section maps the relationship between requirement statements and detailed design entities.  As such it shows how requirements are covered by the design, and demonstrates the purpose for which design entity exists.
 The values in the cells of the table show which requirements provide the purpose for each entity. The cell values are:
 
 Blank – the design entity does not implement any of that requirement
 P for Primary - the design entity implements all or most of the requirement
 S for Secondary – the design entity implements a smaller but essential part of the requirement
+
+\begin{tabular}{ | l | l |}
+
+\end{tabular}
 
 \newpage
 
@@ -157,8 +149,8 @@ This section gives a description of the hardware and software interfaces. Also i
 
 % TODO probably change this
 \autoref{fig:dfd1} indicates the four external systems that
-provide data to or accept data from our product. Two of these are trivial.
-These are Id 2 and Id 3/6. We accept input from the mouse and keyboard in
+provide data to or accept data from our product. Three of these are trivial.
+These are Id 2, Id 3, and Id 6. We accept input from the mouse and keyboard in
 order to configure our system and we store the resulting configuration,
 locally or externally as seems appropriate at the time. Apart from these, our
 system accepts data from the Emotiv device through their driver and output
@@ -176,39 +168,42 @@ match the state.
 
 \subsection{Structure and relationships}
 
-\subsubsection{Component ID 1}
+\subsubsection{Component CI01}
 This component is the brain computer interface that provides an EEG signal into our system to control it.
 
-\subsubsection{Component ID 2}
-This is a mouse and keyboard. While this is not usually explicitly included, since we are using a BCI for most controls, we thought that it would be helpful.
-
-\subsubsection{Component ID 3}
-This is the source of the current configuration. This may be stored locally, or may be stored externally.
-
-\subsubsection{Component ID 4}
+\subsubsection{Component CP01}
 This represents the totality of our product. It performs every action and completely controls the house given the EEG as input.
 
-\subsubsection{Component ID 5}
+\subsubsection{Component CO01}
 This is the home automation system. When it receives signals, it changes a physical property of the house, such as whether a light is on or off, or what channel a stereo is tuned to.
 
-\subsubsection{Component ID 6}
-This is the configuration file again. It is identical to Id 3 except it is being written to instead of read from.
-
-\subsubsection{Component ID 7}
-This is the process that is in charge of managing the system configuration. It reads in the configuration, process is, modifies it if necessary, makes it available to the rest of the system, and writes it back if modified.
-
-\subsubsection{Component ID 8}
+\subsubsection{Component CP11}
 This is the process responsible for converting the large amount of data of the EEG into a more understandable signal. This will consist of only one bit at any given time.
 
-\subsubsection{Component ID 9}
-This component translates the control signals generated into Id 8 and uses them to control the house. It does this by storing the current state of the system and then transitioning when it receives the proper signals from Id 8.
+\subsubsection{Component CP12}
+This component translates the control signals generated in CP11 and uses them to control the house. It does this by storing the current state of the system and then transitioning when it receives the proper signals from CP11.
+
+\subsubsection{Component CP13}
+This is the process that is in charge of managing the system configuration. It reads in the configuration, process is, modifies it if necessary, makes it available to the rest of the system, and writes it back if modified.
+
+
 \newpage
 
 \section{Interface Description}
 
-\subsection{User Interface - Kevin}
+\subsection{User Interface}
+
+
 
 The user interface of the system is a rather simple one because most of the data we will receive and the choices the user will make are binary. There will be one type of screen where the user will cycle through the options of the objects that they can interact with in the home automation system. This is also the screen where the user makes the decision which object they want to interact with. When an object is chosen, they will be directed to the second type of screen. The second type of screen that handles the changing of the state of the object the user selects. From this screen the user can either change the state or return to the previous screen (the first type where the users cycle through the options). These two types UI of screen will make up the majority of the system. These designs will be modified or extra user interface designs will be implemented as necessary. 
+
+\begin{figure}[h!]
+	
+  \centering
+    \includegraphics[width=0.7\textwidth]{UI_Mockup}
+   \caption{Sample User interface}
+   \label{fig:ui}
+\end{figure}
 
 \subsection{Data Interface}
 \begin{figure}[h!]
