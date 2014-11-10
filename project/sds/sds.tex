@@ -232,6 +232,21 @@ There is no need for a programming interface because it is a generic, self-conta
 
 \subsection{Component Template Description}
 
+The design entities include the following:
+
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & The type of Entity. This could be one of the following: Module, or Data Store. \\ \hline
+\textbf{Purpose} & The reson the entity exists.  \\ \hline
+\textbf{Function} & What the entity does. \\ \hline
+\textbf{Subordinates} & All entities that compose the entity. \\ \hline
+\textbf{Dependencies} & The relationship of the entity to others. \\ \hline
+\textbf{Interface} & How this entity interacts with other entities \\ \hline
+\textbf{Resources} & External elements used by the system. \\ \hline
+\textbf{Processing} & The algorithm used for the entity. \\ \hline
+\textbf{Data} & View ERD for the data. \\ \hline
+\end{tabular}
+
 \subsection{Design Entities}
 
 \subsubsection*{1.0 - EEG Interpreter}
@@ -428,12 +443,6 @@ if request is valid:
 else:
     report error
 \end{lstlisting}
-
-\newpage
-
-\section{Appendicies}
-
-% N/A?
 
 \newpage
 
