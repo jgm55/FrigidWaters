@@ -61,27 +61,16 @@
 \newpage
  
 
-\section{Introduction - Kevin all unless otherwise marked}
-
-[The structure of this introduction is similar to the introduction section of SRS.]
+\section{Introduction}
 
 \subsection{Purpose}
-
-[This subsection talks about the purpose of this SDS report not about the purpose of the project.]
 The purpose of this document is to describe the data, interface, architectural, and component-level design for our project. The architectural section will go over the modules and components, their relationship, and will describe the structure of the system as a whole. The interface section contains more detail on the system's user interface, data interface,  and the programming interface. Finally, in the remaining portion of this document, any other design details or relationships will be layed out .
 
 \subsection{Scope}
 
-[This subsection describes a short overview of the system.  Defining the scope of the project and identify aspects that are NOT included in the system.  Make it clear to the readers of the report who are the developers.  Write it from the system perspective (not from the user perspective in SRS).]
-
 This system is intended to be a Brain Computer Interface that will act as a facade between data received from the Emotiv device and a home automation system. The system on the end of the Emotiv device and the home automation system are a a bit like black boxes. We are more concerned with taking the data, interpreting it correctly and triggering the correct actions in the home automation system. The functionality of the other two systems are out of our scope. 
 
 \subsection{Definitions, Acronyms, and Abbreviations}
-
-[If there are definitions, acronyms, and abbreviation that you are using frequently in the report, define them here in this subsection so that the readers can always refer to here.]
-
-Same??
-
 \begin{description}
     \item[EEG] Can refer to:
         \begin{itemize}
@@ -104,11 +93,9 @@ Same??
 
 \subsection{Overview}
 
-
-[The section is describing the rest of the SDS document, providing a roadmap of what are going to be covered in the next few sections.]
 Section 2 discusses ...
 
-\subsection{Requirements Traceability Matrix - Joe}
+\subsection{Requirements Traceability Matrix}
 This section maps the relationship between requirement statements and detailed design entities.  As such it shows how requirements are covered by the design, and demonstrates the purpose for which design entity exists.
 The values in the cells of the table show which requirements provide the purpose for each entity. The cell values are:
 
@@ -206,9 +193,19 @@ This component translates the control signals generated into Id 8 and uses them 
 
 \section{Interface Description}
 
-\subsection{User Interface - Kevin}
+\subsection{User Interface}
+
+
 
 The user interface of the system is a rather simple one because most of the data we will receive and the choices the user will make are binary. There will be one type of screen where the user will cycle through the options of the objects that they can interact with in the home automation system. This is also the screen where the user makes the decision which object they want to interact with. When an object is chosen, they will be directed to the second type of screen. The second type of screen that handles the changing of the state of the object the user selects. From this screen the user can either change the state or return to the previous screen (the first type where the users cycle through the options). These two types UI of screen will make up the majority of the system. These designs will be modified or extra user interface designs will be implemented as necessary. 
+
+\begin{figure}[h!]
+	
+  \centering
+    \includegraphics[width=0.7\textwidth]{UI_Mockup}
+   \caption{Sample User interface}
+   \label{fig:ui}
+\end{figure}
 
 \subsection{Data Interface}
 \begin{figure}[h!]
