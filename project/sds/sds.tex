@@ -68,7 +68,7 @@ The purpose of this document is to describe the data, interface, architectural, 
 
 \subsection{Scope}
 
-This system is intended to be a Brain Computer Interface that will act as a facade between data received from the Emotiv device and a home automation system. The system on the end of the Emotiv device and the home automation system are a a bit like black boxes. We are more concerned with taking the data, interpreting it correctly and triggering the correct actions in the home automation system. The functionality of the other two systems are out of our scope. 
+This system is intended to be a Brain Computer Interface that will act as a bridge between data received from the Emotiv device and a home automation system. The Emotiv device and the home automation system are black boxes. We are more concerned with taking the data from the Emotiv device, interpreting it correctly and triggering the correct actions in the home automation system. Changing the functionality of the other two systems are out of the scope of this project. 
 
 \subsection{Definitions, Acronyms, and Abbreviations}
 \begin{description}
@@ -78,6 +78,7 @@ This system is intended to be a Brain Computer Interface that will act as a faca
                 activity 
 	        \item Electroencephalogram - The device that is used to record the
 	            brain's electrical activity
+
         \end{itemize}
     \item[Emotiv] The electroencephalogram hardware device, created by Emotiv
         Limited, used to read the user's brain activity (EEG)
@@ -102,6 +103,10 @@ The values in the cells of the table show which requirements provide the purpose
 Blank – the design entity does not implement any of that requirement
 P for Primary - the design entity implements all or most of the requirement
 S for Secondary – the design entity implements a smaller but essential part of the requirement
+
+\begin{tabular}{ | l | l |}
+
+\end{tabular}
 
 \newpage
 
@@ -144,8 +149,8 @@ This section gives a description of the hardware and software interfaces. Also i
 
 % TODO probably change this
 \autoref{fig:dfd1} indicates the four external systems that
-provide data to or accept data from our product. Two of these are trivial.
-These are Id 2 and Id 3/6. We accept input from the mouse and keyboard in
+provide data to or accept data from our product. Three of these are trivial.
+These are Id 2, Id 3, and Id 6. We accept input from the mouse and keyboard in
 order to configure our system and we store the resulting configuration,
 locally or externally as seems appropriate at the time. Apart from these, our
 system accepts data from the Emotiv device through their driver and output
