@@ -68,11 +68,13 @@
 \subsection{Purpose}
 
 [This subsection talks about the purpose of this SDS report not about the purpose of the project.]
-The purpose of this document is to describe
+The purpose of this document is to describe the data, interface, architectural, and component-level design for our project. The architectural section will go over the modules and components, their relationship, and will describe the structure of the system as a whole. The interface section contains more detail on the system's user interface, data interface,  and the programming interface. Finally, in the remaining portion of this document, any other design details or relationships will be layed out .
 
 \subsection{Scope}
 
 [This subsection describes a short overview of the system.  Defining the scope of the project and identify aspects that are NOT included in the system.  Make it clear to the readers of the report who are the developers.  Write it from the system perspective (not from the user perspective in SRS).]
+
+This system is intended to be a Brain Computer Interface that will act as a facade between data received from the Emotiv device and a home automation system. The system on the end of the Emotiv device and the home automation system are a a bit like black boxes. We are more concerned with taking the data, interpreting it correctly and triggering the correct actions in the home automation system. The functionality of the other two systems are out of our scope. 
 
 \subsection{Definitions, Acronyms, and Abbreviations}
 
@@ -141,7 +143,7 @@ This section gives a description of the hardware and software interfaces. Also i
 
 \subsection{User Interface - Kevin}
 
-[Describe the detailed design of user interface.  Include diagram to show screens and how they relate to each other.]
+The user interface of the system is a rather simple one because most of the data we will receive and the choices the user will make are binary. There will be one type of screen where the user will cycle through the options of the objects that they can interact with in the home automation system. This is also the screen where the user makes the decision which object they want to interact with. When an object is chosen, they will be directed to the second type of screen. The second type of screen that handles the changing of the state of the object the user selects. From this screen the user can either change the state or return to the previous screen (the first type where the users cycle through the options). These two types UI of screen will make up the majority of the system. These designs will be modified or extra user interface designs will be implemented as necessary. 
 
 \subsection{Data Interface - Kyle}
 [Define data flowing in and out of your system.  Include the ERD here.]
