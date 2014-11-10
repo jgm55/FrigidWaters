@@ -116,25 +116,68 @@ S for Secondary – the design entity implements a smaller but essential part of
 
 \newpage
 
-\section{Architectural Description - kyle}
-[In IEEE 1016, this section is called Decomposition Description.  You should provide your DFD decomposition here.] 
+\section{Architectural Description}
 
 \subsection{External Interfaces}
+
+We will only have two software interfaces that we will need to conform to. The first, is the input interface. For this we will have to use the pre-made drivers to access the EEG. This confines our project to machines running a relatively modern version of windows, since the driver is not usable for any other operating systems. The second interface that we have to conform to, is that of the home automation system.
+
+Our UI will consist of a binary tree of possibilities. At any one time only one node is being displayed to the user and one of the two child nodes is being selected to recursively repeat this process on. Leaf nodes will result in actions, such as turning on the lights in a particular room. Which leaf is selected will be based on the input of the EEG.
 
 This section gives a description of the hardware and software interfaces. Also included is a basic prototype of the UI.
 
 \subsection{Overview of modules / components}
 
-[Present your DFDs and describe each DFD you present here.]
+\begin{figure}[h!]
+	
+  \centering
+    \includegraphics[width=0.7\textwidth]{DFD1}
+   \caption{Our high level DFD}
+   \label{fig:dfd1}
+\end{figure}
+
+\begin{figure}[h!]
+	
+  \centering
+    \includegraphics[width=0.7\textwidth]{DFD2}
+   \caption{Our high level DFD with the main process broken out}
+   \label{fig:dfd2}
+\end{figure}
+
+Figure~\ref{fig:dfd1} is the context diagram. It displays the different external sources that our program interacts with. There are four external systems that provide data to, or accept data from our product. Two of these are trivial. These are Id 2 and Id 3/6. We accept input from the mouse and keyboard in order to configure our system and we store the resulting configuration, locally or externally as seems appropriate at the time. Normally, these would not be displayed in the context diagram but we felt it was necessary because it is not immediately obvious that a system that relies upon a BCI to control it would also accept input from the keyboard and mouse. Apart from these, our system accepts data from the Emotiv device through their driver and output controlling signals to the home automation system.
+ 
+
+
+Figure~\ref{fig:dfd2} is a broken out version of figure~\ref{fig:dfd1}. As you can see the total system of Id 4 has been broken out into Ids 7, 8, and 9. These represent the different aspects of our product. First, there is a system that must deal with the system configurations. This involves reading it (from an external source if necessary), modifying it, writing it back for later use and providing it to the other parts of the program. The EEG converter process (Id 8) takes in the EEG data and is responsible for getting a clear signal out of it. The Controller process (Id 9) is responsible for storing the current state of the system, transitioning states when appropriate and sending signals to the home automation system that match the state.
 
 \subsection{Structure and relationships}
-[Present the details of each component in your DFDs.  The IDs should match to those in DFDs.]
 
-\subsubsection{Component <ID 1>}
+\subsubsection{Component ID 1}
+This component is the brain computer interface that provides an EEG signal into our system to control it.
 
-\subsubsection{Component <ID 1>}
-.... etc
+\subsubsection{Component ID 2}
+This is a mouse and keyboard. While this is not usually explicitly included, since we are using a BCI for most controls, we thought that it would be helpful.
 
+\subsubsection{Component ID 3}
+This is the source of the current configuration. This may be stored locally, or may be stored externally.
+
+\subsubsection{Component ID 4}
+This represents the totality of our product. It performs every action and completely controls the house given the EEG as input.
+
+\subsubsection{Component ID 5}
+This is the home automation system. When it receives signals, it changes a physical property of the house, such as whether a light is on or off, or what channel a stereo is tuned to.
+
+\subsubsection{Component ID 6}
+This is the configuration file again. It is identical to Id 3 except it is being written to instead of read from.
+
+\subsubsection{Component ID 7}
+This is the process that is in charge of managing the system configuration. It reads in the configuration, process is, modifies it if necessary, makes it available to the rest of the system, and writes it back if modified.
+
+\subsubsection{Component ID 8}
+This is the process responsible for converting the large amount of data of the EEG into a more understandable signal. This will consist of only one bit at any given time.
+
+\subsubsection{Component ID 9}
+This component translates the control signals generated into Id 8 and uses them to control the house. It does this by storing the current state of the system and then transitioning when it receives the proper signals from Id 8.
 \newpage
 
 \section{Interface Description}
@@ -143,8 +186,16 @@ This section gives a description of the hardware and software interfaces. Also i
 
 [Describe the detailed design of user interface.  Include diagram to show screens and how they relate to each other.]
 
-\subsection{Data Interface - Kyle}
-[Define data flowing in and out of your system.  Include the ERD here.]
+\subsection{Data Interface}
+\begin{figure}[h!]
+
+  \centering
+    \includegraphics[width=0.5\textwidth]{ERD}
+   \caption{Our ERD}
+   	\label{fig:erd}
+\end{figure}
+
+The data flowing into our program will consist of a tuple of floats, representing the EEG data at any given time. There will also be a JSON blob that stores the parameters that should be used in signal extraction. The output will be in the form of calling methods of the home automation system. The data in figure~\ref{fig:erd}, shows the internal representation of the user, house and state. This consists of a binary tree of UI structures, which may or may not reference a device to call the method of.
 
 \subsection{Programming Interface} 
 There is no need for a programming interface because it is a generic, self-contained system.
@@ -153,7 +204,7 @@ There is no need for a programming interface because it is a generic, self-conta
 
 \section{Detailed Design}
 
-\subsection{Component Template Description - Joe}
+\subsection{Component Template Description}
 
 \subsection{Design Entities}
 
@@ -248,7 +299,7 @@ reject requests that are not valid in the current state. \\ \hline
 
 \newpage
 
-\section{Reuse and Relationships to other Products [optional] - Sam}
+\section{Reuse and Relationships to other Products}
 \label{sec:ReuseRel}
 
 There has been previous related work done with the Emotiv device by related
@@ -263,7 +314,7 @@ improve the quality of life for many ALS patients.
 
 \newpage
 
-\section{Design decisions and tradeoffs [optional] - Sam}
+\section{Design decisions and tradeoffs}
 
 The first design decision that was made was what type of interface to use.
 The options available were EEG sensor devices, eye movement trackers, or
@@ -293,7 +344,7 @@ serves as a proof of concept for interfacing with nontrivial systems.
 
 \newpage
 
-\section{Psuedocode for components - Mike}
+\section{Psuedocode for components}
 
 \subsection*{1.0 - EEG Interpreter}
 
@@ -353,7 +404,7 @@ else:
 
 \newpage
 
-\section{Appendicies - Mike}
+\section{Appendicies}
 
 % N/A?
 
@@ -364,11 +415,11 @@ else:
     \hline
      & Section & Writing & Editing \\
     \hline \hline
-		1 & 2.2, 2.6, 3.3, 3.4, 3.6 & Kyle Patron & Michael Conway\\ \hline
-		2 & 1, 2.1, 3.1 & Joe Muoio & Michael Conway\\ \hline
-		3 & 2.4, 2.5 & Sam Bever & Michael Conway\\ \hline
-		4 & 3.2 & Michael Conway & Kevin Zakszewski \\ \hline
-		5 & 1, 2.3 & Kevin Zakszewski & Michael Conway \\ \hline
+		1 & 2, 3.2 & Kyle Patron & \\ \hline
+		2 & & Joe Muoio & \\ \hline
+		3 & & Sam Bever & \\ \hline
+		4 & & Michael Conway &  \\ \hline
+		5 & & Kevin Zakszewski &  \\ \hline
 \end{tabular}
 \newpage
 \noindent I certify that:
