@@ -1,5 +1,10 @@
+package edu.drexel.cci.hiyh.ui;
+
+import edu.drexel.cci.hiyh.home.insteon.LightDevice;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -14,14 +19,18 @@ public class MainUI extends Frame implements ActionListener{
 	private Frame mainFrame;
 	private Frame popupFrame;
 	
+	// TODO something less abominable
 	private int i = 0;
 	private	ArrayList<String> objs = new ArrayList<String>(){{
 		add("Lights");
 		add("Television");
 		add("Heat");		
 	}};
+	private LightDevice ldev;
 	
-	public MainUI(){
+	public MainUI(LightDevice ldev){
+	    this.ldev = ldev;
+
 		mainFrame = new Frame("");
 		popupFrame = new Frame("");
 		
@@ -119,7 +128,19 @@ public class MainUI extends Frame implements ActionListener{
 			popupLabel.setText("Change state of " + objs.get(i));
 			popupFrame.setVisible(true);
 		}else if(str.equals("Confirm")){
-//			TODO: Send confirmation to change state to HAS
+			// TODO something more fitting than looking at the header label
+			switch(headerLabel.getText()) {
+			    case "Lights":
+			        try {
+			            ldev.toggle();
+			        } catch (IOException exc) {
+			            // XXX Dumb simple way for prototype. Do NOT do this
+			            // in final version!
+			            exc.printStackTrace();
+			            System.exit(1);
+			        }
+			        break;
+			}
 			popupFrame.setVisible(false);
 		}else if(str.equals("Cancel")){
 			popupFrame.setVisible(false);

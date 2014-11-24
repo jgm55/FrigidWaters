@@ -9,19 +9,32 @@ import jssc.SerialPortList;
  * and then off.
  */
 public class Demo {
-    public static void main(String args[]) throws IOException {
-        // Assume that it's the first available serial port.
-        PLM plm = new PLM(SerialPortList.getPortNames()[0]);
-        plm.open();
-        // And that our light device has this ID.
-        LightDevice dev = new LightDevice(plm, new byte[] {0x26, (byte)0x98, (byte)0x87});
+    private static final PLM plm;
 
-        dev.on();
+    static {
+        // Assume that it's the first available serial port.
+        plm = new PLM(SerialPortList.getPortNames()[0]);
+    }
+
+    public static void main(String args[]) throws IOException {
+        open();
+        LightDevice dev = getLightDevice();
+
+        dev.turnOn();
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {}
-        dev.off();
+        dev.turnOff();
 
         plm.close();
+    }
+
+    public static void open() throws IOException {
+        plm.open();
+    }
+
+    public static LightDevice getLightDevice() {
+        // Assume that our light device has this ID.
+        return new LightDevice(plm, new byte[] {0x26, (byte)0x98, (byte)0x87});
     }
 }
