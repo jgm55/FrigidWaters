@@ -86,6 +86,21 @@ correct way to do this, and since the current method is not robust enough
 for general use, we predict that this will occupy a significant portion of
 the project development cycle.
 
+One example of this complexity is that the current best performing text
+entry for use with an Emotiv device takes approximately 30 seconds to enter
+a single letter. This method is not only time consuming, but is also
+mentally taxing. The current method uses an involuntary recognition
+response, enabling a patient to select letters by focussing on the letter
+they choose.
+%Do we want a link/citation?  http://youtu.be/08GNE6OdNcs
+
+Our proposed method will take a more direct approach, where patients choose
+to divide a set of letters in half until they eventually reach their desired
+choice. At most six divisions will be necessary to select a symbol from 64
+options (allowing for all English letters, the digits 0 through 9, and a few
+other customizable entries). This means that if each choice takes less than
+five seconds, this method will be faster than the current competition.
+
 Gathering project requirements will present difficulties because we cannot
 easily identify with the daily experiences of ALS patients and communicating
 directly with late-stage ALS patients is challenging. To circumvent this, we
@@ -133,13 +148,13 @@ implementation. Role: Lead Designer.
 
 \subsection*{Team Communication}
 
-Our team will be meeting at least once a week to discuss our progress,
-outline our tasks for that week, and address any other issues. If necessary,
-more meetings will be scheduled. Most group communication outside of these
-meetings will be done via email and Google Hangouts. For source code
-management, we will be using a GitHub repository, which comes with an issue
-tracker and a project wiki. We will also be using review board in order to
-organize and distribute code reviews to the team. 
+Our team will be meeting at least once a week on Mondays at 5pm to discuss
+our progress, outline our tasks for that week, and address any other issues.
+If necessary, more meetings will be scheduled for the remainder of that
+week. Most group communication outside of these meetings will be done via
+email. For source code management, we will be using a GitHub repository,
+which comes with an issue tracker and a project wiki. We will also be using
+review board in order to organize and distribute code reviews to the team. 
 
 \subsection*{Team Issues}
 
