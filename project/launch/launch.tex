@@ -47,27 +47,34 @@ control and death. Affected indivuals suffer a spectrum of symptoms
 culminating in total lock-in. In this state, the patient is aware but cannot
 move their body in any way. They cannot breathe on their own or even blink
 their eyes. Because of this, late-stage ALS patients are unable to interface
-with conventional assistive technologies.\cite{ALSsource}
+with conventional assistive technologies. \cite{ALSsource}
 
 The goal of the project is to build a system which people afflicted with ALS
 can use to interact with their houses through Home Automation Systems (HAS).
 This includes controlling the thermostat, lights, stereo, and television as
 well as interfacing with social media. By having a Brain Computer Interface
 (BCI) to their automated house, individuals with ALS can still interact with
-their environment despite full paralysis. This builds off of a previous
-senior design project. The interface will be improved, methods of
-input training and processing will be experimented with, and a more robust
-array of input options will be used.
+their environment despite full paralysis.
 
-% At least one thing that sounds rather similar (Thought-Wired)
-% http://www.thought-wired.com/
+% TODO
+% * Project name
+% * What they did
+% * Limitations
+This project builds off of a previous senior design project. The interface
+will be improved, methods of input training and processing will be
+experimented with, and a more robust array of input options will be used.
 
 \subsection*{Highlighted Features}
 
 \begin{itemize}
-\item Interpret brain waves
-\item Calibrate interface to individual users
-\item Allow users with ALS to perform basic household tasks
+\item Calibration for individual users
+\item Intuitive interface with simple selections
+\item Allow users with ALS to perform basic household tasks, such as
+    \begin{itemize}
+        \item Turning lights on and off
+        \item Adjusting the thermostat
+        \item Controlling the television
+    \end{itemize}
 \end{itemize}
 
 \subsection*{Sponsor or Proxy User}
@@ -86,14 +93,17 @@ correct way to do this, and since the current method is not robust enough
 for general use, we predict that this will occupy a significant portion of
 the project development cycle.
 
-One example of this complexity is that the current best performing text
-entry for use with an Emotiv device takes approximately 30 seconds to enter
-a single letter. This method is not only time consuming, but is also
-mentally taxing. The current method uses an involuntary recognition
-response, enabling a patient to select letters by focussing on the letter
-they choose.
-%Do we want a link/citation?  http://youtu.be/08GNE6OdNcs
+% FIXME Is this too colloquial?
+% FIXME Need confirmation for the other claims here -- esp "fastest"
+To get an idea of the complexities involved, consider the current
+best-performing text-entry interface using the Emotiv device, which requires
+the user to focus on the chosen letter on the screen and observes the
+involuntary recognition response when this letter flashes. Even this method
+takes a long time to reliably select the correct letter, resulting in a speed
+of only about 1 letter every 30 seconds. It is also mentally taxing for the
+user. \cite{textentry}
 
+% FIXME This paragraph looks a little out of place in the Issues section
 Our proposed method will take a more direct approach, where patients choose
 to divide a set of letters in half until they eventually reach their desired
 choice. At most six divisions will be necessary to select a symbol from 64
@@ -154,7 +164,9 @@ If necessary, more meetings will be scheduled for the remainder of that
 week. Most group communication outside of these meetings will be done via
 email. For source code management, we will be using a GitHub repository,
 which comes with an issue tracker and a project wiki. We will also be using
-review board in order to organize and distribute code reviews to the team. 
+review board in order to organize and distribute code reviews to the team.
+% FIXME Cite Review Board, or at least capitalize it (I hadn't heard of it).
+% Maybe cite GitHub too.
 
 \subsection*{Team Issues}
 
@@ -169,25 +181,17 @@ this project. We are still debating which language we should use.
 
 \subsection*{Objectives}
 
-Our goals for this first cycle are meant to begin each of the portions of
-the project so that we can use the other terms to integrate our different
-subsystems and poslish the resulting amalgamation.
+Our goals for this cycle are to
 
 \begin{itemize}
-    \item Begin experimenting with the Emotiv system to determine its
-capabilities and limitations
-    \item Gather requirements from our stakeholder
-    \item Construct a rough UI that will serve as a baseline for future
-iterations
-    \item Combine these initial elements to create a rough prototype, which
-will serve to
-        \begin{itemize}
-            \item test the feasibility of the design
-            \item identify the most important challenges to focus on in the
-                remaining cycles
-        \end{itemize}
-    \item Present the prototype to prospective users in order to clearly
-        define assumed, unstated or non-obvious requirements
+    \item Revise our requirements and design specifications based on
+        information from the previous cycle
+    \item Develop a test plan
+    \item Develop the Emotiv-based UI, which is the core of the project
+    \item Refine and extend the HAS interface begun in the previous cycle
+    \item Integrate these two components into a single package that provides
+        the basic functionality of the end product
+        % TODO more of these?
 \end{itemize}
 
 \subsection*{Schedule}
@@ -197,38 +201,45 @@ will serve to
     Week & Person & Contribution \\
     \hline \hline
 
-    2-3 & Everyone & Write launch report \\ \hline
-    3-5 & Joe Muoio & Set up coding infrastructure \\ \hline
-    3-5 & Kyle Patron & Gather requirements and meet with stakeholder \\ \hline
-    3-7 & Sam Bever & Experiment with default Emotiv functionality \\ \hline
-    4-8 & Kevin Zakszewski & Develop prototype UI \\ \hline
-	5-8 & Kyle Patron & Develop initial system design \\ \hline
-    7-10 & Mike Conway & Combine parts into prototype \\ \hline
-    8-11 & Everyone & Prepare presentation \\ \hline
+    1 & Everyone & Revise and update launch report for C2 \\ \hline
+    1-3 & & Revise requirements \\ \hline
+    2-5 & Sam Bever & Develop test plan \\ \hline
+    3-6 & & Revise system design \\ \hline
+    1-3 & Kyle Patron & Experiment with Emotiv functionality \\ \hline
+    3-6 & Kyle Patron, Kevin Zakszewski & Develop Emotiv-based UI \\ \hline
+    3-6 & Michael Conway & Refine and extend HAS interface \\ \hline
+    7-8 & Sam Bever & Integrate and test C2 implementation \\ \hline
+    7-9 & Everyone & Revise and update launch report for C3 \\ \hline
+    8-11 & Joe Muoio, Sam Bever & Prepare presentation \\ \hline
+
 \end{tabular}
 
 \begin{ganttchart}{1}{11}
-    \gantttitle{Fall Term}{11} \\
+    \gantttitle{Winter Term}{11} \\
     \gantttitlelist{1,...,11}{1} \\
 
-    % These are all "at the end of week #"
-    \ganttbar{Write launch report}{2}{2} \\
-    \ganttlinkedmilestone{Launch Report 1}{2} \\
-    \ganttbar{Gather requirements and meet with stakeholder}{3}{5} \\
-    \ganttlinkedmilestone{SRS 1}{5} \\
-    \ganttbar{Develop initial system design}{5}{7} \\
-    \ganttlinkedmilestone{SDS 1}{7} \\
-    \ganttbar{Experiment with default Emotiv functionality}{3}{6} \\
-    \ganttbar{Set up coding infrastructure}{3}{4} \\
-    \ganttbar{Develop prototype UI}{4}{7} \\
-    \ganttbar{Combine parts into prototype}{7}{9} \\
-    \ganttlinkedmilestone{Prototype 1}{9} \\
-    \ganttbar{Prepare presentation}{8}{10} \\
-    \ganttlinkedmilestone{Presentation 1}{10}
+    % These are all "during or at the end of week #"
+    \ganttbar{Revise and update launch report for C2}{1}{1} \\
+    \ganttlinkedmilestone{Launch Report C2}{1} \\
+    \ganttbar{Revise requirements}{1}{3} \\
+    \ganttlinkedmilestone{SRS C2}{3} \\
+    \ganttbar{Develop test plan}{2}{5} \\
+    \ganttlinkedmilestone{Test Specification C2}{5} \\
+    \ganttbar{Revise system design}{3}{6} \\
+    \ganttlinkedmilestone{SDS C2}{6} \\
+    \ganttbar{Experiment with Emotiv functionality}{1}{3} \\
+    \ganttbar{Develop Emotiv-based UI}{3}{6} \\
+    \ganttbar{Refine and extend HAS interface}{3}{6} \\
+    \ganttbar{Integrate and test C2 implementation}{7}{8} \\
+    \ganttlinkedmilestone{Implementation C2}{8} \\
+    \ganttbar{Revise and update launch report for C3}{7}{9} \\
+    \ganttlinkedmilestone{Launch Report C3}{9} \\
+    \ganttbar{Prepare presentation}{8}{11} \\
+    \ganttlinkedmilestone{Presentation C2}{11}
 
-    \ganttlink{elem6}{elem9}
-    \ganttlink{elem7}{elem9}
     \ganttlink{elem8}{elem9}
+    \ganttlink{elem9}{elem11}
+    \ganttlink{elem10}{elem11}
 
 \end{ganttchart}
 
@@ -242,6 +253,8 @@ will serve to
     2 & Team & Everyone & Sam Bever \\ \hline
     3 & Plan & Kyle Patron & Kevin Zakszewski \\ \hline
 \end{tabular}
+
+\newpage
 \begin{thebibliography}{1}
 
     \bibitem{ALSsource} The ALS Association. (2014, October, 5). \textit{What
@@ -251,7 +264,11 @@ will serve to
     \bibitem{Emotiv} Emotiv, Inc. (2014, October, 6). \textit{Emotiv|EEG
         System} [Online]. Available: \url{http://emotiv.com/}
 
+        % FIXME
+    \bibitem{textentry} http://youtu.be/08GNE6OdNcs
+
 \end{thebibliography}
+
 \newpage
 \noindent I certify that:
 \begin{itemize}
