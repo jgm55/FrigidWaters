@@ -128,23 +128,23 @@ for the system.
 \label{fig:contextdia}
 \end{figure}
 
-The user wears an Emotiv headset which sends information about their thoughts to the connected computer. From here, the information is interpreted and sent to the home automation controller. The home automation controller controls the home components such as the television and lights. 
+The user wears an Emotiv headset which sends information about their thoughts to the connected computer. From here, the information is interpreted and sent to the home automation controller. The home automation controller sends the appropriate information to the home components such as the television and lights. %TODO add all the components here?
 
 \subsubsection{User Interface}
 
-The user interface consists of the Emotiv device which is attached to the user's head and reads their brain's electrical impulses. These are converted into commands that are then used as input. The exact input will be one of two states – neutral or active. The user will use the Emotiv as input to interact with the graphical user interface.
+The user interface consists of the Emotiv device which is attached to the user's head and reads their brain's electrical impulses. These are converted into commands that are then used as input. The exact input will be one of two states – neutral or active. The user will use the Emotiv as input to interact with the graphical user interface. %Todo Kevin change this section as necessary
 
 \subsubsection{Hardware Interfaces}
 
-The Emotive device transmits the EEG to the computer through Bluetooth to a receiver which attaches to a Windows computer's USB port.
+The Emotive device transmits the EEG to the computer through Bluetooth to a receiver which attaches to a Windows computer's USB port. The home automation controller attaches to the computer, through a USB port, too. This communicates to the various peripherals that are a part of the home automation controller. The home's devices are attached to the home automation controller through wirelessly connected peripherals.
 
 \subsubsection{Software Interfaces}
 
-The Emotiv framework provides a set of functions which allows access to the EEG data.
+The Emotiv framework provides a set of functions which allows access to the EEG data. The Home automation controller also provides a set of functions to allow access to the connected peripherals.
 
 \subsubsection{Communication Interfaces}
-
-The system will have no direct network communication.
+%TODO Mike, Fill this section in with all the HAS interactions
+The system will interact with lights, television, and thermostat thorugh the home automation controller. The actual method of communication, here, is not a part of our system.
 
 \subsubsection{Memory Constraints}
 
