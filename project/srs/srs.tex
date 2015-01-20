@@ -71,7 +71,7 @@ and lay out the requirements for the system.
 % managing the house appliances in addition to the interfaces of the devices. 
 
 This system is intended as a way for users to make basic state changes in an
-automated home setting using a Brain Computer Interface. Basic states to be
+Insteon automated home setting using a Brain Computer Interface. Basic states to be
 changed are characterized by having a binary setting (on or off). This system
 also includes a user interface that is controlled by binary actions. Complex
 systems with multiple or intermediate states are out of the scope of the Brain
@@ -97,12 +97,15 @@ sponsors of this project.
         \end{itemize}
     \item[Emotiv] The electroencephalogram hardware device, created by Emotiv
         Limited, used to read the user's brain activity (EEG)
+        % TODO cite?
     \item[Brain Computer Interface (BCI)] The class of devices that the Emotiv
         belongs to
     \item[Amyotrophic Lateral Sclerosis (ALS)] A neurodegenerative disorder
         that our target users suffer from. The main characteristics of ALS
         that we are concerned with in the scope of this project are the
         limited movement and mobility to complete paralysis.
+    \item[Insteon] The suite of home-automation devices that this system will
+        interface with; see \url{http://www.insteon.com/}
 \end{description}
 
 
@@ -128,28 +131,43 @@ for the system.
 \label{fig:contextdia}
 \end{figure}
 
-The user wears an Emotiv headset which sends information about their thoughts to the connected computer. From here, the information is interpreted and sent to the home automation controller. The home automation controller sends the appropriate information to the home components such as the television and lights. %TODO add all the components here?
+The user wears an Emotiv headset which sends information about their thoughts
+to the connected computer. From here, the information is interpreted as
+commands to be sent to the home automation controller. The controller in turn
+commands the home components, such as the television and lights.
 
 \subsubsection{User Interface}
 
-The user interface consists of the Emotiv device which is attached to the user's head and reads their brain's electrical impulses. These electrical impulses are in response to the graphical user interface the user can see on the computer screen in front of them. These impulses are then converted into commands that are then used as input. The exact input will be one of two states – neutral or active. Because there are only two states for the input, the complexity of the user interface as a whole is intentionally limited. This will allow for a simpler user experience and hopefully easy usability.
+The user interface consists of the Emotiv device and a graphical user
+interface to be shown on a standard computer display. The Emotiv device is
+attached to the user's head and reads their brain's electrical impulses, which
+are generated in response to promptings from the display. These impulses are
+then converted into commands that are then used as input. The exact input will
+be one of two states – neutral or active. Because there are only two states
+for the input, the complexity of the user interface as a whole is
+intentionally limited. This will allow for a simpler user experience and
+easy usability.
 
 \subsubsection{Hardware Interfaces}
 
-The Emotive device transmits the EEG to the computer through Bluetooth to a receiver which attaches to a Windows computer's USB port. The home automation controller attaches to the computer, through a USB port, too. This communicates to the various peripherals that are a part of the home automation controller. The home's devices are attached to the home automation controller through wirelessly connected peripherals.
+The system interfaces with both the Emotiv device and the Insteon PowerLinc
+Modem via Universal Serial Bus (USB).
 
 \subsubsection{Software Interfaces}
 
-The Emotiv framework provides a set of functions which allows access to the EEG data. The Home automation controller also provides a set of functions to allow access to the connected peripherals.
+The Emotiv framework provides a set of functions which allows access to the
+EEG data.
 
 \subsubsection{Communication Interfaces}
 %TODO Mike, Fill this section in with all the HAS interactions
-The system will interact with lights, television, and thermostat thorugh the home automation controller. The actual method of communication, here, is not a part of our system.
+The system communicates with components of the Insteon system via its USB
+connection to the PowerLinc Modem, using the Insteon-defined command set.
+% TODO cite?
 
 \subsubsection{Memory Constraints}
 
-The system will be run on consumer systems, so its RAM footprint must be
-limited accordingly.
+The system runs on consumer systems, so its RAM footprint must be limited
+accordingly.
 
 \subsubsection{Operations}
 
@@ -161,9 +179,16 @@ Active mode occurs after calibration has finished, and is the general
 operations described in this document.
 
 \subsubsection{Site Adaption Requirements}
-% TODO: Just make it clear elsewhere that the HAS is a part of the system and we can ignore this comment
-The system must be able to run in both a home and a healthcare setup. No
-modifications will be required to change between these two environments.
+The system must run in both a home and a healthcare setup, as long as an
+Insteon system consisting of supported home control devices is present. No
+modifications to the system, other than configuration for available devices,
+are required to change between these two environments.
+
+% XXX Don't know if I like "initial release." How else to say this?
+However, it is expected that not all types of Insteon devices will be
+supported in the initial release, and more will be developed over time. It
+must be possible for a competent developer to add support for a new device
+without undue modification to the rest of the system.
 
 \subsection{Product Functions}
 
@@ -187,6 +212,11 @@ Two categories of users are considered:
         responsible for Patients. They are assumed to be present during system
         setup and administrative tasks, but \textbf{not} during other use
         cases.
+    \item[Device Support Developers] are those who wish to add support for an
+        unsupported Insteon device, or a custom device that conforms to the
+        Insteon standards. They are assumed to have some programming
+        experience and knowledge of the target device, but not necessarily
+        familiarity with this system.
 \end{description}
 
 \subsubsection{Use Cases}
@@ -244,7 +274,9 @@ Two categories of users are considered:
     \item[Scenario Name:] Turn Lights On
     \item[ID number:] UC010
     \item[Description:] Patient turns a light on. (This is a representative
-        home automation task; others will work similarly.)
+        use case for all home automation tasks which do not require further
+        user input. All such tasks should be exactly the same as this one,
+        except in what task is performed.)
     \item[Trigger:] Patient wants to turn a light on and thinks the activation thought.
     \item[Type:] External
     \item[Major Inputs:] \hfill \\
@@ -267,6 +299,43 @@ Two categories of users are considered:
                 lights on task) is reached.
             \item Display confirmation screen and send signal to turn lights
                 on.
+            \item Return to idle state.
+        \end{enumerate}
+\end{description}
+
+\hfill \\
+
+\begin{description}
+    \item[Scenario Name:] Change Television Channel
+    \item[ID number:] UC015
+    \item[Description:] Patient changes the television channel.
+    \item[Trigger:] Patient wants to change the television channel and thinks
+        the activation thought. (This is a representative use case for all
+        home automation tasks that require further user input. All such tasks
+        should be exactly the same as this one, except in what input is
+        accepted and what task is performed.)
+    \item[Type:] External
+    \item[Major Inputs:] \hfill \\
+        \begin{tabular}{l l}
+            \textbf{Description} & \textbf{Source} \\
+            EEG data & Patient (via device) \\
+        \end{tabular}
+    \item[Major Outputs:] \hfill \\
+        \begin{tabular}{l l}
+            \textbf{Description} & \textbf{Destination} \\
+            Menu display & Patient \\
+            Television channel-change signal & Home Automation System
+        \end{tabular}
+    \item[Major Steps Performed:] \hfill
+        \begin{enumerate}
+            \item Display initial menu on screen.
+            \item Accept thought input from user and accept selection when
+                appropriate level of certainty is met.
+            \item Display next menu on screen and repeat until leaf (change
+                channel task) is reached.
+            \item Prompt user for channel number and accept input.
+            \item Display confirmation screen and send signal to change
+                channel.
             \item Return to idle state.
         \end{enumerate}
 \end{description}
@@ -338,16 +407,24 @@ This section gives a description of the hardware and software interfaces. Also i
 \textbf{SR105} The system will accept input from the Emotiv device and
 distinguish at least two thought-states of the patient.
 
-\textbf{SR110} The system will interface with a home control system to turn
+\textbf{SR110} The system will interface with the Insteon system to turn
 lights on and off upon user request.
 
-\textbf{SR115} The system will interface with a home control system to operate
-a television upon user request.
+\textbf{SR115} The system will interface with the Insteon system to turn a
+television on and off upon user request.
 
-\textbf{SR120} The system will interface with a home control system to adjust
-the thermostat upon user request.
+\textbf{SR116} The system will interface with the Insteon system to change a
+television's channel upon user request.
 
-See figure \ref{fig:contextdia} for a context diagram of the system.
+\textbf{SR117} The system will interface with the Insteon system to change a
+television's volume upon user request.
+
+% XXX We don't have a thermostat, so we shouldn't say we're going to control
+% one. I guess we shouldn't reuse the number...?
+%\textbf{SR120} The system will interface with a home control system to adjust
+%the thermostat upon user request.
+
+See \autoref{fig:contextdia} for a context diagram of the system.
 
 
 \subsubsection{User Interfaces}
@@ -362,10 +439,11 @@ See figure \ref{fig:contextdia} for a context diagram of the system.
 
 \textbf{SR225} If the capability exists to include more bits than just a simple concentrating or not concentrating, then more choices can be had and the non-concentrating state will not need to be used for the loading bar. 
 
-See Figure \ref{fig:mockup} for mockups.
+See \autoref{fig:mockup} for mockups.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{mockup_v1.png}
+% TODO Kevin: fix this caption
 \caption{As the user concentrates, the bar fills up. When it reaches the end, the next binary choice will take its place}
 \label{fig:mockup}
 \end{figure}
@@ -436,18 +514,20 @@ minutes.
 
 \subsection{Logical Database Requirements}
 
-\textbf{SR405} The system will store calibration data for one user.
+\textbf{SR405} The system must store calibration data for at least one user.
 
 \subsection{Design Constraints}
 
-The basic hardware that we will be using is a new technology to most of us involved in this project, so there will be a bit of learning curve there that could lead to some constraints. We are also aware that the hardware and sensors can be a bit unreliable and a bit hard to work with. The accuracy of the sensors greatly impacts the data that we receive and have to work with on the software, so that is another big system constraint. However, we have already begun taking all of these into consideration while discussing the outline and future plans for this project. 
+% Removed the paragraph that was here because this section is for specific
+% requirements. If we want to say something here, it should be a concise,
+% numbered description of a requirement for the system.
 
 \subsubsection{Standards Compliance}
 
-\textbf{SR505} We must comply to the input standards of the Emotiv device 
-
-\textbf{SR510} We must comply to the output standards of the home automation system
-
+% XXX I don't think these count...
+%\textbf{SR505} We must comply to the input standards of the Emotiv device.
+%
+%\textbf{SR510} We must comply to the output standards of the 
 
 The system does not need to comply with any external standards.
 
@@ -458,6 +538,8 @@ The system does not need to comply with any external standards.
 \textbf{SR612} The system must fail to detect a selection no more than 10\% of
 the time.
 
+% XXX 30 minutes (or any time duration) seems like a poor reference period.
+% Unless this means "unintentionally activate"?
 \textbf{SR615} The system must unintentionally select no more than once every
 30 minutes.
 
@@ -471,18 +553,21 @@ the time.
 \textbf{SR632} The system must have no network communication.
 
 \textbf{SR635} The system must not log client interactions other than storing
-calibration data..
+calibration data.
 
 \subsubsection{Maintainability}
 
 \textbf{SR642} The menu selections must be defined by a configuration file.
 
-\textbf{SR645} New home automation features must be able to be added through a
-configuration file.
+\textbf{SR645} The set of available supported Insteon devices must be editable
+through a configuration file.
+
+\textbf{SR650} The system must provide a code-level interface for additional
+types of Insteon devices to be added.
 
 \subsubsection{Portability}
 
-\textbf{SR652} The system will run on all Windows 7 and Windows 8 machines
+\textbf{SR652} The system must run on all Windows 7 and Windows 8 machines
 meeting the minimum requirements.
 
 \addtocontents{toc}{\protect\setcounter{tocdepth}{3}}
