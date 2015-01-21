@@ -18,7 +18,7 @@
         House in Your Head \\[1cm]
         Team G1-FrigidWaters \\[2.2cm]
         { \bfseries System Requirements Specification } \\[1cm]
-        Cycle \# 1\\[2.2cm]
+        Cycle \# 2\\[2.2cm]
         Date: \required\today\\[1cm]
         \end{huge}
     \end{center}
@@ -76,7 +76,7 @@ changed are characterized by having a binary setting (on or off). This system
 also includes a user interface that is controlled by binary actions. Complex
 systems with multiple or intermediate states are out of the scope of the Brain
 Computer Interface portion of this project. Some settings that have multiple
-states can be maintained by a administrator. This administrator will need to
+states can be maintained by an administrator. This administrator will need to
 do so via a mouse and keyboard. 
 
 The potential users of this system will be people who suffer from ALS, as well
@@ -122,8 +122,6 @@ for the system.
 \subsection{Product Perspective}
 
 \subsubsection{System Interface}
-% TODO: So we have to make it clear that the home Automation System is a part of our system
-% Add details of the house automation system in Section 2
 
 \begin{figure}[h!]
 \includegraphics[width=\textwidth]{Senior_Design_Context_Diagram_V1.png}
@@ -150,8 +148,8 @@ easy usability.
 
 \subsubsection{Hardware Interfaces}
 
-The system interfaces with both the Emotiv device and the Insteon PowerLinc
-Modem via Universal Serial Bus (USB).
+The system interfaces with both the Emotiv Epoc device and the Insteon
+PowerLinc Modem via Universal Serial Bus (USB).
 
 \subsubsection{Software Interfaces}
 
@@ -159,10 +157,9 @@ The Emotiv framework provides a set of functions which allows access to the
 EEG data.
 
 \subsubsection{Communication Interfaces}
-%TODO Mike, Fill this section in with all the HAS interactions
+
 The system communicates with components of the Insteon system via its USB
 connection to the PowerLinc Modem, using the Insteon-defined command set.
-% TODO cite?
 
 \subsubsection{Memory Constraints}
 
@@ -171,7 +168,7 @@ accordingly.
 
 \subsubsection{Operations}
 
-The system has two modes of operation, calibration, and active. Calibration
+The system has two modes of operation, calibration and active. Calibration
 consists of having the Patient (as described in section \ref{sec:UserChar})
 train the system to associate certain brainwaves with actions.
 
@@ -184,7 +181,6 @@ Insteon system consisting of supported home control devices is present. No
 modifications to the system, other than configuration for available devices,
 are required to change between these two environments.
 
-% XXX Don't know if I like "initial release." How else to say this?
 However, it is expected that not all types of Insteon devices will be
 supported in the initial release, and more will be developed over time. It
 must be possible for a competent developer to add support for a new device
@@ -354,13 +350,15 @@ interface that may work well for an experienced programmer may not work well
 for an inexperienced computer user. Designing for the inexperienced user is
 necessary.
 
-A final issue is that users may have other medical issues that need to be kept
-in mind. Those that occur with ALS are most important, as are vision issues,
-specifically color blindness, as the primary feedback from our system to the
-user will be visual. A user that cannot distinguish between different shades
-may be completely unable to use key features of the system. For example, if
-button toggles are set up as a red-green selector, then a red-green
-colorblind user will be unable to use those toggles.
+A final issue is that users may have other medical issues that need to be
+kept in mind. Those that occur with ALS are most important, such as vision
+issues. A common visual impairment for those with ALS is color blindness,
+which must be accounted for when designing the user interface, as the
+primary feedback from our system to the user is visual. A user that cannot
+distinguish between different shades may be completely unable to use key
+features of the system. For example, if button toggles are set up as a
+red-green selector, then a red-green colorblind user will be unable to use
+those toggles.
 
 \subsection{Assumptions and Dependencies}
 
@@ -418,11 +416,6 @@ television's channel upon user request.
 
 \textbf{SR117} The system will interface with the Insteon system to change a
 television's volume upon user request.
-
-% XXX We don't have a thermostat, so we shouldn't say we're going to control
-% one. I guess we shouldn't reuse the number...?
-%\textbf{SR120} The system will interface with a home control system to adjust
-%the thermostat upon user request.
 
 See \autoref{fig:contextdia} for a context diagram of the system.
 
@@ -524,11 +517,6 @@ minutes.
 
 \subsubsection{Standards Compliance}
 
-% XXX I don't think these count...
-%\textbf{SR505} We must comply to the input standards of the Emotiv device.
-%
-%\textbf{SR510} We must comply to the output standards of the 
-
 The system does not need to comply with any external standards.
 
 \subsection{Software System Attributes}
@@ -538,10 +526,8 @@ The system does not need to comply with any external standards.
 \textbf{SR612} The system must fail to detect a selection no more than 10\% of
 the time.
 
-% XXX 30 minutes (or any time duration) seems like a poor reference period.
-% Unless this means "unintentionally activate"?
-\textbf{SR615} The system must unintentionally select no more than once every
-30 minutes.
+\textbf{SR615} The system must incorrectly register user input no more than
+once every 30 minutes.
 
 \subsubsection{Availability}
 
