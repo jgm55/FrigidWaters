@@ -24,7 +24,7 @@
         House in Your Head \\[1cm]
         Team G1-FrigidWaters \\[2.2cm]
         { \bfseries System Design Specification } \\[1cm]
-        Cycle \# 1\\[2.2cm]
+        Cycle \# 2\\[2.2cm]
         Date: \required\today\\[1cm]
         \end{huge}
     \end{center}
@@ -365,13 +365,11 @@ serves as a proof of concept for interfacing with nontrivial systems.
 
 \subsection*{1.0 - EEG Interpreter}
 
-% TODO Does this make any sense?
-
 \begin{lstlisting}
 repeat forever:
     monitor EEG
     if EEG in a trained state:
-        notify all registered listeners
+        notify all registered listeners of new data
         % TODO OR call all registered callbacks
 \end{lstlisting}
 
