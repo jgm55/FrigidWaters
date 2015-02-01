@@ -109,11 +109,49 @@ The purpose of this document is to document the test specifications for the Hous
 \section{Performance Testing}
 %[In the SRS, if there is any specified performance requirements in Section 3.3, you need to describe the performance requirement and how you plan to test if such requirement is satisfied.]
 %Can use multiples subsections if need be
-\subsection{Performance Requirement}
+\subsection{SR305}
 \begin{tabular}{| l | p{12cm}  |}
     \hline
-	Requirement & stuff \\ \hline
-	Test Procedure & stuff \\ \hline
+	Requirement & The system must use less than 512 MB of RAM at all times while running. \\ \hline
+	Test Procedure & Open up Task Manager and check the Memory usage of the program. \\ \hline
+\end{tabular}
+\subsection{SR310}
+\begin{tabular}{| l | p{12cm}  |}
+    \hline
+	Requirement & The system must use less than 5 GB of persistent storage space when installed. \\ \hline
+	Test Procedure & Check the size of the folder that holds all the software for the House in Your Head project. Make sure it is below 5 GB. \\ \hline
+\end{tabular}
+\subsection{SR315}
+\begin{tabular}{| l | p{12cm}  |}
+    \hline
+	Requirement & The system must run smoothly on a 3.2 GHz Intel i3 processor. \\ \hline
+	Test Procedure & Launch the House in Your Head Software and make sure there is no stuttering or lag. \\ \hline
+\end{tabular}
+\subsection{SR320}
+%CHECK THIS.
+%Not sure if the following 2 are necessary
+\begin{tabular}{| l | p{12cm}  |}
+    \hline
+	Requirement & The system will support one and only one terminal. \\ \hline
+	Test Procedure & Launch the program. \\ \hline
+\end{tabular}
+\subsection{SR325}
+\begin{tabular}{| l | p{12cm}  |}
+    \hline
+	Requirement & The system will support one and only one user at a time. \\ \hline
+	Test Procedure & Launch the program. \\ \hline
+\end{tabular}
+\subsection{SR330}
+\begin{tabular}{| l | p{12cm}  |}
+    \hline
+	Requirement & 90\% of time, menu selection must take less than 5 seconds. \\ \hline
+	Test Procedure & Time a user selecting options. Record all the selections for a few standard use cases. Use statistics to make sure 90\% of the selections happen under the 5 second threshold. \\ \hline
+\end{tabular}
+\subsection{SR335}
+\begin{tabular}{| l | p{12cm}  |}
+    \hline
+	Requirement & A trained user must be able to select 10 options within 2 minutes. \\ \hline
+	Test Procedure & Record a user who has used the device and software going through a use case where the user selects ten options to complete the task. Verify this takes under 2 minutes. \\ \hline
 \end{tabular}
 
 \newpage
