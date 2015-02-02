@@ -70,7 +70,6 @@ The purpose of this document is to document the test specifications for the Hous
 \newpage
 
 \section{Functional Test Specifications}
-% TODO: SAM!!!!
 % Every Subsection follows the below example
 
 % Template
@@ -102,6 +101,42 @@ The purpose of this document is to document the test specifications for the Hous
 	Expected Results & An appropriate configuration is generated for the
 patient and stored on the computer. \\ \hline
 Actual Results & \vspace{1cm} \\ \hline
+\end{tabular}
+
+\hfill \\
+
+\subsection{SR210 - Activate menu via EEG}
+\subsubsection{T210-01 - Activate menu via EEG}
+\begin{tabular}{| l | p{12cm} |}
+    \hline
+	Requirement & Bring up the program menu. \\ \hline
+	Conditions & The Patient must have completed the calibration and still have all peripheral devices attached. \\ \hline
+	Procedure & 
+\begin{enumerate}
+	\item The Patient thinks an activation thought from the calibration.
+\end{enumerate} \\ \hline
+	Expected Results & The menu is displayed on the computer screen. \\ \hline
+	Actual Results & \vspace{1cm} \\ \hline
+\end{tabular}
+
+\hfill \\
+
+\subsection{SR215 - Perform Home Automation Action}
+\subsubsection{T215-01 - Perform Home Automation Action}
+\begin{tabular}{| l | p{12cm} |}
+    \hline
+	Requirement & Modify a setting of the home automation system. \\ \hline
+	Conditions & The Patient must have completed the calibration and still
+have all peripheral devices attached. The menu must be showing. \\ \hline
+	Procedure & 
+\begin{enumerate}
+	\item From the menu screen, the Patient decides upon an action.
+	\item The patient selects this action by navigating the menu as it appears
+on screen.
+\end{enumerate} \\ \hline
+	Expected Results & The home automation system is modified according to the
+Patient's selection. The program returns to the menu screen. \\ \hline
+	Actual Results & \vspace{1cm} \\ \hline
 \end{tabular}
 
 \hfill \\
