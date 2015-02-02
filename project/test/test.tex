@@ -109,11 +109,13 @@ Actual Results & \vspace{1cm} \\ \hline
 \subsubsection{T210-01 - Activate menu via EEG}
 \begin{tabular}{| l | p{12cm} |}
     \hline
-	Requirement & Bring up the program menu. \\ \hline
-	Conditions & The Patient must have completed the calibration and still have all peripheral devices attached. \\ \hline
-	Procedure & 
+	Requirement & Bringing up the program menu \\ \hline
+	Conditions & The Patient, who has completed calibration, is wearing the
+	Emotiv device. The software is running but in the idle state. \\ \hline
+	Procedure &
 \begin{enumerate}
-	\item The Patient thinks an activation thought from the calibration.
+	\item The Patient thinks the thought that has been mapped to menu
+	    activation.
 \end{enumerate} \\ \hline
 	Expected Results & The menu is displayed on the computer screen. \\ \hline
 	Actual Results & \vspace{1cm} \\ \hline
@@ -122,20 +124,42 @@ Actual Results & \vspace{1cm} \\ \hline
 \hfill \\
 
 \subsection{SR215 - Perform Home Automation Action}
-\subsubsection{T215-01 - Perform Home Automation Action}
+\subsubsection{T215-01 - Turn Lights On}
 \begin{tabular}{| l | p{12cm} |}
     \hline
-	Requirement & Modify a setting of the home automation system. \\ \hline
-	Conditions & The Patient must have completed the calibration and still
-have all peripheral devices attached. The menu must be showing. \\ \hline
-	Procedure & 
+	Requirement & Turning a connected light on \\ \hline
+	Conditions & The software is running and connected to an Insteon light
+	control device. The Patient has completed calibration. The menu is
+	showing. \\
+	\hline
+	Procedure &
 \begin{enumerate}
-	\item From the menu screen, the Patient decides upon an action.
-	\item The patient selects this action by navigating the menu as it appears
-on screen.
+	\item The Patient navigates the menu to the desired light device.
+	\item The Patient selects the Turn On action.
+	\item The Patient confirms the action.
 \end{enumerate} \\ \hline
-	Expected Results & The home automation system is modified according to the
-Patient's selection. The program returns to the menu screen. \\ \hline
+	Expected Results & The light turns on. The program returns to the idle state. \\ \hline
+	Actual Results & \vspace{1cm} \\ \hline
+\end{tabular}
+
+\subsection{SR215 - Perform Home Automation Action}
+\subsubsection{T215-02 - Change Television Channel}
+\begin{tabular}{| l | p{12cm} |}
+    \hline
+	Requirement & Changing the channel on a connected television \\ \hline
+	Conditions & The software is running and connected to an Insteon
+	television control device; the television is on. The Patient has completed
+	calibration. The menu is showing. \\
+	\hline
+	Procedure &
+\begin{enumerate}
+	\item The Patient navigates the menu to the desired television device.
+	\item The Patient selects the Change Channel action.
+	\item The Patient selects a channel number.
+	\item The patient confirms the action.
+\end{enumerate} \\ \hline
+	Expected Results & The television changes to the selected channel. The
+    program returns to the idle state. \\ \hline
 	Actual Results & \vspace{1cm} \\ \hline
 \end{tabular}
 
