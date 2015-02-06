@@ -1,5 +1,6 @@
 *.class
 *.pdf
+*.pgf
 *.log
 *.aux
 *.out

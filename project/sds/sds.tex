@@ -7,6 +7,7 @@
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{tikz}
 \usepackage{listings}
 
 \lstset{
@@ -113,64 +114,90 @@ The next section is the architectural description. In that section you will find
 \subsection{Overview of modules / components}
 
 \begin{figure}[h!]
-	
-  \centering
-    \includegraphics[width=0.7\textwidth]{DFD1}
-   \caption{High level DFD}
-   \label{fig:dfd1}
+    \centering
+    \resizebox{\textwidth}{!}{
+        \input{dfd-context.pgf}
+    }
+    \caption{Context diagram.}
+    \label{fig:dfd-context}
 \end{figure}
+
+% TODO describe
+\autoref{fig:dfd-context}
 
 \begin{figure}[h!]
-	
-  \centering
-    \includegraphics[width=0.7\textwidth]{DFD2}
-   \caption{High level DFD with the main process broken out}
-   \label{fig:dfd2}
+    \centering
+    \resizebox{\textwidth}{!}{
+        \input{dfd-0.pgf}
+    }
+    \caption{Level 0 DFD.}
+    \label{fig:dfd-0}
 \end{figure}
 
-% TODO probably change this
-Figure~\ref{fig:dfd1} indicates the two external systems that
-provide data to or accept data from our product. Our
-system accepts data from the Emotiv device through their driver and output
-controlling signals to the home automation system.
+\autoref{fig:dfd-0} is a broken-out version of \autoref{fig:dfd-context}. The
+three main components of the system are the EEG Processing component, which
+processes signals from the Emotiv device; the GUI/Control layer, which
+displays the menu to the Patient and translates input from EEG Processing into
+menu selections; and the HAS Interface, which receives commands from the
+GUI/Control layer and passes them to the available Insteon devices.
 
-Figure~\ref{fig:dfd2} is a broken-out version of Figure~\ref{fig:dfd1}. The System
-Configuration Process (CP13) must deal with system configuration. This
-involves reading it, modifying it,
-writing it back for later use and providing it to the other parts of the
-program. The EEG converter process (CP11) takes in the EEG data and is
-responsible for getting a clear signal out of it. The Controller process (CP12) is responsible for storing the current state of the system, transitioning
-states when appropriate and sending signals to the home automation system that
-match the state.
+\begin{figure}[h!]
+    \centering
+    \resizebox{\textwidth}{!}{
+        \input{dfd-3.pgf}
+    }
+    \caption{Level 1 DFD of the HAS Interface (3).}
+    \label{fig:dfd-3}
+\end{figure}
+
+% TODO more?
+\autoref{fig:dfd-3} describes the interaction of components within the HAS
+Interface.
 
 \subsection{Structure and relationships}
+% FIXME Would be nice to section according to the DFD, but requires more plumbing
 
-\subsubsection{Component CI01}
-This component is the brain computer interface that provides an EEG signal into the system to control it.
+\subsubsection{Component 1: EEG Processing}
+% FIXME
+This is the process responsible for converting the large amount of data of the
+EEG into a more understandable signal. This will consist of only one bit at
+any given time.
 
-\subsubsection{Component CP01}
-This represents the totality of our product. It performs every action and completely controls the house given the EEG as input.
+\subsubsection{Component 2: GUI/Control Layer}
+% TODO
 
-\subsubsection{Component CO01}
-This is the home automation system. When it receives signals, it changes a physical property of the house, such as whether a light is on or off, or what channel a stereo is tuned to.
+\subsubsection{Component 3: HAS Interface}
+This component translates the control signals generated in the GUI/Control
+Layer (2) and uses them to control the house via the Insteon PowerLinc Modem,
+attached via USB.
 
-\subsubsection{Component CP11}
-This is the process responsible for converting the large amount of data of the EEG into a more understandable signal. This will consist of only one bit at any given time.
+\subsubsection{Component 3.1: Device Manager}
+The device manager manages the list of available Devices (3.2) and publishes
+it to the GUI/Control Layer (2). It also handles device discovery and
+configuration, as well as configuration persistence (Device Config File,
+D3.4).
 
-\subsubsection{Component CP12}
-This component translates the control signals generated in CP11 and uses them to control the house. It does this by storing the current state of the system and then transitioning when it receives the proper signals from CP11.
+\subsubsection{Component 3.2: Devices}
+Devices define the available home automation devices and the user-selectable
+actions that can be performed on each. They are registered with and provide
+status updates to the Device Manager (3.1); receive commands from the
+GUI/Control Layer (2); and fulfill these commands by composing lower-level
+commands made avaiable by the Drivers (3.3).
 
-\subsubsection{Component CP13}
-This is the process that is in charge of managing the system configuration. It reads in the configuration, process is, modifies it if necessary, makes it available to the rest of the system, and writes it back if modified.
+\subsubsection{Component 3.3: Drivers}
+Drivers wrap the low-level serial interface to Insteon devices through the
+PowerLinc Modem and provide the available simple operations and status updates
+to Devices (3.2).
 
+\subsubsection{Component D3.4: Device Config File}
+The configuration of available devices is persisted per-installation in a
+local file in JSON format.
 
 \newpage
 
 \section{Interface Description}
 
 \subsection{User Interface}
-
-
 
 The user interface of the system is a rather simple one because most of the data we will receive and the choices the user will make are binary. There will be one type of screen where the user will cycle through the options of the objects that they can interact with in the home automation system. This is also the screen where the user makes the decision which object they want to interact with. When an object is chosen, they will be directed to the second type of screen. The second type of screen that handles the changing of the state of the object the user selects. From this screen the user can either change the state or return to the previous screen (the first type where the users cycle through the options). These two types UI of screen will make up the majority of the system. These designs will be modified or extra user interface designs will be implemented as necessary. 
 
@@ -195,7 +222,7 @@ The data flowing into our program will consist of a tuple of floats,
 representing the EEG data at any given time. There will also be a JSON blob
 that stores the parameters that should be used in signal extraction. The
 output will be in the form of calling methods of the home automation system.
-Figure~\ref{fig:erd} shows the internal representation of the user, house and
+\autoref{fig:erd} shows the internal representation of the user, house and
 state. This consists of a binary tree of UI structures, which may or may not
 reference a device to call the method of.
 % XXX Huh?
@@ -341,7 +368,7 @@ eyes. In addition, this means that a patient will not have to relearn how to
 use the system with new interfaces as their disease progresses.
 
 Another design decision was what device should be used to best assist ALS
-patients. As noted in Figure~\ref{sec:ReuseRel}, there already exist devices with
+patients. As noted in \autoref{sec:ReuseRel}, there already exist devices with
 similar functionality, but they are much more expensive. The Emotiv is \$500,
 which is affordable when compared to its alternatives. The Emotiv is capable
 of detecting up to four thoughts plus a neutral state, which provides enough
