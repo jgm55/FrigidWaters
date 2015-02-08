@@ -199,12 +199,22 @@ local file in JSON format.
 
 \subsection{User Interface}
 
-The user interface of the system is a rather simple one because most of the data we will receive and the choices the user will make are binary. There will be one type of screen where the user will cycle through the options of the objects that they can interact with in the home automation system. This is also the screen where the user makes the decision which object they want to interact with. When an object is chosen, they will be directed to the second type of screen. The second type of screen that handles the changing of the state of the object the user selects. From this screen the user can either change the state or return to the previous screen (the first type where the users cycle through the options). These two types UI of screen will make up the majority of the system. These designs will be modified or extra user interface designs will be implemented as necessary. 
+The user interface of the system is a rather simple one because most of the data we will receive and the choices the user will make are binary. When the application is started, the user will first be presented with the configuration screen. A prompt to configure the "accept" thought is displayed. After the configuration timer has elapsed, the application advances to test the configuration. The user is promped to think of their accept thought to continue. If there is an error, they will be redirected to an error screen and the application will retry the configuration process. Once the configuration process is successfully complete, the application moves to the application selection screen. 
 
 \begin{figure}[h!]
 	
   \centering
-    \includegraphics[width=0.7\textwidth]{UI_Mockup}
+    \includegraphics[width=0.7\textwidth]{ConfigurationUI}
+   \caption{Sample Configuration interface}
+   \label{fig:ui}
+\end{figure}
+
+At the application selection screen, the user will cycle through the options of the objects that they can interact with in the home automation system. This is also the screen where the user makes the decision which object they want to interact with. When an object is chosen, they will be directed to the interactive state screen for the selected object. This screen that handles the changing of the state of the object the user selects. From this screen the user can either change the state or return to the previous screen (the first type where the users cycle through the options). These three types UI of screen will make up the majority of the system. These designs will be modified or extra user interface designs will be implemented as necessary. 
+
+\begin{figure}[h!]
+	
+  \centering
+    \includegraphics[width=0.7\textwidth]{ApplicationUI}
    \caption{Sample User interface}
    \label{fig:ui}
 \end{figure}
