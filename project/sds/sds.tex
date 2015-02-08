@@ -144,6 +144,15 @@ GUI/Control layer and passes them to the available Insteon devices.
 \begin{figure}[h!]
     \centering
     \resizebox{\textwidth}{!}{
+        \input{dfd-2.pgf}
+    }
+    \caption{Level 1 DFD of the User Interface (2).}
+    \label{fig:dfd-2}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \resizebox{\textwidth}{!}{
         \input{dfd-3.pgf}
     }
     \caption{Level 1 DFD of the HAS Interface (3).}
@@ -165,6 +174,16 @@ any given time.
 
 \subsubsection{Component 2: GUI/Control Layer}
 % TODO
+This component receives input from the EEG processing (1), updates the screen, and sends high level commands to the HAS Interface (3). 
+
+\subsubsection{Component 2.1: UI Cycle Routine}
+The UI Cycle Routine cycles through all of the available Interactive State Pages (2.3) one bby one, and receives input from the EEG processing to select one. 
+
+\subsubsection{Component 2.2: Configuration Routine}
+The Configuration Routine is responsible for configuring the device for the user's session. This runs before going to the UI Cycle Routine (2.1) and communicates the results to the EEG Processing (1). 
+
+\subsubsection{Component 2.3: Interactive State Pages}
+The Interactive State Pages have one for each insteon device connected to the system. This page takes input from the EEG processing module (1). Any selections are sent as high level commands to the Device Manager (3).
 
 \subsubsection{Component 3: HAS Interface}
 This component translates the control signals generated in the GUI/Control
