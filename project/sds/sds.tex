@@ -213,7 +213,9 @@ The user interface of the system is a rather simple one because most of the data
 \begin{figure}[h!]
 
   \centering
-    \includegraphics[width=0.5\textwidth]{ERD}
+  \resizebox{\textwidth}{!}{
+        \input{erd.pgf}
+    }
    \caption{ERD}
    	\label{fig:erd}
 \end{figure}
@@ -241,7 +243,7 @@ The design entities include the following:
 \begin{tabular}{ | l |  p{13.3cm} |}
 \hline
 \textbf{Type} & The type of Entity. This could be one of the following: Module, or Data Store. \\ \hline
-\textbf{Purpose} & The reson the entity exists.  \\ \hline
+\textbf{Purpose} & The reason the entity exists.  \\ \hline
 \textbf{Function} & What the entity does. \\ \hline
 \textbf{Subordinates} & All entities that compose the entity. \\ \hline
 \textbf{Dependencies} & The relationship of the entity to others. \\ \hline
@@ -258,12 +260,12 @@ The design entities include the following:
 \hline
 \textbf{Type} & Module \\ \hline
 \textbf{Purpose} & Determines if the current brain scan information matches the trained data \\ \hline
-\textbf{Function} & Uses statistical techniques to look at the current EEG information coming from the user's brainwaves and compares this to the data that was trained to see if it matches one of the trained classes. \\ \hline
+\textbf{Function} & Looks at the current EEG information coming from the user's brainwaves and compares this to the data that was trained to see if it matches one of the trained classes. \\ \hline
 \textbf{Subordinates} & None \\ \hline
 \textbf{Dependencies} & Relies on Training datastore (2.2). There needs to be trained models to compare the stream of data to. \\ \hline
 \textbf{Interface} & The EEG Interpreter will have an API that can be polled by other components. \\ \hline
 \textbf{Resources} & The EEG information comes from the emotive device. \\ \hline
-\textbf{Processing} & Various statistical techniques will be explored. At first, a simple algorithm that checks whether the EEG information falls within a given threshold to the training data, but more advanced techniques will be explored as well. \\ \hline
+\textbf{Processing} & Each entry in the Training datastore will have a set of changes or values that will constitute entry into that state. This module will continually analyze the incoming EEG data to see if the changes or the current values match the values stored in the datastore. There will be four values that will be analyzed for each electrode of the EEG. They will be amplitude, change in amplitude, frequency, and change in frequency. If the values for each of those metrics are close to the trained data, then we will say that we are in that state.\\ \hline
 \textbf{Data} & See ERD in Section 3 \\ \hline
 \end{tabular}
 
@@ -277,7 +279,7 @@ The design entities include the following:
 \textbf{Dependencies} & Training Datastore (2.2). This is needed to save the trained models. \\ \hline
 \textbf{Interface} & None \\ \hline
 \textbf{Resources} & None \\ \hline
-\textbf{Processing} & For each State Trainer (2.1) that is untrained, train the state model for that trainer. Then, save the results to the Training Datastore (2.2). \\ \hline
+\textbf{Processing} & For each State Trainer (2.1) that is untrained, train the state model for that trainer. Then, save the results to the Training Datastore (2.2). Training will take place by asking the user to think at the trigger at certain times. The amplitude, frequency, change in amplitude and change in frequency will be evaluated at those points and will constitute the state being trained. \\ \hline
 \textbf{Data} & See ERD in Section 3 \\ \hline
 \end{tabular}
 
@@ -305,7 +307,7 @@ The design entities include the following:
 \textbf{Dependencies} & None \\ \hline
 \textbf{Interface} & The training datastore will have an API that allows read and write access to it. \\ \hline
 \textbf{Resources} & May need hard disk space if it will be saved permanently.  \\ \hline
-\textbf{Processing} & The currently loaded user's data will be the only data retrieved. Loading from disk and saving to disk are allowed. \\ \hline
+\textbf{Processing} & The currently loaded user's data will be the only data retrieved. Loading from disk and saving to disk is allowed. The datastore will store the amplitude, frequency, change in frequency, and change in amplitude for each state.\\ \hline
 \textbf{Data} & See ERD in Section 3 \\ \hline
 \end{tabular}
 

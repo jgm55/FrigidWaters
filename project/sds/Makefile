@@ -1,4 +1,4 @@
-PGFS=dfd-context.pgf dfd-0.pgf dfd-3.pgf
+PGFS=dfd-context.pgf dfd-0.pgf dfd-3.pgf erd.pgf
 
 sds.pdf : sds.tex $(PGFS)
 	pdflatex --shell-escape $<
