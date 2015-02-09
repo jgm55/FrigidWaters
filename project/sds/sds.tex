@@ -647,10 +647,39 @@ serves as a proof of concept for interfacing with nontrivial systems.
 
 \begin{lstlisting}
 repeat forever:
-    monitor EEG
-    if EEG in a trained state:
-        notify all registered listeners of new data
-        % TODO OR call all registered callbacks
+    fEEG = filter EEG
+    if training:
+          store fEEG in training datastore
+    else:
+         get trained information from datastore
+         compare fEEG to datastore information
+         if it matches:
+		return matched value
+         return null
+\end{lstlisting}
+
+\subsection*{1.1 - EEG Interpreter}
+
+\begin{lstlisting}
+repeat forever:
+    if |accelerometer| > threshold:
+        EEG = 0,0,0,0...
+    else:
+        analyze for noisy electrodes
+        remove noisy electrodes
+    return EEG
+\end{lstlisting}
+
+\subsection*{1.2 - EEG Interpreter}
+
+\begin{lstlisting}
+repeat forever:
+    fEEG = get filtered EEG data
+    sEEG = get stored state data
+    if |fEEG-sEEG| < threshold:
+        return match
+    return no match
+
 \end{lstlisting}
 
 \subsection*{2.0 - Training Module}
