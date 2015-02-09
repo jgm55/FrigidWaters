@@ -221,8 +221,8 @@ is queried while running to see if the current data matches any stored states.
 This component receives input from the EEG processing (1), updates the screen,
 and sends high level commands to the HAS Interface (3). 
 
-\subsubsection{Component 2.1: UI Cycle Routine}
-The UI Cycle Routine cycles through all of the available Interactive State Pages (2.3) one by one, and receives input from the EEG processing to select one. 
+\subsubsection{Component 2.1: UI Menu Manager}
+The UI Menu Manager cycles through all of the available Interactive State Pages (2.3) one by one, and receives input from the EEG processing to select one. It receives status updates from the HAS devices manager (3.1) to know what menu items are available to be shown. This also receives keyboard input from caretakers in case recalibration is necessary or the caretaker wants to use mouse/keyboard instead.
 
 \subsubsection{Component 2.2: Configuration Routine}
 The Configuration Routine is responsible for configuring the device for the user's session. This runs before going to the UI Cycle Routine (2.1) and communicates the results to the EEG Processing (1). 
@@ -405,17 +405,59 @@ The design entities include the following:
 \textbf{Data} & See ERD in Section 3 \\ \hline
 \end{tabular}
 
-\subsubsection*{3.0 - GUI Module}
+\subsubsection*{2 - GUI Module}
 \begin{tabular}{ | l |  p{13.3cm} |}
 \hline
 \textbf{Type} & Module \\ \hline
 \textbf{Purpose} & Hands output from the system to an external monitor. \\ \hline
 \textbf{Function} & All interaction with the user is through an external monitor. This system handles all output to the screen. \\ \hline
-\textbf{Subordinates} & None \\ \hline
-\textbf{Dependencies} & None \\ \hline
+\textbf{Subordinates} & 2.1, 2.2, 2.3 \\ \hline
+\textbf{Dependencies} & 1.0, 3.1 \\ \hline
 \textbf{Interface} & There will be a writer API to allow other parts of the system to output to the screen. \\ \hline
 \textbf{Resources} & External Monitor \\ \hline
 \textbf{Processing} & The GUI module will wait until given something to write to the screen. When it is given a request, it will write that request to the screen. \\ \hline
+\textbf{Data} & See ERD in Section 3 \\ \hline
+\end{tabular}
+
+\subsubsection*{2.1 - UI Menu Manager}
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & Module \\ \hline
+\textbf{Purpose} & Cycles through the Available Devices \\ \hline
+\textbf{Function} & Allows the user to select their intended device for changing. \\ \hline
+\textbf{Subordinates} & None \\ \hline
+\textbf{Dependencies} & 1.0, 2.3, 3.1 \\ \hline
+\textbf{Interface} & UI will use the EEG interpreter and keyboard/mouse as input and will poll the device manager for device statuses.  \\ \hline
+\textbf{Resources} & External Monitor \\ \hline
+\textbf{Processing} & The UI will cycle through the various available devices. When one is selected, it will call the appropriate Interactive State Page. \\ \hline
+\textbf{Data} & See ERD in Section 3 \\ \hline
+\end{tabular}
+
+\subsubsection*{2.2 - Configuration Routine}
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & Module \\ \hline
+\textbf{Purpose} & Handles UI for configuring the headset to the user. \\ \hline
+\textbf{Function} & Configures the headset to the current user. \\ \hline
+\textbf{Subordinates} & None \\ \hline
+\textbf{Dependencies} & 1.0 \\ \hline
+\textbf{Interface} & UI will use the EEG interpreter as input and send updated training models back to it. \\ \hline
+\textbf{Resources} & External Monitor \\ \hline
+\textbf{Processing} & The UI will tell the user to focus on an `accept' thought. Then it tests the user's thought. This repeats until callibration is successful. \\ \hline
+\textbf{Data} & See ERD in Section 3 \\ \hline
+\end{tabular}
+
+\subsubsection*{2.3 - Interactive State Pages}
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & Module \\ \hline
+\textbf{Purpose} & Allows interaction with the devices. \\ \hline
+\textbf{Function} & Allows the user to interact with their intended device. \\ \hline
+\textbf{Subordinates} & None \\ \hline
+\textbf{Dependencies} & 1.0, 3.2 \\ \hline
+\textbf{Interface} & UI will use the EEG interpreter as input and will send commands to the devices module.  \\ \hline
+\textbf{Resources} & External Monitor \\ \hline
+\textbf{Processing} & Will wait for user to concentrate. If the user does not over time, it will go back to the UI Menu Manager \\ \hline
 \textbf{Data} & See ERD in Section 3 \\ \hline
 \end{tabular}
 
