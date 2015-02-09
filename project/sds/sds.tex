@@ -355,11 +355,53 @@ The design entities include the following:
 \textbf{Type} & Module \\ \hline
 \textbf{Purpose} & Determines if the current brain scan information matches the trained data \\ \hline
 \textbf{Function} & Looks at the current EEG information coming from the user's brainwaves and compares this to the data that was trained to see if it matches one of the trained classes. \\ \hline
-\textbf{Subordinates} & None \\ \hline
-\textbf{Dependencies} & Relies on Training datastore (2.2). There needs to be trained models to compare the stream of data to. \\ \hline
+\textbf{Subordinates} & Data Filter (1.1), EEG Processor (1.2), and the Training Datastore (1.3). \\ \hline
+\textbf{Dependencies} & Relies on the Emotiv device and Patient to provide inputs and relies on the Configuration Routine (2.2) to tell it which mode it is in. \\ \hline
 \textbf{Interface} & The EEG Interpreter will have an API that can be polled by other components. \\ \hline
 \textbf{Resources} & The EEG information comes from the emotive device. \\ \hline
-\textbf{Processing} & Each entry in the Training datastore will have a set of changes or values that will constitute entry into that state. This module will continually analyze the incoming EEG data to see if the changes or the current values match the values stored in the datastore. There will be four values that will be analyzed for each electrode of the EEG. They will be amplitude, change in amplitude, frequency, and change in frequency. If the values for each of those metrics are close to the trained data, then we will say that we are in that state.\\ \hline
+\textbf{Processing} & Each entry in the Training Datastore will have a set of changes or values that will constitute entry into that state. This module will continually analyze the incoming EEG data to see if the changes or the current values match the values stored in the datastore. There will be four values that will be analyzed for each electrode of the EEG. They will be amplitude, change in amplitude, frequency, and change in frequency. If the values for each of those metrics are close to the trained data, then we will say that we are in that state.\\ \hline
+\textbf{Data} & See ERD in Section 3 \\ \hline
+\end{tabular}
+
+\subsubsection*{1.1 - Data Filter}
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & Module \\ \hline
+\textbf{Purpose} & The data is often noisy and needs to be cleaned up before being used. \\ \hline
+\textbf{Function} & This module performs simple signal processing to clean up the signal so that it can be used more effectively later in the pipeline. This includes filtering out signals if the accelerometer senses too big of a stimulus. \\ \hline
+\textbf{Subordinates} & None \\ \hline
+\textbf{Dependencies} & None\\ \hline
+\textbf{Interface} & The EEG Interpreter will have an API that returns the freshest set of filtered EEG data. \\ \hline
+\textbf{Resources} & The EEG information comes from the emotive device. \\ \hline
+\textbf{Processing} & This module will perform some simple filtering on the EEG data. The first form of filtering it will perform is to check the accelerometer data. If the accelerometer data reads a stimulus above a certain threshold, then the EEG data will be discarded during that time period.\\ \hline
+\textbf{Data} & See ERD in Section 3 \\ \hline
+\end{tabular}
+
+\subsubsection*{1.2 - EEG Processor}
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & Module \\ \hline
+\textbf{Purpose} & This module is needed to figure out if the current state of the user matches any of the trained states. \\ \hline
+\textbf{Function} & Looks at the current EEG information coming from the user's brainwaves and compares this to the data that was trained to see if it matches one of the trained classes. \\ \hline
+\textbf{Subordinates} & None \\ \hline
+\textbf{Dependencies} & Relies on Training datastore (1.2) and the Data Filter (1.1) \\ \hline
+\textbf{Interface} & The EEG Processor will have an API to get the current state of the user. \\ \hline
+\textbf{Resources} & None \\ \hline
+\textbf{Processing} & This module will continually analyze the filtered EEG data to see if the changes or the current values match the values stored in the datastore. There will be four values that will be analyzed for each electrode of the EEG. They will be amplitude, change in amplitude, frequency, and change in frequency. If the values for each of those metrics are close to the trained data, then we will say that we are in that state.\\ \hline
+\textbf{Data} & See ERD in Section 3 \\ \hline
+\end{tabular}
+
+\subsubsection*{1.3 - Training Datastore}
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & Data store \\ \hline
+\textbf{Purpose} & It is necessary to store trained states somewhere. \\ \hline
+\textbf{Function} & Stores the state information for each user.\\ \hline
+\textbf{Subordinates} & None \\ \hline
+\textbf{Dependencies} & Relies on the EEG Processor (1.2) to feed in data to store. \\ \hline
+\textbf{Interface} & The EEG Interpreter will have an API will allow the retrieval and storage of information. \\ \hline
+\textbf{Resources} & None \\ \hline
+\textbf{Processing} & The module only stores data and returns the data when requested.\\ \hline
 \textbf{Data} & See ERD in Section 3 \\ \hline
 \end{tabular}
 
