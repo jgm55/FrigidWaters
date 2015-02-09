@@ -186,7 +186,7 @@ Interface.
 % FIXME Would be nice to section according to the DFD, but requires more plumbing
 
 \subsubsection{Component 1: EEG Processing}
-This component receives input from the patient (via the Emotive device) and
+This component receives input from the patient (via the Emotiv device) and
 configuration commands from the control layer. It then returns the current
 state the user is in (concentrating/not concentrating) and stores data
 during from the training process.
@@ -200,14 +200,26 @@ that has too much noise in it to be useful. This component then passes the
 data to the main EEG processor.
 
 \subsubsection{Component 1.2: EEG Processor}
-This component takes in the filtered EEG data from the Data Filter (1.1) and the current configuration data from the Control Layer(2). Using this, it performs two actions. First, if it is in training mode, it analyzes the EEG and detects patterns corresponding to the time the user was trying to select an option. If it succeeds, it puts the data about the user and that trained state into the Training Data Storage (1.3). If we are currently running, the EEG Processor retrieves data from the Training Data Store matching the current user. It compares the trained states to the current EEG data. If it gets a match, it returns the corresponding state. Otherwise, it returns the neutral state.
+This component takes in the filtered EEG data from the Data Filter (1.1) and
+the current configuration data from the Control Layer (2). Using this, it
+performs two actions. First, if it is in training mode, it analyzes the EEG
+and detects patterns corresponding to the time the user was trying to select
+an option. If it succeeds, it puts the data about the user and that trained
+state into the Training Data Storage (1.3). If we are currently running, the
+EEG Processor retrieves data from the Training Data Store matching the current
+user. It compares the trained states to the current EEG data. If it gets a
+match, it returns the corresponding state. Otherwise, it returns the neutral
+state.
 
-\subsubsection{Component 1.3: Training Data Storage}
-This system stores trained states by user. It contains the observed amplitude, change in amplitude, frequency, and change in frequency for each electrode during the training process. It is written to during the training process and is queried while running to see if the current data matches any stored states.
+\subsubsection{Component D1.3: Training Datastore}
+This system stores trained states by user. It contains the observed amplitude,
+change in amplitude, frequency, and change in frequency for each electrode
+during the training process. It is written to during the training process and
+is queried while running to see if the current data matches any stored states.
 
 \subsubsection{Component 2: GUI/Control Layer}
-% TODO
-This component receives input from the EEG processing (1), updates the screen, and sends high level commands to the HAS Interface (3). 
+This component receives input from the EEG processing (1), updates the screen,
+and sends high level commands to the HAS Interface (3). 
 
 \subsubsection{Component 2.1: UI Cycle Routine}
 The UI Cycle Routine cycles through all of the available Interactive State Pages (2.3) one by one, and receives input from the EEG processing to select one. 
@@ -407,7 +419,7 @@ The design entities include the following:
 \textbf{Data} & See ERD in Section 3 \\ \hline
 \end{tabular}
 
-\subsection*{4.0 - Home Automation Interface}
+\subsection*{3 - Home Automation Interface}
 \begin{tabular}{ | l |  p{13.3cm} |}
 \hline
 \textbf{Type} & Module \\ \hline
@@ -416,13 +428,86 @@ The design entities include the following:
 automation controls. This includes providing the rest of the system with
 information about available controls, maintaining any necessary state, and
 processing requests to manipulate the home via the controls. \\ \hline
-\textbf{Subordinates} & None \\ \hline
+\textbf{Subordinates} & 3.1, 3.2, 3.3, D3.4 \\ \hline
 \textbf{Dependencies} & None \\ \hline
-\textbf{Interface} & The interface will support querying for information about
-available home controls and to manipulate the home via the controls. \\ \hline
+\textbf{Interface} & Supports querying for information about available home
+devices and manipulating the home via the devices. Provides notifications for
+changes in device state. \\ \hline
 \textbf{Resources} & Home automation system controls \\ \hline
 \textbf{Processing} & The module will query control state as necessary and
 reject requests that are not valid in the current state. \\ \hline
+\textbf{Data} & See ERD in Section 3 \\ \hline
+\end{tabular}
+
+\subsection*{3.1 - Device Manager}
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & Module \\ \hline
+\textbf{Purpose} & Maintains the set of available Devices. \\ \hline
+\textbf{Function} & Adds Device instances upon request. Maintains the list of
+Devices. Listens for device updates and determines which should be forwarded
+to the rest of the system. \\ \hline
+\textbf{Subordinates} & None \\ \hline
+\textbf{Dependencies} & 3.2, D3.4 \\ \hline
+\textbf{Interface} & Provides an interface for manually configuring
+available home automation devices. Provides the GUI/Control Layer (2) with a
+list of available devices and actions. Receives state changes from Devices and
+notifies the GUI/Control Layer of these changes. \\ \hline
+\textbf{Resources} & Home automation system controls (while adding devices) \\ \hline
+\textbf{Processing} & None \\ \hline
+\textbf{Data} & See ERD in Section 3 \\ \hline
+\end{tabular}
+
+\subsection*{3.2 - Devices}
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & Module \\ \hline
+\textbf{Purpose} & Acts as an adapter between the high-level system and the
+low-level operations defined by Drivers. \\ \hline
+\textbf{Function} & Translates user-visible actions into low-level Driver
+operations and low-level Driver updates into high-level device status updates.
+\\ \hline
+\textbf{Subordinates} & None \\ \hline
+\textbf{Dependencies} & 3.1, 3.3, D3.4 \\ \hline
+\textbf{Interface} & Presents available devices and their actions to the
+rest of the system and provides status updates via the Device Manager. \\ \hline
+\textbf{Resources} & None \\ \hline
+\textbf{Processing} & Translates user-visible actions into low-level Driver
+operations. Maintains necessary state information and notifies the rest of the
+system upon state change. \\ \hline
+\textbf{Data} & See ERD in Section 3 \\ \hline
+\end{tabular}
+
+\subsection*{3.3 - Drivers}
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & Module \\ \hline
+\textbf{Purpose} & Provides the low-level interface to the Insteon home
+automation devices. \\ \hline
+\textbf{Function} & Listens for action requests from Devices and state changes
+from physical home control devices. \\ \hline
+\textbf{Subordinates} & None \\ \hline
+\textbf{Dependencies} & 3.2 \\ \hline
+\textbf{Interface} & Accepts action requests from Devices. Notifies
+corresponding Devices of relevant state changes. \\ \hline
+\textbf{Resources} & Home automation system controls \\ \hline
+\textbf{Processing} & Constructs appropriate messages in each direction. \\ \hline
+\textbf{Data} & See ERD in Section 3 \\ \hline
+\end{tabular}
+
+\subsection*{D3.4 - Device Config File}
+\begin{tabular}{ | l |  p{13.3cm} |}
+\hline
+\textbf{Type} & Module \\ \hline
+\textbf{Purpose} & Persists device configuration. \\ \hline
+\textbf{Function} & Stores device configuration in file, and loads from file
+when system starts. \\ \hline
+\textbf{Subordinates} & None \\ \hline
+\textbf{Dependencies} & 3.1, 3.2 \\ \hline
+\textbf{Interface} & Stores necessary configuration information in JSON
+format. \\ \hline
+\textbf{Resources} & Local filesystem \\ \hline
+\textbf{Processing} & None \\ \hline
 \textbf{Data} & See ERD in Section 3 \\ \hline
 \end{tabular}
 
