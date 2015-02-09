@@ -682,11 +682,23 @@ repeat forever:
 
 \end{lstlisting}
 
-\subsection*{2.0 - Training Module}
+\subsection*{2.1 - UI Menu Manager}
+
+Upon displaying page:
+\begin{lstlisting}
+register self as EEG Interpreter listener for necessary states
+fetch list of connected devices
+display accessible devices
+cycle through the list of devices one by one.
+if user input from EEG, open appropriate Interactive State Page
+\end{lstlisting}
+
+\subsection*{2.2 - Configuration Routine}
 
 Upon training request:
 
 \begin{lstlisting}
+register self as EEG Interpreter listener for necessary states
 for each untrained State Trainer:
     run the trainer
 save results to Training Datastore
@@ -701,14 +713,17 @@ repeat until trained:
     update training parameters
 \end{lstlisting}
 
-\subsection*{3.0 - GUI Module}
+\subsection*{2.3 - Interactive State Pages}
 
-Upon menu display request:
+Upon displaying page
 
 \begin{lstlisting}
-display menu
 register self as EEG Interpreter listener for necessary states
-upon state notification, perform action
+fetch and display device status
+show UI options relating to device
+listen for input from headset.
+if input lasts 5 seconds, send appropriate command
+if no input after 10 seconds, go back to UI Menu
 \end{lstlisting}
 
 \subsection*{3.1 - Device Manager}
