@@ -449,10 +449,10 @@ Devices. Listens for device updates and determines which should be forwarded
 to the rest of the system. \\ \hline
 \textbf{Subordinates} & None \\ \hline
 \textbf{Dependencies} & 3.2, D3.4 \\ \hline
-\textbf{Interface} & Provides an interface for manually configuring
-available home automation devices. Provides the GUI/Control Layer (2) with a
-list of available devices and actions. Receives state changes from Devices and
-notifies the GUI/Control Layer of these changes. \\ \hline
+\textbf{Interface} & Provides an interface for manually configuring available
+home automation devices via Insteon device ID. Provides the GUI/Control Layer
+(2) with a list of available devices and actions. Receives state changes from
+Devices and notifies the GUI/Control Layer of these changes. \\ \hline
 \textbf{Resources} & Home automation system controls (while adding devices) \\ \hline
 \textbf{Processing} & None \\ \hline
 \textbf{Data} & See ERD in Section 3 \\ \hline
@@ -591,26 +591,45 @@ repeat until trained:
 \subsection*{3.0 - GUI Module}
 
 Upon menu display request:
+
 \begin{lstlisting}
-% TODO OPTION A
-display menu
-for each menu option:
-    register callback for corresponding state in EEG Interpreter
-% TODO OPTION B
 display menu
 register self as EEG Interpreter listener for necessary states
 upon state notification, perform action
 \end{lstlisting}
 
-\subsection*{4.0 - Home Automation Interface}
+\subsection*{3.1 - Device Manager}
+
+Upon receiving a request to add a device:
+
+\begin{lstlisting}
+query Drivers for an available device with that ID
+if present:
+    create corresponding Device instance
+else:
+    report error
+\end{lstlisting}
+
+\subsection*{3.2 - Devices}
 
 Upon receiving a control request:
 
 \begin{lstlisting}
 if request is valid:
-    perform action
+    perform basic Driver operation 1
+    ...
+    perform basic Driver operation n
 else:
     report error
+\end{lstlisting}
+
+\subsection*{3.3 - Drivers}
+
+Upon receiving a control request:
+
+\begin{lstlisting}
+translate into Insteon command format
+send command
 \end{lstlisting}
 
 \newpage
