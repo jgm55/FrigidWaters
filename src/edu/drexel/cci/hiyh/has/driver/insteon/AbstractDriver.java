@@ -1,11 +1,11 @@
-package edu.drexel.cci.hiyh.home.insteon;
+package edu.drexel.cci.hiyh.has.driver.insteon;
 
 import java.io.IOException;
 
 /**
  * Manages an Insteon home automation device.
  */
-public class Device {
+public abstract class AbstractDriver {
 
     private PLM plm;
 

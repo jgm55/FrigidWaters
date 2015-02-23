@@ -1,4 +1,4 @@
-package edu.drexel.cci.hiyh.home.insteon;
+package edu.drexel.cci.hiyh.has.driver.insteon;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public class Demo {
 
     public static void main(String args[]) throws IOException {
         open();
-        LightDevice dev = getLightDevice();
+        Dimmer dev = getDimmer();
 
         dev.turnOn();
         try {
@@ -33,8 +33,8 @@ public class Demo {
         plm.open();
     }
 
-    public static LightDevice getLightDevice() {
+    public static Dimmer getDimmer() {
         // Assume that our light device has this ID.
-        return new LightDevice(plm, new byte[] {0x26, (byte)0x98, (byte)0x87});
+        return new Dimmer(plm, new byte[] {0x26, (byte)0x98, (byte)0x87});
     }
 }

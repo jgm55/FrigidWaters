@@ -1,4 +1,4 @@
-package edu.drexel.cci.hiyh.home.insteon;
+package edu.drexel.cci.hiyh.has.driver.insteon;
 
 import java.util.Arrays;
 

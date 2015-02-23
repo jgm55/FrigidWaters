@@ -1,22 +1,20 @@
-package edu.drexel.cci.hiyh.home.insteon;
+package edu.drexel.cci.hiyh.has.driver.insteon;
 
 import java.io.IOException;
 
-public class LightDevice extends Device {
+public class Dimmer extends AbstractDriver {
 
-    // TODO properly implement querying, or better yet, listening
-    private boolean on = false;
-    
-    public LightDevice(PLM plm, byte[] address) {
+    public Dimmer(PLM plm, byte[] address) {
         super(plm, address);
     }
 
     public void setIntensity(byte value, boolean fade) throws IOException {
         command((byte)(fade ? 0x11 : 0x13), value);
         // Java doesn't have unsigned, but value "is". Dumb.
-        on = value != 0;
+        //on = value != 0;
     }
 
+    /*
     public void setIntensity(byte value) throws IOException {
         setIntensity(value, true);
     }
@@ -36,4 +34,5 @@ public class LightDevice extends Device {
         else
             turnOn();
     }
+    */
 }
