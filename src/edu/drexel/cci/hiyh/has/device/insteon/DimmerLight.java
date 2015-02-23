@@ -1,29 +1,30 @@
 package edu.drexel.cci.hiyh.has.device.insteon;
 
-import edu.drexel.cci.hiyh.has.device.Action;
+import edu.drexel.cci.hiyh.has.device.ActionMethod;
 import edu.drexel.cci.hiyh.has.device.Device;
 import edu.drexel.cci.hiyh.has.driver.insteon.Dimmer;
 
 import java.io.IOException;
 
-public class DimmerLight implements Device {
+public class DimmerLight extends Device {
     private final Dimmer driver;
 
-    public DimmerLight(final Dimmer driver) {
+    public DimmerLight(String name, Dimmer driver) {
+        super(name);
         this.driver = driver;
     }
 
-    @Action
+    @ActionMethod(name="Turn On")
     public void turnOn() throws IOException {
         driver.setIntensity((byte)0xff, true);
     }
 
-    @Action
+    @ActionMethod(name="Turn Off")
     public void turnOff() throws IOException {
         driver.setIntensity((byte)0x00, true);
     }
 
-    @Action
+    @ActionMethod(name="Set Light Level")
     public void setLevel(byte level) throws IOException {
         driver.setIntensity(level, true);
     }

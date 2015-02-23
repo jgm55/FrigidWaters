@@ -7,7 +7,6 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import edu.drexel.cci.hiyh.has.DeviceManager;
-import edu.drexel.cci.hiyh.has.device.Action;
 import edu.drexel.cci.hiyh.has.device.Device;
 
 /** Console UI demo. */
@@ -41,15 +40,9 @@ public class DemoUI {
 
     public void run() {
         Device d = menu(dm.getDevices());
-        Method m = menu(Arrays.stream(d.getClass().getMethods())
-                        .filter(p -> p.isAnnotationPresent(Action.class))
-                        .collect(Collectors.toList()));
-        try {
-            m.invoke(d, Arrays.stream(m.getParameterTypes())
-                        .map(this::get).toArray());
-        } catch (ReflectiveOperationException e) {
-            e.printStackTrace();
-        }
+        Device.Action a = menu(d.getActions());
+        a.invoke(Arrays.stream(a.getParameterTypes())
+                 .map(this::get).toArray());
     }
 
     public static void main(String[] args) {
