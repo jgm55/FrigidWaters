@@ -14,7 +14,7 @@ public abstract class AbstractDriver {
      */
     private final byte[] address;
 
-    public Device(PLM plm, byte[] address) {
+    public AbstractDriver(PLM plm, byte[] address) {
         this.plm = plm;
         this.address = address;
     }

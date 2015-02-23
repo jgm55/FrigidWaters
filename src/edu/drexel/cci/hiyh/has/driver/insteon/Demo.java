@@ -9,7 +9,7 @@ import jssc.SerialPortList;
  * and then off.
  */
 public class Demo {
-    private static final PLM plm;
+/*    private static final PLM plm;
 
     static {
         // Assume that it's the first available serial port.
@@ -36,5 +36,5 @@ public class Demo {
     public static Dimmer getDimmer() {
         // Assume that our light device has this ID.
         return new Dimmer(plm, new byte[] {0x26, (byte)0x98, (byte)0x87});
-    }
+    }*/
 }

@@ -1,5 +1,6 @@
 package edu.drexel.cci.hiyh.ui;
 
+/*
 import edu.drexel.cci.hiyh.home.insteon.Demo;
 import edu.drexel.cci.hiyh.home.insteon.LightDevice;
 
@@ -16,3 +17,4 @@ public class Test {
 		MainUI mui = new MainUI(Demo.getLightDevice());
 	}
 }
+*/

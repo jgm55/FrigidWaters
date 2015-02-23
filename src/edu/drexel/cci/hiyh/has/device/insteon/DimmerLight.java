@@ -1,5 +1,6 @@
 package edu.drexel.cci.hiyh.has.device.insteon;
 
+import edu.drexel.cci.hiyh.has.device.Action;
 import edu.drexel.cci.hiyh.has.device.Device;
 import edu.drexel.cci.hiyh.has.driver.insteon.Dimmer;
 

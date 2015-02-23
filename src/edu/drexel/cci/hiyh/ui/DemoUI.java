@@ -1,7 +1,14 @@
 package edu.drexel.cci.hiyh.ui;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+
+import edu.drexel.cci.hiyh.has.DeviceManager;
+import edu.drexel.cci.hiyh.has.device.Action;
+import edu.drexel.cci.hiyh.has.device.Device;
 
 /** Console UI demo. */
 public class DemoUI {
@@ -12,13 +19,13 @@ public class DemoUI {
         this.dm = dm;
     }
 
-    public Object menu(Object[] options) {
+    public <T> T menu(List<T> options) {
         System.out.println("Select one:");
         int i = 0;
-        for (Object o : options)
-            System.out.printf("%d. %s", i++, o);
+        for (T o : options)
+            System.out.printf("%d. %s\n", i++, o);
         // XXX THIS IS JUST A DEMO, SO I DON'T CARE
-        return options[reader.nextInt()];
+        return options.get(reader.nextInt());
     }
 
     public byte getByte() {
@@ -27,23 +34,26 @@ public class DemoUI {
     }
 
     public Object get(Class<?> c) {
-        if (c == Byte.class)
+        if (c == byte.class)
             return getByte();
         return null;
     }
 
     public void run() {
         Device d = menu(dm.getDevices());
-        Method m = menu(Arrays.asList(d.class.getMethods()).stream()
-                        .filter(m -> m.isAnnotationPresent(Action.class))
-                        .toArray());
-        m.invoke(d, Arrays.asList(m.getParameterTypes()).stream()
-                    .map(this::get).toArray());
+        Method m = menu(Arrays.stream(d.getClass().getMethods())
+                        .filter(p -> p.isAnnotationPresent(Action.class))
+                        .collect(Collectors.toList()));
+        try {
+            m.invoke(d, Arrays.stream(m.getParameterTypes())
+                        .map(this::get).toArray());
+        } catch (ReflectiveOperationException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
-        // TODO get ye dm
-        new DemoUI(dm).run();
+        new DemoUI(new DeviceManager()).run();
     }
 
 }

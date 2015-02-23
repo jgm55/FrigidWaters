@@ -1,12 +1,12 @@
 package edu.drexel.cci.hiyh.ui;
 
+/*
 import edu.drexel.cci.hiyh.home.insteon.LightDevice;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
-
 
 public class MainUI extends Frame implements ActionListener{
 	Button left_arrow, right_arrow, select, confirm, cancel;
@@ -151,3 +151,4 @@ public class MainUI extends Frame implements ActionListener{
 	
 	
 }
+*/
