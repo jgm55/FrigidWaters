@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.Timer;
 import javax.swing.JFrame;
 
 
@@ -21,17 +21,17 @@ public class MainUI extends JFrame implements ActionListener{
 	private Panel controlPanel_main;
 	private Panel controlPanel_popup;
 	private Panel calibrationPanel;
+	private ScrollView currentScrollView;
 	
 	private Frame mainFrame;
 	private Frame popupFrame;
 	
-	// TODO something less abominable
-	private int i = 0;
 	private	ArrayList<String> objs = new ArrayList<String>(){{
 		add("Lights");
 		add("Television");
 		add("Heat");		
 	}};
+
 //	private LightDevice ldev;
 	
 //	public MainUI(LightDevice ldev){
@@ -39,42 +39,41 @@ public class MainUI extends JFrame implements ActionListener{
 	public MainUI(){
 
 //	    this.ldev = ldev;
-
+		System.out.println("STARTED!!");
 		popupFrame = new Frame("");
 		
-		BuildMainUI();
-		BuildCalibrationUI();
-		BuildPopupUI();
+		buildMainUI();
+		buildCalibrationUI();
+		buildPopupUI();
 		
 	}
 	
 //  Place actions here
 
-	public void actionPerformed(ActionEvent e){
+public void actionPerformed(ActionEvent e){
 		String str = e.getActionCommand();
 		
 		switch(str){
 			case ">":
-				i++;
-				if(i > objs.size() -1){
-					i = 0;
-				}
-				headerLabel.setText(objs.get(i));
+				currentScrollView.stopTimer();
+				currentScrollView.nextObject();
+				currentScrollView.startTimer();
 				break;
 			case "<":
-				i--;
-				if(i < 0){
-					i = objs.size() -1;
-				}
-				headerLabel.setText(objs.get(i));
+				currentScrollView.stopTimer();
+				currentScrollView.previousObject();
+				currentScrollView.startTimer();
 				break;
 			case "Select":
-				popupLabel.setText("Change state of " + objs.get(i));
+				currentScrollView.stopTimer();
+				String selectedObject = currentScrollView.getCurrentObject();
+
+				popupLabel.setText("Change state of " + selectedObject);
 				popupFrame.setVisible(true);
 				break;
-			case "Confirm":
-				// TODO something more fitting than looking at the header label
-				switch(headerLabel.getText()) {
+			case "Confirm":				
+				currentScrollView.getCurrentObject();
+				switch(currentScrollView.getCurrentObject()) {
 				    case "Lights":
 //				        try {
 //				            ldev.toggle();
@@ -85,11 +84,16 @@ public class MainUI extends JFrame implements ActionListener{
 //				            System.exit(1);
 //				        }
 				        break;
+				    default:
+				    	break;
 				}
 				popupFrame.setVisible(false);
+				currentScrollView.startTimer();
 				break;
 			case "Cancel":
 				popupFrame.setVisible(false);
+				currentScrollView.startTimer();
+
 				break;
 			case "Finish Calibration":
 				clearMainFrame();
@@ -97,11 +101,11 @@ public class MainUI extends JFrame implements ActionListener{
 				break;
 			case "Successful Calibration":
 				clearMainFrame();
-				BuildSelectionUI();
+				buildSelectionUI();
 				break;
 			case "Calibration Failed":
 				clearMainFrame();
-				BuildCalibrationUI();
+				buildCalibrationUI();
 				break;
 				
 
@@ -110,11 +114,9 @@ public class MainUI extends JFrame implements ActionListener{
 				
 	}
 	
-	
-	
-	
+
 //	UI Layout functions
-	private void BuildMainUI(){
+	private void buildMainUI(){
 		this.setSize(400,200);
 
 		this.addWindowListener(new WindowAdapter(){
@@ -128,16 +130,10 @@ public class MainUI extends JFrame implements ActionListener{
 
 	}
 	
-	private void BuildPopupUI(){
+	private void buildPopupUI(){
 		popupFrame.setSize(400,200);
 		popupFrame.setLayout(new GridLayout(2, 1));
-
-//		popupFrame.addWindowListener(new WindowAdapter(){
-//			public void windowClosing(WindowEvent e){
-//				dispose(); 
-//			}   
-//		});
-
+		
 		popupLabel = new Label();
 		popupLabel.setAlignment(Label.CENTER);
 		popupLabel.setText("Change State of");
@@ -160,20 +156,17 @@ public class MainUI extends JFrame implements ActionListener{
 
 	}
 	
-	private void BuildSelectionUI(){
+	private void buildSelectionUI(){
 		this.setLayout(new GridLayout(2, 1));
-
-		headerLabel = new Label();
-		headerLabel.setAlignment(Label.CENTER);
-		headerLabel.setText(objs.get(i));
-		
+		currentScrollView = new ScrollView(objs);
+				
 		controlPanel_main = new Panel();
 		controlPanel_main.setLayout(new FlowLayout());
 
 		left_arrow = new Button("<");
 		right_arrow = new Button(">");
 		selectApplicationButton = new Button("Select");
-		
+
 		left_arrow.addActionListener(this);
 		right_arrow.addActionListener(this);
 		selectApplicationButton.addActionListener(this);
@@ -183,17 +176,28 @@ public class MainUI extends JFrame implements ActionListener{
 
 		setSize(400,200);
 		setVisible(true);
-		
-		this.add(headerLabel);
-		this.add(controlPanel_main);
-		currentComps.add(headerLabel);
-		currentComps.add(controlPanel_main);
-		this.repaint();
-		this.revalidate();
 
+		this.add(currentScrollView);		
+		this.add(controlPanel_main);
+		
+		currentComps.add(headerLabel);
+		currentComps.add(currentScrollView);
+		this.repaint();
+		this.validate();
+//
+//		Timed();
 	}
+
 	
-	private void BuildCalibrationUI(){
+	
+	
+	
+	
+	
+	private void buildCalibrationUI(){
+		
+
+		System.out.println("Building calibration...");
 		this.setLayout(new GridLayout(3, 1));
 
 		calibrationLabel = new Label();
@@ -223,7 +227,7 @@ public class MainUI extends JFrame implements ActionListener{
 		currentComps.add(calibrationPanel);
 		
 		this.repaint();
-		this.revalidate();
+		this.validate();
 
 	}
 	
@@ -254,7 +258,7 @@ public class MainUI extends JFrame implements ActionListener{
 		currentComps.add(calibrationPanel);
 		
 		this.repaint();
-		this.revalidate();
+		this.validate();
 	}
 	
 	public void clearMainFrame(){
@@ -264,11 +268,9 @@ public class MainUI extends JFrame implements ActionListener{
 		
 		currentComps.clear();		
 		this.repaint();
-		this.revalidate();
+		this.validate();
 
 	}
-	
-
 	
 	
 }
