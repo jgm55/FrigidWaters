@@ -19,6 +19,8 @@ public abstract class MenuNode<T> {
     protected final MenuNode<?> parent;
 
     public MenuNode(InputUI ui, MenuNode<?> parent) {
+        // Would we ever actually want different UIs for a node and its
+        // parent?
         this.ui = ui;
         this.parent = parent;
     }
@@ -26,7 +28,11 @@ public abstract class MenuNode<T> {
     public MenuNode(InputUI ui) {
         this(ui, null);
     }
-    
+
+    public MenuNode(MenuNode<?> parent) {
+        this(parent.ui, parent);
+    }
+
     /**
      * Begin this node's operation. This should request input from the UI and
      * have it call back to either success() or cancel(), as appropriate.

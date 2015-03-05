@@ -33,12 +33,13 @@ public class ConsoleUI implements InputUI {
      */
     public <T> void get(Class<T> c, Consumer<T> success, Consumer<Void> cancel) {
         // Note that this doesn't actually include a cancel option.
-        if (c == byte.class)
+        if (c.equals(Byte.class))
             success.accept(c.cast(getByte()));
-        throw new IllegalArgumentException("Can't handle class: " + c);
+        else
+            throw new IllegalArgumentException("Can't handle class: " + c);
     }
 
-    private byte getByte() {
+    private Byte getByte() {
         System.out.println("Enter a byte: ");
         return reader.nextByte();
     }

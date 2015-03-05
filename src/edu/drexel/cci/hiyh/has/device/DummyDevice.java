@@ -14,7 +14,7 @@ public class DummyDevice extends Device {
     }
 
     @ActionMethod(name="Print Byte")
-    public void print(byte b) throws IOException {
+    public void print(Byte b) throws IOException {
         System.out.println("DummyDevice prints " + b);
     }
 }

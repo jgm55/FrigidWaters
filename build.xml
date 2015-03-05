@@ -11,7 +11,9 @@
 
     <target name="compile">
         <mkdir dir="${build}"/>
-        <javac srcdir="${src}" destdir="${build}" includeantruntime="false" classpathref="classpath"/>
+        <javac srcdir="${src}" destdir="${build}" includeantruntime="false" classpathref="classpath">
+            <compilerarg value="-Xlint:unchecked"/>
+        </javac>
     </target>
 
     <target name="clean">
