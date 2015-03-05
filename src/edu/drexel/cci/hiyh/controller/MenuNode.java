@@ -1,15 +1,51 @@
 package edu.drexel.cci.hiyh.controller;
 
-import edu.drexel.cci.hiyh.ui.Displayable;
+import edu.drexel.cci.hiyh.ui.InputUI;
 
-import java.util.List;
+/**
+ * Menu navigation is represented by a series of MenuNodes. They provide the
+ * ability to request user input without blocking and to "back out" should the
+ * user cancel a menu selection.
+ */
+public abstract class MenuNode<T> {
+    /**
+     * The InputUI that the MenuNode should receive input from.
+     */
+    protected final InputUI ui;
+    /**
+     * The previous MenuNode in the chain. Canceling should return to this
+     * node.
+     */
+    protected final MenuNode<?> parent;
 
-public abstract class MenuNode {
-
-    public MenuNode(List<Displayable> displayableList) {
-        // create some ui element with displayables
+    public MenuNode(InputUI ui, MenuNode<?> parent) {
+        this.ui = ui;
+        this.parent = parent;
     }
 
-    public abstract void success(int index);
-    public abstract void failure();
+    public MenuNode(InputUI ui) {
+        this(ui, null);
+    }
+    
+    /**
+     * Begin this node's operation. This should request input from the UI and
+     * have it call back to either success() or cancel(), as appropriate.
+     */
+    public abstract void run();
+
+    /**
+     * Accept user input and take action appropriately.
+     *
+     * @param t user input
+     */
+    public abstract void success(T t);
+
+    /**
+     * Back up to the previous MenuNode, or cancel operation if this is the
+     * first one.
+     */
+    public void cancel(Void v) {
+        if (parent != null)
+            parent.run();
+    }
 }
