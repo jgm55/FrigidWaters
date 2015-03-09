@@ -1,15 +1,26 @@
-<project name="HouseInYourHead" default="compile">
+<project name="HouseInYourHead" default="compile"
+    xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 
     <property name="src" location="src"/>
     <property name="lib" location="lib"/>
     <property name="build" location="build"/>
+    <artifact:pom id="mypom" file="pom.xml"/>
 
     <path id="classpath">
         <pathelement location="${build}/"/>
         <fileset dir="${lib}" includes="**/*.jar"/>
     </path>
 
-    <target name="compile">
+    <target name="dependencies">
+        <mkdir dir="${lib}"/>
+        <artifact:dependencies filesetId="dependency.fileset" pomRefId="mypom"/>
+        <copy todir="${lib}">
+            <fileset refid="dependency.fileset"/>
+            <mapper type="flatten"/>
+        </copy>
+    </target>
+
+    <target name="compile" depends="dependencies">
         <mkdir dir="${build}"/>
         <javac srcdir="${src}" destdir="${build}" includeantruntime="false" classpathref="classpath">
             <compilerarg value="-Xlint:unchecked"/>
