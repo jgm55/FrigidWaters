@@ -67,6 +67,8 @@ public void actionPerformed(ActionEvent e){
 			case "Select":
 				currentScrollView.stopTimer();
 				String selectedObject = currentScrollView.getCurrentObject();
+				//With InputUI implemented we should call something like 
+				// currentScrollView.select(params) or currentScrollView.get(params)
 
 				popupLabel.setText("Change state of " + selectedObject);
 				popupFrame.setVisible(true);

@@ -5,15 +5,17 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
+import java.util.function.Consumer;
 
-public class ScrollView extends Panel{
+public class ScrollView extends Panel implements InputUI{
 	private Label headerLabel;
 	private Timer timer;
 	
 	private Object currentObject;
 	
-	private	ArrayList<String> objs = new ArrayList<String>(){{
+	private	ArrayList<String> scrollObjects = new ArrayList<String>(){{
 		add("Lights");
 		add("Television");
 		add("Heat");		
@@ -21,7 +23,7 @@ public class ScrollView extends Panel{
 
 	public ScrollView(ArrayList<String> obj){
 //		objs = obj;
-		currentObject = objs.get(0);
+		currentObject = scrollObjects.get(0);
 		buildSelectionUI();
 	}
 
@@ -70,35 +72,69 @@ public class ScrollView extends Panel{
 
 
 	public void nextObject(){
-		int idx = objs.indexOf(currentObject) + 1;
-		if(idx > objs.size() - 1){
+		int idx = scrollObjects.indexOf(currentObject) + 1;
+		if(idx > scrollObjects.size() - 1){
 			idx = 0;   
 		}        
-		headerLabel.setText(objs.get(idx));
+		headerLabel.setText(scrollObjects.get(idx));
 		headerLabel.setSize(headerLabel.getPreferredSize());
 		headerLabel.setAlignment(Label.CENTER);
 
-		currentObject = objs.get(idx);	
+		currentObject = scrollObjects.get(idx);	
 	}
 
 
 	public void previousObject(){ 		
-		int idx = objs.indexOf(currentObject) - 1;
+		int idx = scrollObjects.indexOf(currentObject) - 1;
 		
 		if(idx < 0){
-			idx = objs.size() - 1;   
+			idx = scrollObjects.size() - 1;   
 		}
 		
-		headerLabel.setText(objs.get(idx));
+		headerLabel.setText(scrollObjects.get(idx));
 		headerLabel.setSize(headerLabel.getPreferredSize());
 		headerLabel.setAlignment(Label.CENTER);
-		currentObject = objs.get(idx);		
+		currentObject = scrollObjects.get(idx);		
 
 	}
 	
 	public String getCurrentObject(){
 		return (String)currentObject;
 	}
+	
+	public int getCurrentObjectIndex(){
+		return scrollObjects.indexOf(currentObject);
+	}
+	
+    public <T extends Displayable> void select(List<T> items, Consumer<T> success, Consumer<Void> cancel) {
+        System.out.println("Select one, or enter an index out of range to cancel:");
+        int i = 0;
+        for (T o : items)
+            System.out.printf("%d. %s\n", i++, o);
+
+//        int s = reader.nextInt();
+        //Assumes items and the list of scroll objects have corresponding index
+        int s = getCurrentObjectIndex();
+        
+        if (s >= 0 && s < items.size())
+            success.accept(items.get(s));
+        else
+            cancel.accept(null);
+    }
+
+    
+    @Override
+    /**
+     * {@inheritDoc}
+     */
+    public <T> void get(Class<T> c, Consumer<T> success, Consumer<Void> cancel) {
+        // Note that this doesn't actually include a cancel option.
+        if (c.equals(Byte.class))
+            success.accept((T) getCurrentObject());
+        else
+            throw new IllegalArgumentException("Can't handle class: " + c);
+    }
+
 
 
 
