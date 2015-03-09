@@ -10,11 +10,11 @@ public class DummyDevice extends Device {
 
     @ActionMethod(name="Say Hello")
     public void hello() {
-        System.out.println("Hello world");
+        System.out.println(name + ": Hello world");
     }
 
     @ActionMethod(name="Print Byte")
     public void print(Byte b) throws IOException {
-        System.out.println("DummyDevice prints " + b);
+        System.out.println(name + ": " + b);
     }
 }

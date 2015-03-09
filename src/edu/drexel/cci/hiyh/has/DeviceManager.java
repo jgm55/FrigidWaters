@@ -11,7 +11,8 @@ public class DeviceManager {
     private final List<Device> devices = new ArrayList<Device>();
 
     public DeviceManager() {
-        devices.add(new DummyDevice("Dummy Device"));
+        devices.add(new DummyDevice("Dummy Device 1"));
+        devices.add(new DummyDevice("Dummy Device 2"));
     }
 
     public List<Device> getDevices() {

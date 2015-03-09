@@ -2,7 +2,8 @@ package edu.drexel.cci.hiyh.controller;
 
 import edu.drexel.cci.hiyh.has.DeviceManager;
 import edu.drexel.cci.hiyh.has.device.Device;
-import edu.drexel.cci.hiyh.ui.ConsoleUI;
+//import edu.drexel.cci.hiyh.ui.ConsoleUI;
+import edu.drexel.cci.hiyh.ui.ScrollUI;
 import edu.drexel.cci.hiyh.ui.InputUI;
 
 public class Controller {
@@ -27,7 +28,7 @@ public class Controller {
     }
 
     public static void main(String[] args) {
-        new Controller(new DeviceManager(), new ConsoleUI()).actionMenu();
+        new Controller(new DeviceManager(), new ScrollUI()).actionMenu();
     }
 
 }
