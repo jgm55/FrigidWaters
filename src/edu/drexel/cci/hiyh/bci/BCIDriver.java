@@ -1,3 +1,4 @@
+package edu.drexel.cci.hiyh.bci;
 
 public class BCIDriver {
 

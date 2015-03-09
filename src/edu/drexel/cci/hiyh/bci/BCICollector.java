@@ -1,5 +1,6 @@
-import java.util.ArrayList;
+package edu.drexel.cci.hiyh.bci;
 
+import java.util.ArrayList;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 
