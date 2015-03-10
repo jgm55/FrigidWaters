@@ -8,7 +8,7 @@ import jssc.SerialPortException;
 /**
  * Communicates with a PowerLinc Modem.
  */
-class PLM {
+public class PLM {
 
     private SerialPort port;
 
