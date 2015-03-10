@@ -8,12 +8,40 @@ public class SignalDetector {
 	private double[] calibrations = new double[14];
 	private double[] ranges = new double[14];
 	private double[][] store = new double[14][500];
-	private boolean calibrated = false;
+	private Boolean calibrated = false;
 	private int index = 0;
 	
 	public SignalDetector() {
 	}
 	
+	public boolean getCalibrated() {
+		return calibrated;
+	}
+
+	public boolean getCalibratedWhenTrue() throws InterruptedException {
+		synchronized(calibrated){	
+			while(!calibrated) {
+				calibrated.wait();
+			}
+			return calibrated;
+		}
+	}
+	
+	public boolean getCalibratedWhenTrue(long timeout) throws InterruptedException {
+		synchronized(calibrated){	
+			while(!calibrated) {
+				calibrated.wait(timeout);
+			}
+			return calibrated;
+		}
+	}
+	
+	private void setCalibrated(boolean cal) {
+		synchronized(calibrated) {
+			calibrated = cal;
+			calibrated.notifyAll();
+		}
+	}
 	
 	public boolean process(double[][] data) {
 		if (!calibrated) {
@@ -23,11 +51,11 @@ public class SignalDetector {
 				}
 				index++;
 				if (index>= store[0].length) {
-					calibrated = true;
 					for (int j=0; j<calibrations.length;j++) {
 						calibrations[j]=max(store[j]);
 						ranges[j]=max(store[j])-min(store[j]);
 					}
+					setCalibrated(true);
 					System.out.println("calibrated");
 				}
 			}

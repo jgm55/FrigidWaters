@@ -15,6 +15,10 @@ public class BCICollector extends Thread {
 	public BCICollector() {
 
 	}
+	
+	public SignalDetector getSignalDetector() {
+		return sd;
+	}
 
 	public boolean getSignal() {
 		synchronized(monitor) {

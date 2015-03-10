@@ -8,4 +8,5 @@
 *.toc
 *.synctex.gz
 *.dvi
+test.txt
 .DS_Store
