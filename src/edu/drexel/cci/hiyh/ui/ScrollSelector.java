@@ -1,6 +1,8 @@
 package edu.drexel.cci.hiyh.ui;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
@@ -8,9 +10,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Consumer;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
 
 public class ScrollSelector<T extends Displayable> extends JPanel {
     private static final int ITERATIONS_BEFORE_CANCEL = 2;
@@ -42,9 +46,14 @@ public class ScrollSelector<T extends Displayable> extends JPanel {
 		headerLabel.setHorizontalAlignment(JLabel.CENTER);
 		headerLabel.setVerticalAlignment(JLabel.CENTER);
 		
+		Font headerLabelFont = headerLabel.getFont();
+		headerLabel.setFont(new Font(headerLabelFont.getName(), Font.PLAIN, 30));
+
+
+
 		setLayout(new FlowLayout());
 
-		setSize(400,200);
+		setPreferredSize(new Dimension(400,200));
 		setVisible(true);
 		
 		add(headerLabel);
