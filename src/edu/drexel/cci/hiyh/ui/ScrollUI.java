@@ -11,16 +11,12 @@ import javax.swing.SwingUtilities;
 
 public class ScrollUI implements InputUI {
 
-    //private InputSource inputsrc;
+    private BooleanInputSource inputsrc;
     private final JFrame frame = new JFrame("HIYH");
     private final JPanel idlePanel = new JPanel();
 
-    //public interface InputSource {
-        // TODO
-    //}
-
-    public ScrollUI(/*InputSource inputsrc*/) {
-        //this.inputsrc = inputsrc;
+    public ScrollUI(BooleanInputSource inputsrc) {
+        this.inputsrc = inputsrc;
         try {
             SwingUtilities.invokeAndWait(this::buildUI);
         } catch (InterruptedException | InvocationTargetException e) {
@@ -58,6 +54,7 @@ public class ScrollUI implements InputUI {
     @Override
     public <T extends Displayable> void select(List<T> items, Consumer<T> success, Consumer<Void> cancel) {
         switchTo(new ScrollSelector<T>(
+                    inputsrc,
                     items,
                     ((Consumer<T>)this::switchToIdle).andThen(success),
                     ((Consumer<Void>)this::switchToIdle).andThen(cancel)));

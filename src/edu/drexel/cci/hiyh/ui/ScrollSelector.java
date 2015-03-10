@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class ScrollSelector<T extends Displayable> extends JPanel {
+public class ScrollSelector<T extends Displayable> extends JPanel implements BooleanInputSource.Listener {
     private static final int ITERATIONS_BEFORE_CANCEL = 2;
 
     private final List<T> items;
@@ -25,17 +25,25 @@ public class ScrollSelector<T extends Displayable> extends JPanel {
 
     private Timer timer = new Timer();
 
-    public ScrollSelector(List<T> items, Consumer<T> success, Consumer<Void> cancel) {
+    private final BooleanInputSource inputsrc;
+
+    public ScrollSelector(BooleanInputSource inputsrc, List<T> items, Consumer<T> success, Consumer<Void> cancel) {
         this.items = items;
         this.success = success;
         this.cancel = cancel;
+        this.inputsrc = inputsrc;
         try {
             SwingUtilities.invokeAndWait(this::buildUI);
         } catch (InterruptedException | InvocationTargetException e) {
             // FIXME
             e.printStackTrace();
         }
+        inputsrc.addListener(this);
         startTimer();
+    }
+
+    public void onBooleanInput() {
+		new Thread(this::select).start();
     }
 
     private void buildUI() {
@@ -64,6 +72,7 @@ public class ScrollSelector<T extends Displayable> extends JPanel {
 
     private synchronized void cleanup() {
         stopTimer();
+        inputsrc.removeListener(this);
         active = false;
     }
 

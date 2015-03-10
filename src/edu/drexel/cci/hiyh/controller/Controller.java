@@ -1,10 +1,12 @@
 package edu.drexel.cci.hiyh.controller;
 
+import edu.drexel.cci.hiyh.bci.BCIInputSource;
 import edu.drexel.cci.hiyh.has.DeviceManager;
 import edu.drexel.cci.hiyh.has.device.Device;
 //import edu.drexel.cci.hiyh.ui.ConsoleUI;
-import edu.drexel.cci.hiyh.ui.ScrollUI;
 import edu.drexel.cci.hiyh.ui.InputUI;
+import edu.drexel.cci.hiyh.ui.MouseInputSource;
+import edu.drexel.cci.hiyh.ui.ScrollUI;
 
 public class Controller {
     private final DeviceManager dm;
@@ -28,7 +30,7 @@ public class Controller {
     }
 
     public static void main(String[] args) {
-        new Controller(new DeviceManager(), new ScrollUI()).actionMenu();
+        new Controller(new DeviceManager(), new ScrollUI(new BCIInputSource())).actionMenu();
     }
 
 }
