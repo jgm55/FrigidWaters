@@ -13,7 +13,7 @@ public class DummyDevice extends Device {
         System.out.println(name + ": Hello world");
     }
 
-    @ActionMethod(name="Print Byte")
+    //@ActionMethod(name="Print Byte")
     public void print(Byte b) throws IOException {
         System.out.println(name + ": " + b);
     }
