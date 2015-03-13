@@ -24,7 +24,7 @@ public class DimmerLight extends Device {
         driver.setIntensity((byte)0x00, true);
     }
 
-    @ActionMethod(name="Set Light Level")
+    //@ActionMethod(name="Set Light Level")
     public void setLevel(Byte level) throws IOException {
         driver.setIntensity(level, true);
     }
