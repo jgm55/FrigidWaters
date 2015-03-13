@@ -4,29 +4,22 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.SwingUtilities;
 
 public class MouseInputSource extends AbstractBooleanInputSource {
-    private MouseListener ml = new MouseAdapter() {
-                public void mouseClick(MouseEvent e) {
+    private final MouseListener ml = new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
                     notifyListeners();
                 }
             };
 
-    public void addListener(BooleanInputSource.Listener l) {
-        if (l instanceof Component) {
-            super.addListener(l);
-            ((Component)l).addMouseListener(ml);
-        } else {
-            throw new IllegalArgumentException("Listener must be a Component. I'm so sorry.");
-        }
-    }
-    
-    public void removeListener(BooleanInputSource.Listener l) {
-        if (l instanceof Component) {
-            super.removeListener(l);
-            ((Component)l).removeMouseListener(ml);
-        } else {
-            throw new IllegalArgumentException("Listener must be a Component. I'm so sorry.");
-        }
+    public void initAndStart(InputUI ui) {
+        Component glassPane = ui.getGlassPane();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                glassPane.addMouseListener(ml);
+                glassPane.setVisible(true);
+            }
+        });
     }
 }

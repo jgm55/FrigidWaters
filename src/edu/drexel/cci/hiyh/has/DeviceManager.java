@@ -19,15 +19,20 @@ public class DeviceManager {
     public DeviceManager() {
         devices.add(new DummyDevice("Dummy Device 1"));
 
-        PLM plm = new PLM(SerialPortList.getPortNames()[0]);
-        try {
-            plm.open();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
+        String[] portNames = SerialPortList.getPortNames();
+        if (portNames.length > 0) {
+            PLM plm = new PLM(portNames[0]);
+            try {
+                plm.open();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+            Dimmer driver = new Dimmer(plm, new byte[] {0x26, (byte)0x98, (byte)0x87});
+        } else {
+            System.err.println("PLM not found. Adding another Dummy Device.");
+            devices.add(new DummyDevice("Dummy Device 2"));
         }
-        Dimmer driver = new Dimmer(plm, new byte[] {0x26, (byte)0x98, (byte)0x87});
-        devices.add(new DimmerLight("Light 0", driver));
     }
 
     public List<Device> getDevices() {

@@ -50,7 +50,7 @@ public abstract class MenuNode<T> {
      * Back up to the previous MenuNode, or cancel operation if this is the
      * first one.
      */
-    public void cancel(Void v) {
+    public void cancel() {
         if (parent != null)
             parent.run();
     }

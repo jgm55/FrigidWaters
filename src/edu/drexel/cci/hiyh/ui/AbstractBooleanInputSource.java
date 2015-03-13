@@ -15,7 +15,8 @@ public abstract class AbstractBooleanInputSource implements BooleanInputSource {
     }
 
     protected synchronized void notifyListeners() {
-        for (Listener l : listeners) {
+        // copy list of listeners so that they are free to modify it
+        for (Listener l : new ArrayList<Listener>(listeners)) {
             l.onBooleanInput();
         }
     }
