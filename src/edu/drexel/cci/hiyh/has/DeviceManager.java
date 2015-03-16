@@ -29,6 +29,7 @@ public class DeviceManager {
                 System.exit(1);
             }
             Dimmer driver = new Dimmer(plm, new byte[] {0x26, (byte)0x98, (byte)0x87});
+            devices.add(new DimmerLight("Light", driver));
         } else {
             System.err.println("PLM not found. Adding another Dummy Device.");
             devices.add(new DummyDevice("Dummy Device 2"));
