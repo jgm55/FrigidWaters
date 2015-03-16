@@ -9,6 +9,7 @@ public class SignalDetector {
 	private double[] ranges = new double[14];
 	private double[][] store = new double[14][500];
 	private Boolean calibrated = false;
+	private Boolean monitor = false;
 	private int index = 0;
 	
 	public SignalDetector() {
@@ -19,27 +20,27 @@ public class SignalDetector {
 	}
 
 	public boolean getCalibratedWhenTrue() throws InterruptedException {
-		synchronized(calibrated){	
+		synchronized(monitor){	
 			while(!calibrated) {
-				calibrated.wait();
+				monitor.wait();
 			}
 			return calibrated;
 		}
 	}
 	
 	public boolean getCalibratedWhenTrue(long timeout) throws InterruptedException {
-		synchronized(calibrated){	
+		synchronized(monitor){	
 			while(!calibrated) {
-				calibrated.wait(timeout);
+				monitor.wait(timeout);
 			}
 			return calibrated;
 		}
 	}
 	
 	private void setCalibrated(boolean cal) {
-		synchronized(calibrated) {
+		synchronized(monitor) {
 			calibrated = cal;
-			calibrated.notifyAll();
+			monitor.notifyAll();
 		}
 	}
 	
