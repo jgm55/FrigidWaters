@@ -8,6 +8,7 @@ public class BCIInputSource extends AbstractBooleanInputSource {
 
     @Override
     public void initAndStart(InputUI ui) {
+    	collector.start();
         ui.showMessage("<html><center>Calibrating.<br>Think a neutral thought.</center></html>");
         while (true) {
             try {
