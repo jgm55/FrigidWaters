@@ -250,7 +250,7 @@ Filter
       <dia:attribute name="text">
         <dia:composite type="text">
           <dia:attribute name="string">
-            <dia:string>#EEG and Accelerometer Data
+            <dia:string>#EEG and Gyroscope Data
 (via Emotiv device)#</dia:string>
           </dia:attribute>
           <dia:attribute name="font">
