@@ -12,6 +12,7 @@ import edu.drexel.cci.hiyh.has.device.Device;
 import edu.drexel.cci.hiyh.ui.CalibrationUI;
 //import edu.drexel.cci.hiyh.ui.ConsoleUI;
 import edu.drexel.cci.hiyh.ui.InputUI;
+import edu.drexel.cci.hiyh.ui.BooleanInputSource;
 import edu.drexel.cci.hiyh.ui.MouseInputSource;
 import edu.drexel.cci.hiyh.ui.MultiInputSource;
 import edu.drexel.cci.hiyh.ui.ScrollUI;
@@ -31,7 +32,7 @@ public class Controller {
                 new SelectMenuNode<Device.Action>(this, d.getActions()) {
                     public void success(Device.Action a) {
                         MenuUtils.getMenuNodeChain(ui, this,
-                                ((Consumer<Object[]>)a::invoke).andThen(Controller.this::loop),
+                                a::invoke,
                                 a.getParameterTypes());
                     }
                 }.run();
@@ -39,20 +40,38 @@ public class Controller {
         }.run();
     }
 
-    // signature to accept andThen... from actionMenu... ugh
+    // signature to accept andThen... ugh
     public void loop(Object... unused) {
-        ui.await(this::actionMenu, "Activate to begin");
+        new AwaitMenuNode(ui, "Activate to begin") {
+            public void success(Void unused) {
+                new SelectMenuNode<Device>(this, dm.getDevices()) {
+                    public void success(Device d) {
+                        new SelectMenuNode<Device.Action>(this, d.getActions()) {
+                            public void success(Device.Action a) {
+                                MenuUtils.getMenuNodeChain(ui, this,
+                                        ((Consumer<Object[]>)a::invoke).andThen(Controller.this::loop),
+                                        a.getParameterTypes());
+                            }
+                        }.run();
+                    }
+                }.run();
+            }
+        }.run();
     }
 
     public static void main(String[] args) {
-        Controller mainController = new Controller(
-                new DeviceManager(),
-                new ScrollUI(
-                    new MultiInputSource(
+        BooleanInputSource insrc;
+        if (args.length > 0 && args[0].equals("-nobci"))
+            insrc = new MouseInputSource();
+        else
+            insrc = new MultiInputSource(
                         new BCIInputSource(),
                         new MouseInputSource()
-                    )
-                )
+                    );
+
+        Controller mainController = new Controller(
+                new DeviceManager(),
+                new ScrollUI(insrc)
         );
 
         mainController.loop();

@@ -69,7 +69,7 @@ public class ScrollSelector<T extends Displayable> extends JPanel implements Boo
         if (!active)
             return;
         counter++;
-        if (counter > ITERATIONS_BEFORE_CANCEL * items.size()) {
+        if (counter >= ITERATIONS_BEFORE_CANCEL * items.size()) {
             cleanup();
             cancel.run();
         } else {

@@ -51,10 +51,7 @@ public abstract class MenuNode<T> {
      * first one.
      */
     public void cancel() {
-        if (parent != null) {
+        if (parent != null)
             parent.run();
-        } else {
-        	this.run();
-        }
     }
 }
