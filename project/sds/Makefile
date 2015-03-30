@@ -7,5 +7,8 @@ sds.pdf : sds.tex $(PGFS)
 %.pgf : %.dia
 	dia -e $@ -t pgf-tex $<
 
+%.png : %.dia
+	dia -e $@ -t png $<
+
 clean :
 	-rm -f *.pdf *.pgf *.log *.aux *.out *.toc *.synctex.gz *.dvi
