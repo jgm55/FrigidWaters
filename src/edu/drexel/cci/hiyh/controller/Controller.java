@@ -40,9 +40,13 @@ public class Controller {
     }
 
     public void loop() {
-        while (true) {
-            ui.await("Activate to begin");
-            chooseDeviceAction(dm.getDevices()).get(ui).ifPresent(p -> p.first.invoke(p.second));
+        try {
+            while (true) {
+                ui.await("Activate to begin");
+                chooseDeviceAction(dm.getDevices()).get(ui).ifPresent(p -> p.first.invoke(p.second));
+            }
+        } catch (InterruptedException e) {
+            // Closed by interrupt
         }
     }
 
@@ -61,9 +65,7 @@ public class Controller {
                 new ScrollUI(insrc)
         );
 
-        Thread mainLoopThread = new Thread(mainController::loop);
-        mainLoopThread.setDaemon(true);
-        mainLoopThread.start();
+        mainController.loop();
     }
 
 }

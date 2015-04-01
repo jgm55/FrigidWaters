@@ -21,7 +21,7 @@ public interface InputUI {
      *
      * @param message Message to show until then
      */
-    public void await(String message);
+    public void await(String message) throws InterruptedException;
 
     /**
      * Have the user select an object from a list.
@@ -29,7 +29,7 @@ public interface InputUI {
      * @param items List of objects to choose from
      * @return the chosen object, or empty if user cancels
      */
-    public <T extends Displayable> Optional<T> select(List<T> items);
+    public <T extends Displayable> Optional<T> select(List<T> items) throws InterruptedException;
 
     /**
      * Have the user select an object of a class (for example, an integer).
@@ -38,7 +38,7 @@ public interface InputUI {
      * @return the chosen object, or empty if user cancels
      * @throws IllegalArgumentException if c is not supported by this InputUI
      */
-    public <T> Optional<T> get(Class<T> c);
+    public <T> Optional<T> get(Class<T> c) throws InterruptedException;
 
     /**
      * Temporary (?) hack to allow MouseInputSource to get mouse clicks.

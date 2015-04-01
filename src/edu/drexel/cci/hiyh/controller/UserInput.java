@@ -34,7 +34,7 @@ public abstract class UserInput<T> {
      * @return An Optional containing the chosen T, or empty if the user
      * cancelled all selections
      */
-    public abstract Optional<T> get(InputUI ui);
+    public abstract Optional<T> get(InputUI ui) throws InterruptedException;
 
     /**
      * "Lift" a T to a UserInput<T>.
@@ -66,7 +66,7 @@ public abstract class UserInput<T> {
      */
     public static <T extends Displayable> UserInput<T> fromList(final List<T> items) {
         return new UserInput<T>() {
-            public Optional<T> get(InputUI ui) {
+            public Optional<T> get(InputUI ui) throws InterruptedException {
                 return ui.select(items);
             }
         };
@@ -80,7 +80,7 @@ public abstract class UserInput<T> {
      */
     public static <T> UserInput<T> ofClass(final Class<T> c) {
         return new UserInput<T>() {
-            public Optional<T> get(InputUI ui) {
+            public Optional<T> get(InputUI ui) throws InterruptedException {
                 return ui.get(c);
             }
         };
@@ -122,7 +122,7 @@ public abstract class UserInput<T> {
         //return new FlatMapUserInput<T,R>(this, f);
         return new UserInput<R>() {
             @Override
-            public Optional<R> get(InputUI ui) {
+            public Optional<R> get(InputUI ui) throws InterruptedException {
                 Optional<T> os;
                 while ((os = UserInput.this.get(ui)).isPresent()) {
                     Optional<R> ot = f.apply(os.get()).get(ui);
@@ -144,7 +144,7 @@ public abstract class UserInput<T> {
     public <R> UserInput<R> map(final Function<T, R> f) {
         return new UserInput<R>() {
             @Override
-            public Optional<R> get(InputUI ui) {
+            public Optional<R> get(InputUI ui) throws InterruptedException {
                 return UserInput.this.get(ui).map(f);
             }
         };

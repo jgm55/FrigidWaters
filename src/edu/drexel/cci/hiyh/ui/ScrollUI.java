@@ -4,10 +4,11 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,6 +20,29 @@ public class ScrollUI implements InputUI {
     private final BooleanInputSource inputsrc;
     private final JFrame frame = new JFrame("HIYH");
     private final JPanel idlePanel = new JPanel();
+
+    // Used to interrupt a client upon window close.
+    private class InterruptLock {
+        private Thread t = null;
+        private boolean closing = false;
+
+        public synchronized void registerThread() throws InterruptedException {
+            if (closing)
+                throw new InterruptedException();
+            t = Thread.currentThread();
+        }
+
+        public synchronized void deregisterThread() {
+            t = null;
+        }
+
+        public synchronized void interrupt() {
+            if (t != null)
+                t.interrupt();
+            closing = true;
+        }
+    }
+    private final InterruptLock interruptLock = new InterruptLock();
 
     // TODO find a better place for this?
     static {
@@ -39,6 +63,11 @@ public class ScrollUI implements InputUI {
     }
 
     private void buildUI() {
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                interruptLock.interrupt();
+            }
+        });
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setPreferredSize(new Dimension(400, 200));
 
@@ -81,18 +110,17 @@ public class ScrollUI implements InputUI {
             notifyAll();
         }
 
-        public synchronized Optional<T> get() {
+        public synchronized Optional<T> get() throws InterruptedException {
             while (!isSet)
-                // XXX Should we pass this up instead of swallowing it?
-                try {
-                    wait();
-                } catch (InterruptedException exc) {}
+                wait();
             return value;
         }
     }
 
     @Override
-    public void await(String message) {
+    public synchronized void await(String message) throws InterruptedException {
+        interruptLock.registerThread();
+
         showMessage(message);
 
         final AwaitableValue<Void> val = new AwaitableValue<Void>();
@@ -105,20 +133,26 @@ public class ScrollUI implements InputUI {
         val.get();
 
         switchTo(idlePanel);
+
+        interruptLock.deregisterThread();
     }
 
     @Override
-    public <T extends Displayable> Optional<T> select(List<T> items) {
+    public synchronized <T extends Displayable> Optional<T> select(List<T> items) throws InterruptedException {
+        interruptLock.registerThread();
+
         final AwaitableValue<T> val = new AwaitableValue<T>();
         switchTo(new ScrollSelector<T>(inputsrc, items, val::set, val::cancel));
 
         Optional<T> rv = val.get();
         switchTo(idlePanel);
+
+        interruptLock.deregisterThread();
         return rv;
     }
 
     @Override
-    public <T> Optional<T> get(Class<T> c) {
+    public synchronized <T> Optional<T> get(Class<T> c) throws InterruptedException {
         throw new IllegalArgumentException("Not supported: " + c);
     }
 
