@@ -61,7 +61,9 @@ public class Controller {
                 new ScrollUI(insrc)
         );
 
-        mainController.loop();
+        Thread mainLoopThread = new Thread(mainController::loop);
+        mainLoopThread.setDaemon(true);
+        mainLoopThread.start();
     }
 
 }
