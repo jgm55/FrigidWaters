@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-public class ScrollUI implements InputUI {
+public class ScrollUI /*implements InputUI*/ {
 
     private final BooleanInputSource inputsrc;
     private final JFrame frame = new JFrame("HIYH");
@@ -30,7 +30,8 @@ public class ScrollUI implements InputUI {
 
         try {
             SwingUtilities.invokeAndWait(this::buildUI);
-            inputsrc.initAndStart(this);
+            // XXX put back
+            //inputsrc.initAndStart(this);
         } catch (InterruptedException | InvocationTargetException e) {
             // FIXME
             e.printStackTrace();
@@ -75,14 +76,14 @@ public class ScrollUI implements InputUI {
         };
     }
 
-    @Override
+    //@Override
     public void showMessage(String message) {
         JPanel jp = new JPanel();
         jp.add(new JLabel(message));
         switchTo(jp);
     }
 
-    @Override
+    //@Override
     public void await(Runnable target, String message) {
         showMessage(message);
         inputsrc.addListener(new BooleanInputSource.Listener() {
@@ -94,7 +95,7 @@ public class ScrollUI implements InputUI {
         });
     }
 
-    @Override
+    //@Override
     public <T extends Displayable> void select(List<T> items, Consumer<T> success, Runnable cancel) {
         switchTo(new ScrollSelector<T>(
                     inputsrc,
@@ -103,12 +104,12 @@ public class ScrollUI implements InputUI {
                     chain(this::switchToIdle, cancel)));
     }
 
-    @Override
+    //@Override
     public <T> void get(Class<T> c, Consumer<T> success, Runnable cancel) {
         throw new IllegalArgumentException("Not supported: " + c);
     }
 
-    @Override
+    //@Override
     public Component getGlassPane() {
         return frame.getGlassPane();
     }
