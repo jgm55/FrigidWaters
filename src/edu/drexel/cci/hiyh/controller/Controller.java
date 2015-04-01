@@ -47,7 +47,6 @@ public class Controller {
     }
 
     public static void main(String[] args) {
-        /*
         BooleanInputSource insrc;
         if (args.length > 0 && args[0].equals("-nobci"))
             insrc = new MouseInputSource();
@@ -56,12 +55,10 @@ public class Controller {
                         new BCIInputSource(),
                         new MouseInputSource()
                     );
-                    */
 
         Controller mainController = new Controller(
                 new DeviceManager(),
-                new ConsoleUI()
-                //new ScrollUI(insrc)
+                new ScrollUI(insrc)
         );
 
         mainController.loop();
