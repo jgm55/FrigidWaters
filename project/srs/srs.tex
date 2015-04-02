@@ -79,6 +79,9 @@ Computer Interface portion of this project. Some settings that have multiple
 states can be maintained by an administrator. This administrator will need to
 do so via a mouse and keyboard. 
 
+%TODO talk more about HAS here Kyle
+%TODO also talk about what devices we support.
+
 The potential users of this system will be people who suffer from ALS, as well
 as the administrators who will be assisting the general users set up the
 program and software. Dr. Sara Feldman, The ALS Center of Hope at Drexel
@@ -133,9 +136,12 @@ The user wears an Emotiv headset which sends information about their thoughts
 to the connected computer. From here, the information is interpreted as
 commands to be sent to the home automation controller. The controller in turn
 commands the home components, such as the television and lights.
+%TODO Joe Update wording here
+%Home Automation system is an external entity.  
+%Does it mean your system only transforms the signals from Emotiv to Home Automation System?  
 
 \subsubsection{User Interface}
-
+% TODO Joe and Kevin update wording here
 The user interface consists of the Emotiv device and a graphical user
 interface to be shown on a standard computer display. The Emotiv device is
 attached to the user's head and reads their brain's electrical impulses, which
@@ -147,7 +153,7 @@ intentionally limited. This will allow for a simpler user experience and
 easy usability.
 
 \subsubsection{Hardware Interfaces}
-
+%Kyle
 The system interfaces with both the Emotiv Epoc device and the Insteon
 PowerLinc Modem via Universal Serial Bus (USB).
 
@@ -167,7 +173,7 @@ The system runs on consumer systems, so its RAM footprint must be limited
 accordingly.
 
 \subsubsection{Operations}
-
+% Kyle
 The system has two modes of operation, calibration and active. Calibration
 consists of having the Patient (as described in section \ref{sec:UserChar})
 train the system to associate certain brainwaves with actions.
@@ -401,7 +407,7 @@ issues.
 This section gives a description of the hardware and software interfaces. Also included is a basic prototype of the UI.
 
 \subsubsection{System Interfaces}
-
+% TODO Kyle
 \textbf{SR105} The system will accept input from the Emotiv device and
 distinguish at least two thought-states of the patient.
 
@@ -421,7 +427,7 @@ See \autoref{fig:contextdia} for a context diagram of the system.
 
 
 \subsubsection{User Interfaces}
-
+% TODO Joe and kevin update this
 \textbf{SR205} At the top of the screen, there will exist a loading bar. By concentrating, the bar will load to the right. By not concentrating, the bar will load to the left. 
 
 \textbf{SR210} This load will happen over a period of one to two seconds. 
@@ -436,7 +442,7 @@ See \autoref{fig:mockup} for mockups.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{mockup_v1.png}
-% TODO Kevin: fix this caption
+% TODO Kevin: fix this stupid picture. And caption
 \caption{As the user concentrates, the bar fills up. When it reaches the end, the next binary choice will take its place}
 \label{fig:mockup}
 \end{figure}
