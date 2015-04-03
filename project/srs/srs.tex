@@ -134,8 +134,8 @@ for the system.
 
 The user wears an Emotiv headset which sends information about their thoughts
 to the connected computer. From here, the information is interpreted as
-commands to be sent to the home automation controller. The controller in turn
-commands the home components, such as the television and lights.
+commands to be sent to the home automation controller based on the EEG selections for the current GUI screen. The controller in turn sends 
+commands to the Insteon system to command the connected components, such as the television and lights.
 %TODO Joe Update wording here
 %Home Automation system is an external entity.  
 %Does it mean your system only transforms the signals from Emotiv to Home Automation System?  
@@ -145,12 +145,12 @@ commands the home components, such as the television and lights.
 The user interface consists of the Emotiv device and a graphical user
 interface to be shown on a standard computer display. The Emotiv device is
 attached to the user's head and reads their brain's electrical impulses, which
-are generated in response to promptings from the display. These impulses are
+are generated in response to prompts from the display. These impulses are
 then converted into commands that are then used as input. The exact input will
 be one of two states – neutral or active. Because there are only two states
 for the input, the complexity of the user interface as a whole is
 intentionally limited. This will allow for a simpler user experience and
-easy usability.
+easy usability. The commands sent to the HAS is based on what is shown on screen when the user selects.
 
 \subsubsection{Hardware Interfaces}
 %Kyle
@@ -428,15 +428,21 @@ See \autoref{fig:contextdia} for a context diagram of the system.
 
 \subsubsection{User Interfaces}
 % TODO Joe and kevin update this
-\textbf{SR205} At the top of the screen, there will exist a loading bar. By concentrating, the bar will load to the right. By not concentrating, the bar will load to the left. 
+%\textbf{SR205} At the top of the screen, there will exist a loading bar. By concentrating, the bar will load to the right. By not concentrating, the bar will load to the left. 
+\textbf{SR205} The screen will contain some text and an optional image relating to the text.
 
-\textbf{SR210} This load will happen over a period of one to two seconds. 
+\textbf{SR210} If the user selects on a screen, the current choice is selected and the next screen shows up. 
 
-\textbf{SR215} When the bar reaches an end, that choice is selected and the next bar shows up. 
+\textbf{SR215} If the user does not select on a screen, the next option will appear after 2 seconds of inactivity. 
 
-\textbf{SR220} This requires all the information to be binary searchable. 
+\textbf{SR220} After 2 complete cycles, the previous scrolling UI will appear.
+%\textbf{SR210} This load will happen over a period of one to two seconds. 
 
-\textbf{SR225} If the capability exists to include more bits than just a simple concentrating or not concentrating, then more choices can be had and the non-concentrating state will not need to be used for the loading bar. 
+%\textbf{SR215} When the bar reaches an end, that choice is selected and the next bar shows up. 
+
+%\textbf{SR220} This requires all the information to be binary searchable. 
+
+%\textbf{SR225} If the capability exists to include more bits than just a simple concentrating or not concentrating, then more choices can be had and the non-concentrating state will not need to be used for the loading bar. 
 
 See \autoref{fig:mockup} for mockups.
 
