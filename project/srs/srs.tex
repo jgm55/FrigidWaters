@@ -446,11 +446,11 @@ See \autoref{fig:contextdia} for a context diagram of the system.
 
 %\textbf{SR225} If the capability exists to include more bits than just a simple concentrating or not concentrating, then more choices can be had and the non-concentrating state will not need to be used for the loading bar. 
 
-See \autoref{fig:config} and \autoref{fig:mockup} for mockups.
+See \autoref{fig:config}, \autoref{fig:mockup}, and  \autoref{fig:integer} for mockups.
 \begin{figure}
 	\includegraphics[width=\textwidth]{ConfigurationUI_srs_final.png}
 	
-	% TODO Kevin: fix this stupid picture. And caption
+	% TODO Kevin: fix this picture. And caption
 	\caption{To calibrate the Emotiv device, the user is prompted to think a strong accept thought. The yellow screen represents the system while it is still processing the calibration, while the green screen represents successful endpoint in the calibration. The red screen represents an error in the calibration (e.g. timeout, device error, etc). *Please note the color coding is just for clarification in the document*}
 	\label{fig:config}
 \end{figure}
@@ -459,10 +459,21 @@ See \autoref{fig:config} and \autoref{fig:mockup} for mockups.
 \begin{figure}
 \includegraphics[width=\textwidth]{ApplicationUI_srs_final.png}
 
-% TODO Kevin: fix this stupid picture. And caption
+% TODO Kevin: fix this picture. And caption
 \caption{This is the main portion of the user interface where the user selects which device to interact with and which function of the selected device to interact with. The blue screens represent menu items that automatically cycle. The green screen represents a successful endpoint in the device interaction. *Please note the color coding is just for clarification in the document*}
 \label{fig:mockup}
 \end{figure}
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{IntegerInput_srs_final.png}
+	
+	% TODO Kevin: fix this picture. And caption
+	%TODO: Joe, Sam, Mike Fix up the wording in this caption
+	\caption{Integers need to be selected for functionality that is not a binary state (e.g setting the television channel, changing light brightness, etc). The user enters the number digit by digit using our standard cycling UI menu represented by the blue screens. The menu will cycle through numbers 0 to 9 and an extra option to end early if the number is already complete. When a digit is selected, the user will enter the cycling menu again to select the next digit or if the maximum number of digits is reached, it will be the result will be returned. *Please note the color coding is just for clarification in the document*}
+	\label{fig:integer}
+\end{figure}
+
+
 
 \subsection{Functions}
 
