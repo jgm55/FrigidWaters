@@ -18,7 +18,7 @@
         House in Your Head \\[1cm]
         Team G1-FrigidWaters \\[2.2cm]
         { \bfseries System Requirements Specification } \\[1cm]
-        Cycle \# 2\\[2.2cm]
+        Cycle \# 3\\[2.2cm]
         Date: \required\today\\[1cm]
         \end{huge}
     \end{center}
@@ -66,21 +66,28 @@ and lay out the requirements for the system.
 
 \subsection{Scope}
 
-% TODO: Describe scope of applications
-% Define the scope of the functions that will be developed for
-% managing the house appliances in addition to the interfaces of the devices. 
-
 This system is intended as a way for users to make basic state changes in an
-Insteon automated home setting using a Brain Computer Interface. Basic states to be
-changed are characterized by having a binary setting (on or off). This system
-also includes a user interface that is controlled by binary actions. Complex
-systems with multiple or intermediate states are out of the scope of the Brain
-Computer Interface portion of this project. Some settings that have multiple
-states can be maintained by an administrator. This administrator will need to
-do so via a mouse and keyboard. 
+Insteon automated home setting using a Brain Computer Interface. Basic states
+to be changed are characterized by binary (on/off) or integer settings---for
+example, a lamp, or a television's channel setting. The system's user
+interface is controlled by binary actions. Complex systems with multiple or
+intermediate states are out of the scope of the Brain Computer Interface
+portion of this project. Some settings that have multiple states can be
+maintained by an administrator. This administrator will need to do so via a
+mouse and keyboard.
 
-Our system will interface with Insteon home automation devices. We will send signals to the Insteon controller that will then relay our messages to the appropriate part of the smart house. We will not consider the Insteon devices to be part of our system but we will have to interface with them heavily. For our project we will initially only use the dimmer light and IR Transmitter add ons for the house. This will allow us to control televisions, stereos, and any other device that has an IR remote control. Once we get these portions working, it will be fairly easy to support additional systems, such as a thermostat, sprinkler, fan, doors and much more.
+The system interfaces with Insteon home automation devices. It sends signals
+to the Insteon controller that then relay the messages to the appropriate part
+of the smart house. The Insteon devices themselves are not considered part of
+the system, but are required external components, and the system interfaces
+with them specifically.
 
+The initial version of the system uses only the Dimmer and IR Transmitter
+modules. The former allows the system to control dimmable lamps and any device
+that only needs to be powered; the latter covers televisions, stereos, and any
+other device that has an IR remote control. The code base is to be organized
+in such a way that it is simple for support for additional Insteon modules to
+be added.
 
 The potential users of this system will be people who suffer from ALS, as well
 as the administrators who will be assisting the general users set up the
@@ -108,7 +115,7 @@ sponsors of this project.
         that we are concerned with in the scope of this project are the
         limited movement and mobility to complete paralysis.
     \item[Insteon] The suite of home-automation devices that this system will
-        interface with; see \url{http://www.insteon.com/}
+        interface with; see \\ \url{http://www.insteon.com/}
 \end{description}
 
 
@@ -127,39 +134,43 @@ for the system.
 \subsubsection{System Interface}
 
 \begin{figure}[h!]
-\includegraphics[width=\textwidth]{Senior_Design_Context_Diagram_V1.png}
+\includegraphics[width=\textwidth]{ContextDiagram.png}
 \caption{Context Diagram of the system}
 \label{fig:contextdia}
 \end{figure}
 
-The user wears an Emotiv headset which sends information about their thoughts
-to the connected computer. From here, the information is interpreted as
-commands to be sent to the home automation controller based on the EEG selections for the current GUI screen. The controller in turn sends 
-commands to the Insteon system to command the connected components, such as the television and lights.
-%TODO Joe Update wording here
-%Home Automation system is an external entity.  
-%Does it mean your system only transforms the signals from Emotiv to Home Automation System?  
+The user wears an Emotiv headset, which sends information about their thoughts
+to the connected computer. A graphical interface prompts the user to make
+selections via their thoughts, and the resulting EEG information is
+interpreted as commands to be sent to the home automation controller. The
+controller in turn sends commands to the Insteon system to command the
+connected components, such as the television and lights.
 
 \subsubsection{User Interface}
-% TODO Joe and Kevin update wording here
+
 The user interface consists of the Emotiv device and a graphical user
 interface to be shown on a standard computer display. The Emotiv device is
-attached to the user's head and calibrated to read their brain's electrical impulses, which are generated in response to prompts from the display. These impulses are
-then converted into commands that are then used as input. The exact input will
-be one of two states – neutral or active. Because there are only two states
-for the input, the complexity of the user interface as a whole is
-intentionally limited. This will allow for a simpler user experience and
-easy usability. The commands sent to the HAS is based on what is shown on screen when the user selects.
+attached to the user's head and calibrated to read their brain's electrical
+impulses, which are generated in response to prompts from the display. These
+impulses are then converted into commands that are then used as input. The
+exact input will be one of two states: neutral or active. Because there are
+only two states for the input, the complexity of the user interface as a whole
+is intentionally limited. This will allow for a simpler user experience and
+easy usability. The commands sent to the HAS are based on what is shown on the
+screen when the user selects.
 
 \subsubsection{Hardware Interfaces}
 
 The system interfaces with both the Emotiv Epoc device and the Insteon
-PowerLinc Modem via Universal Serial Bus (USB).
+PowerLinc Modem via Universal Serial Bus (USB). The PowerLinc Modem then
+communicates with other Insteon devices. Both are required external
+components.
 
 \subsubsection{Software Interfaces}
 
 The Emotiv framework provides a set of functions which allows access to the
-EEG data. The Insteon PowerLinc Modem has no software interface. We will write to it as a serial port.
+EEG data. The system communicates with the Insteon PowerLinc Modem via a
+serial port.
 
 \subsubsection{Communication Interfaces}
 
@@ -173,14 +184,15 @@ accordingly.
 
 \subsubsection{Operations}
 
-The system has two modes of operation, calibration and active. Calibration
+The system has two modes of operation: calibration and active. Calibration
 consists of having the Patient (as described in section \ref{sec:UserChar})
 train the system to associate certain brainwaves with actions.
 
-Active mode occurs after calibration has finished, and is the general
-operations described in this document, consisting of the user manipulating the state of their house through the BCI.
+Active mode occurs after calibration has finished. In this mode, the user
+manipulates the state of their house via the system.
 
 \subsubsection{Site Adaption Requirements}
+
 The system must run in both a home and a healthcare setup, as long as an
 Insteon system consisting of supported home control devices is present. No
 modifications to the system, other than configuration for available devices,
@@ -341,8 +353,6 @@ Two categories of users are considered:
         \end{enumerate}
 \end{description}
 
-%TODO: Add more use cases for the HAS controls
-
 \subsection{Constraints}
 
 One of the most immediately obvious constraints on the entire system is the
@@ -426,8 +436,7 @@ See \autoref{fig:contextdia} for a context diagram of the system.
 
 
 \subsubsection{User Interfaces}
-% TODO Joe and kevin update this
-%\textbf{SR205} At the top of the screen, there will exist a loading bar. By concentrating, the bar will load to the right. By not concentrating, the bar will load to the left. 
+
 \textbf{SR205} The screen will prompt the user to calibrate the Emotiv device and display the result of the calibration.
 
 \textbf{SR210} The screen will contain some text and an optional image relating to the text.
@@ -438,39 +447,48 @@ See \autoref{fig:contextdia} for a context diagram of the system.
 
 \textbf{SR225} After 2 complete cycles, the previous scrolling UI will appear.
 
-%\textbf{SR210} This load will happen over a period of one to two seconds. 
 
-%\textbf{SR215} When the bar reaches an end, that choice is selected and the next bar shows up. 
+See \autoref{fig:config}, \autoref{fig:mockup}, and \autoref{fig:integer} for UI mock-ups.
 
-%\textbf{SR220} This requires all the information to be binary searchable. 
-
-%\textbf{SR225} If the capability exists to include more bits than just a simple concentrating or not concentrating, then more choices can be had and the non-concentrating state will not need to be used for the loading bar. 
-
-See \autoref{fig:config}, \autoref{fig:mockup}, and  \autoref{fig:integer} for mockups.
 \begin{figure}
-	\includegraphics[width=\textwidth]{ConfigurationUI_srs_final.png}
-	
-	% TODO Kevin: fix this picture. And caption
-	\caption{To calibrate the Emotiv device, the user is prompted to think a strong accept thought. The yellow screen represents the system while it is still processing the calibration, while the green screen represents successful endpoint in the calibration. The red screen represents an error in the calibration (e.g. timeout, device error, etc). *Please note the color coding is just for clarification in the document*}
+	\includegraphics[width=\textwidth]{ConfigurationUI.png}
+	\caption{
+	    Mock-up of calibration procedure. To calibrate the Emotiv device, the
+	    user is prompted to think a strong accept thought. The yellow screen
+	    represents the system while it is still calibration, while the green
+	    screen represents calibration success. The red screen represents an
+	    error in the calibration (e.g. timeout or device error).
+	}
 	\label{fig:config}
 \end{figure}
 
 
 \begin{figure}
-\includegraphics[width=\textwidth]{ApplicationUI_srs_final.png}
-
-% TODO Kevin: fix this picture. And caption
-\caption{This is the main portion of the user interface where the user selects which device to interact with and which function of the selected device to interact with. The blue screens represent menu items that automatically cycle. The green screen represents a successful endpoint in the device interaction. *Please note the color coding is just for clarification in the document*}
-\label{fig:mockup}
+    \includegraphics[width=\textwidth]{ApplicationUI.png}
+    \caption{
+        Mock-up of main HAS device action selection. From the idle state, the
+        user thinks the calibrated accept thought to begin menu selection. The
+        system cycles through available devices, and chooses the current
+        device when the accepted thought is selected. An action for that
+        device is selected in the same way. If additional input (e.g. integer
+        input) is required, it is accepted in an appropriate way (see
+        \autoref{fig:integer} for an example). Finally, the action is
+        performed and the system returns to the idle state.
+    }
+    \label{fig:mockup}
 \end{figure}
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{IntegerInput_srs_final.png}
-	
-	% TODO Kevin: fix this picture. And caption
-	%TODO: Joe, Sam, Mike Fix up the wording in this caption
-	\caption{Integers need to be selected for functionality that is not a binary state (e.g setting the television channel, changing light brightness, etc). The user enters the number digit by digit using our standard cycling UI menu represented by the blue screens. The menu will cycle through numbers 0 to 9 and an extra option to end early if the number is already complete. When a digit is selected, the user will enter the cycling menu again to select the next digit or if the maximum number of digits is reached, it will be the result will be returned. *Please note the color coding is just for clarification in the document*}
-	\label{fig:integer}
+    \includegraphics[width=\textwidth]{IntegerInput.png}
+    \caption{
+        Mock-up of integer input interface. The user selects each digit as the
+        interface auto-scrolls through digits, in a similar way to device and
+        action selection. The user can also end digit selection early if the
+        intended number has fewer than the maximum possible number of digits.
+        After several cycles, the interface will time out and return to the
+        previous digit or to the previous menu component (not shown).
+    }
+    \label{fig:integer}
 \end{figure}
 
 
@@ -544,10 +562,6 @@ minutes.
 \textbf{SR405} The system must store calibration data for at least one user.
 
 \subsection{Design Constraints}
-
-% Removed the paragraph that was here because this section is for specific
-% requirements. If we want to say something here, it should be a concise,
-% numbered description of a requirement for the system.
 
 \subsubsection{Standards Compliance}
 
