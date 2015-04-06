@@ -79,8 +79,8 @@ Computer Interface portion of this project. Some settings that have multiple
 states can be maintained by an administrator. This administrator will need to
 do so via a mouse and keyboard. 
 
-%TODO talk more about HAS here Kyle
-%TODO also talk about what devices we support.
+Our system will interface with Insteon home automation devices. We will send signals to the Insteon controller that will then relay our messages to the appropriate part of the smart house. We will not consider the Insteon devices to be part of our system but we will have to interface with them heavily. For our project we will initially only use the dimmer light and IR Transmitter add ons for the house. This will allow us to control televisions, stereos, and any other device that has an IR remote control. Once we get these portions working, it will be fairly easy to support additional systems, such as a thermostat, sprinkler, fan, doors and much more.
+
 
 The potential users of this system will be people who suffer from ALS, as well
 as the administrators who will be assisting the general users set up the
@@ -152,14 +152,14 @@ intentionally limited. This will allow for a simpler user experience and
 easy usability. The commands sent to the HAS is based on what is shown on screen when the user selects.
 
 \subsubsection{Hardware Interfaces}
-%Kyle
+
 The system interfaces with both the Emotiv Epoc device and the Insteon
 PowerLinc Modem via Universal Serial Bus (USB).
 
 \subsubsection{Software Interfaces}
 
 The Emotiv framework provides a set of functions which allows access to the
-EEG data.
+EEG data. The Insteon PowerLinc Modem has no software interface. We will write to it as a serial port.
 
 \subsubsection{Communication Interfaces}
 
@@ -172,13 +172,13 @@ The system runs on consumer systems, so its RAM footprint must be limited
 accordingly.
 
 \subsubsection{Operations}
-% Kyle
+
 The system has two modes of operation, calibration and active. Calibration
 consists of having the Patient (as described in section \ref{sec:UserChar})
 train the system to associate certain brainwaves with actions.
 
 Active mode occurs after calibration has finished, and is the general
-operations described in this document.
+operations described in this document, consisting of the user manipulating the state of their house through the BCI.
 
 \subsubsection{Site Adaption Requirements}
 The system must run in both a home and a healthcare setup, as long as an
@@ -406,7 +406,7 @@ issues.
 This section gives a description of the hardware and software interfaces. Also included is a basic prototype of the UI.
 
 \subsubsection{System Interfaces}
-% TODO Kyle
+
 \textbf{SR105} The system will accept input from the Emotiv device and
 distinguish at least two thought-states of the patient.
 
