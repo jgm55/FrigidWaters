@@ -11,17 +11,11 @@ import edu.drexel.cci.hiyh.ui.BooleanInputSource;
 import edu.drexel.cci.hiyh.ui.MouseInputSource;
 import edu.drexel.cci.hiyh.ui.MultiInputSource;
 import edu.drexel.cci.hiyh.ui.ScrollUI;
+import edu.drexel.cci.hiyh.util.Pair;
 
 public class Controller {
     private final DeviceManager dm;
     private final InputUI ui;
-
-    // TODO move to utility
-    private static final class Pair<A,B> {
-        public final A first;
-        public final B second;
-        public Pair(A a, B b) { first = a; second = b; }
-    }
 
     public Controller(DeviceManager dm, InputUI ui) {
         this.dm = dm;

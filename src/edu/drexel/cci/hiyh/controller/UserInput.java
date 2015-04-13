@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import edu.drexel.cci.hiyh.ui.Displayable;
 import edu.drexel.cci.hiyh.ui.InputUI;
+import edu.drexel.cci.hiyh.util.Cons;
 
 /**
  * Class for obtaining input of type T from the user. They can be chained, so
@@ -86,27 +87,20 @@ public abstract class UserInput<T> {
         };
     }
     
-    // TODO move to utility
-    private static <T> T[] prepend(T first, T[] rest) {
-        LinkedList<T> ll = new LinkedList<T>(Arrays.asList(rest));
-        ll.addFirst(first);
-        // rest is too small for the new array, so a new one will be allocated
-        // it is supplied to maintain type correctness
-        return ll.toArray(rest);
-    }
-
     /**
      * Have the user select an object from each of several classes.
      *
      * @param cs Classes of objects to choose
      * @return UserInput representing a choice from each class
      */
-    public static UserInput<Object[]> ofClasses(final Class<?>[] cs) {
-        if (cs.length == 0)
-            return of(new Object[0]);
-        final Class<?> first = cs[0];
-        final Class<?>[] rest = Arrays.copyOfRange(cs, 1, cs.length);
-        return ofClass(first).flatMap(o -> ofClasses(rest).map(os -> prepend(o, os)));
+    public static <T> UserInput<Object[]> ofClasses(final Class<?>[] cs) {
+        return ofClasses(new Cons<Class<?>>(cs)).map(os -> os.toArray(new Object[0]));
+    }
+
+    public static <T> UserInput<Cons<Object>> ofClasses(final Cons<Class<?>> cs) {
+        if (cs.isEmpty())
+            return of(new Cons<Object>());
+        return ofClass(cs.car().get()).flatMap(o -> ofClasses(cs.cdr().get()).map(os -> new Cons<Object>(o, os)));
     }
 
     /**
