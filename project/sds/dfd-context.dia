@@ -425,7 +425,7 @@ Devices#</dia:string>
         <dia:point val="5,1"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="5,0.405;14.3425,1.1525"/>
+        <dia:rectangle val="5,0.405;14.3425,1.15"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -458,13 +458,12 @@ Devices#</dia:string>
         <dia:point val="5,9"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="5,8.405;11.99,9.9525"/>
+        <dia:rectangle val="5,8.38637;13.6236,9.18725"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
           <dia:attribute name="string">
-            <dia:string>#Configuration data
-(via keyboard/mouse)#</dia:string>
+            <dia:string>#Keyboard and Mouse Input#</dia:string>
           </dia:attribute>
           <dia:attribute name="font">
             <dia:font family="sans" style="0" name="Helvetica"/>
@@ -562,7 +561,7 @@ Devices#</dia:string>
         <dia:point val="7,5"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="7,5;10.0625,6.5475"/>
+        <dia:rectangle val="7,5;10.0625,6.545"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -666,7 +665,7 @@ feedback#</dia:string>
         <dia:point val="20,4"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="20,2.4525;25.9475,4"/>
+        <dia:rectangle val="20,2.455;25.9625,4"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -681,7 +680,7 @@ control commands#</dia:string>
             <dia:real val="0.80000000000000004"/>
           </dia:attribute>
           <dia:attribute name="pos">
-            <dia:point val="20,3.0475"/>
+            <dia:point val="20,3.05"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#000000"/>
@@ -700,7 +699,7 @@ control commands#</dia:string>
         <dia:point val="20,7"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="20,6.405;25.9325,7.1525"/>
+        <dia:rectangle val="20,6.405;25.9425,7.15"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
