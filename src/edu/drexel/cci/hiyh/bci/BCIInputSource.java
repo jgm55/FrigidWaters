@@ -13,7 +13,7 @@ public class BCIInputSource extends AbstractBooleanInputSource {
         ui.showMessage("<html><center>Calibrating.<br>Think a neutral thought.</center></html>");
         while (true) {
             try {
-                collector.getSignalDetector().getCalibratedWhenTrue();
+                collector.getSignalDetector().awaitCalibrated();
                 break;
             } catch (InterruptedException e) {}
         }
