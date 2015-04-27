@@ -150,6 +150,12 @@ public class ScrollUI implements InputUI {
         interruptLock.deregisterThread();
         return rv;
     }
+    
+    public void testInt() throws InterruptedException {
+    	final AwaitableValue<Integer> val = new AwaitableValue<Integer>();
+    	switchTo(new ScrollInteger(inputsrc, 0,100,val::set,val::cancel));
+    	val.get();
+    }
 
     @Override
     public synchronized <T> Optional<T> get(Class<T> c) throws InterruptedException {
