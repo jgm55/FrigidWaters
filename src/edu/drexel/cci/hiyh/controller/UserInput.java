@@ -170,6 +170,10 @@ public abstract class UserInput<T> {
             public Optional<R> get(InputUI ui) throws InterruptedException {
                 return UserInput.this.get(ui).map(f);
             }
+            @Override
+            public <Q> UserInput<Q> flatMap(final Function<R, UserInput<Q>> g) {
+                return UserInput.this.flatMap(t -> of(f.apply(t)).flatMap(g));
+            }
         };
     }
 }
