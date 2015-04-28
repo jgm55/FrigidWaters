@@ -25,7 +25,7 @@
         House in Your Head \\[1cm]
         Team G1-FrigidWaters \\[2.2cm]
         { \bfseries System Design Specification } \\[1cm]
-        Cycle \# 2\\[2.2cm]
+        Cycle \# 3\\[2.2cm]
         Date: \required\today\\[1cm]
         \end{huge}
     \end{center}
@@ -244,10 +244,10 @@ This component receives input from the EEG processing (1), updates the screen,
 and sends high level commands to the HAS Interface (3). 
 
 \subsubsection{Component 2.1: UI Menu Manager}
-The UI Menu Manager cycles through all of the available Interactive State Pages (2.3) one by one, and receives input from the EEG processing to select one. It receives status updates from the HAS devices manager (3.1) to know what menu items are available to be shown. This also receives keyboard input from caretakers in case recalibration is necessary or the caretaker wants to use mouse/keyboard instead.
+The UI Menu Manager cycles through all of the available Interactive State Pages (2.3) one by one, and receives input from the EEG processing to select one. It receives status updates from the HAS device manager (3.1) to know what menu items are available to be shown. This also receives keyboard input from caretakers in case recalibration is necessary or the caretaker wants to use mouse/keyboard instead.
 
 \subsubsection{Component 2.2: Configuration Routine}
-The Configuration Routine is responsible for configuring the device for the user's session. This runs before going to the UI Cycle Routine (2.1) and communicates the results to the EEG Processing (1). 
+The Configuration Routine is responsible for configuring the device for the user's session. This runs before going to the UI Cycle Routine (2.1) and communicates the results to the EEG Processing (1). It is simply the UI for the training process.
 
 \subsubsection{Component 2.3: Interactive State Pages}
 The Interactive State Pages have one for each insteon device connected to the system. This page takes input from the EEG processing module (1). Any selections are sent as high level commands to the Device Manager (3).
@@ -258,22 +258,22 @@ Layer (2) and uses them to control the house via the Insteon PowerLinc Modem,
 attached via USB.
 
 \subsubsection{Component 3.1: Device Manager}
-The device manager manages the list of available Devices (3.2) and publishes
+The device manager manages the list of available Device Action Translator (3.2) and publishes
 it to the GUI/Control Layer (2). It also handles device discovery and
 configuration, as well as configuration persistence (Device Config File,
 D3.4).
 
-\subsubsection{Component 3.2: Devices}
-Devices define the available home automation devices and the user-selectable
+\subsubsection{Component 3.2: Device Action Translator}
+The Device Action Translator defines the available home automation devices and the user-selectable
 actions that can be performed on each. They are registered with and provide
 status updates to the Device Manager (3.1); receive commands from the
 GUI/Control Layer (2); and fulfill these commands by composing lower-level
-commands made avaiable by the Drivers (3.3).
+commands made available by the Drivers (3.3).
 
 \subsubsection{Component 3.3: Drivers}
 Drivers wrap the low-level serial interface to Insteon devices through the
 PowerLinc Modem and provide the available simple operations and status updates
-to Devices (3.2).
+to Device Action Translator (3.2).
 
 \subsubsection{Component D3.4: Device Config File}
 The configuration of available devices is persisted per-installation in a
@@ -289,41 +289,38 @@ The user interface of the system is intended to be simple because most of
 the data received in the system, as well as the choices made by the user,
 are either yes or no decisions (i.e. binary data). When the application is
 started, the user will first be presented with the configuration screen. A
-prompt to configure the "accept" thought is displayed. After the
-configuration timer has elapsed, the application advances to test the
-configuration. The user is promped to think their accept thought to
-continue. If there is an error, they will be redirected to an error screen
-and the application will retry the configuration process. Once the
-configuration process is successfully complete, the application moves to the
-application selection screen. 
+prompt to configure the "accept" thought is displayed. If there is an error, they will be redirected to an error screen and the application will retry the configuration process. Once the configuration process is successfully complete, the application moves to the main application selection screen. 
 
 \begin{figure}[h!]
 	
   \centering
     \includegraphics[width=0.7\textwidth]{ConfigurationUI}
    \caption{Sample Configuration interface}
-   \label{fig:ui}
+   \label{fig:config}
 \end{figure}
 
-At the application selection screen, the user will cycle through the options
-of the objects that they can interact with in the home automation system.
-This is also the screen where the user decides which object they want to
-interact with. When an object is chosen, the user will be directed to the
-interactive state screen for the selected object. This screen handles the
-changing of the state of the object the user selects. From this screen the
-user can either change the state or return to the previous screen (the first
-type where the users cycle through the options). These three types of UI
-screens will make up the majority of the user interaction in the system.
-These designs will be modified or extra user interface designs will be
-implemented as necessary. 
+At the application selection screen  (\autoref{fig:ui}), the user will cycle through the options of the objects that they can interact with in the home automation system. This is also the screen where the user decides which object they want to interact with. When an object is chosen, the user will be directed to the interactive state screen for the selected object. This screen handles the changing of the state of the object the user selects. This could be some as simple as a state change from "on" to "off" or input that requires integer input (\autoref{fig:integerInput}) From this screen the user can either change the state or return to the previous screen (the first type where the users cycle through the options). These three types of UI screens will make up the majority of the user interaction in the system. These designs will be modified or extra user interface designs will be implemented as necessary. 
+
 
 \begin{figure}[h!]
 	
-  \centering
-    \includegraphics[width=0.7\textwidth]{ApplicationUI}
-   \caption{Sample User interface}
-   \label{fig:ui}
+	\centering
+	\includegraphics[width=0.7\textwidth]{ApplicationUI}
+	\caption{Sample Application User interface}
+	\label{fig:ui}
 \end{figure}
+
+\begin{figure}[h!]
+	
+	\centering
+	\includegraphics[width=0.6\textwidth]{IntegerInput}
+	\caption{Example of integer input}
+	\label{fig:integerInput}
+\end{figure}
+
+
+
+
 
 \subsection{Data Interface}
 \begin{figure}[h!]
@@ -519,7 +516,7 @@ The design entities include the following:
 \textbf{Function} & Allows the user to interact with their intended device. \\ \hline
 \textbf{Subordinates} & None \\ \hline
 \textbf{Dependencies} & 1.0, 3.2 \\ \hline
-\textbf{Interface} & UI will use the EEG interpreter as input and will send commands to the devices module.  \\ \hline
+\textbf{Interface} & UI will use the EEG interpreter as input and will send commands to the Device Action Translator module.  \\ \hline
 \textbf{Resources} & External Monitor \\ \hline
 \textbf{Processing} & Will wait for user to concentrate. If the user does not over time, it will go back to the UI Menu Manager \\ \hline
 \textbf{Data} & See ERD in Section 3 \\ \hline
@@ -558,13 +555,13 @@ to the rest of the system. \\ \hline
 \textbf{Interface} & Provides an interface for manually configuring available
 home automation devices via Insteon device ID. Provides the GUI/Control Layer
 (2) with a list of available devices and actions. Receives state changes from
-Devices and notifies the GUI/Control Layer of these changes. \\ \hline
+the Device Action Translator and notifies the GUI/Control Layer of these changes. \\ \hline
 \textbf{Resources} & Home automation system controls (while adding devices) \\ \hline
 \textbf{Processing} & None \\ \hline
 \textbf{Data} & See ERD in Section 3 \\ \hline
 \end{tabular}
 
-\subsubsection*{3.2 - Devices}
+\subsubsection*{3.2 - Device Action Translator}
 \begin{tabular}{ | l |  p{13.3cm} |}
 \hline
 \textbf{Type} & Module \\ \hline
@@ -590,12 +587,12 @@ system upon state change. \\ \hline
 \textbf{Type} & Module \\ \hline
 \textbf{Purpose} & Provides the low-level interface to the Insteon home
 automation devices. \\ \hline
-\textbf{Function} & Listens for action requests from Devices and state changes
+\textbf{Function} & Listens for action requests from the Device Action Translator and state changes
 from physical home control devices. \\ \hline
 \textbf{Subordinates} & None \\ \hline
 \textbf{Dependencies} & 3.2 \\ \hline
-\textbf{Interface} & Accepts action requests from Devices. Notifies
-corresponding Devices of relevant state changes. \\ \hline
+\textbf{Interface} & Accepts action requests from the Device Action Translator. Notifies
+corresponding devices of relevant state changes. \\ \hline
 \textbf{Resources} & Home automation system controls \\ \hline
 \textbf{Processing} & Constructs appropriate messages in each direction. \\ \hline
 \textbf{Data} & See ERD in Section 3 \\ \hline
@@ -760,7 +757,7 @@ else:
     report error
 \end{lstlisting}
 
-\subsection*{3.2 - Devices}
+\subsection*{3.2 - Device Action Translator}
 
 Upon receiving a control request:
 

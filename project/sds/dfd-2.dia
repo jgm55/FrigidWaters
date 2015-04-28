@@ -218,13 +218,13 @@ state pages
         <dia:point val="28.89,5.165"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="28.84,4.8382;39.6618,5.5618"/>
+        <dia:rectangle val="28.84,4.7882;39.5618,5.5118"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
         <dia:point val="28.89,5.165"/>
         <dia:point val="31.94,5.165"/>
-        <dia:point val="31.94,5.2"/>
-        <dia:point val="39.55,5.2"/>
+        <dia:point val="31.94,5.15"/>
+        <dia:point val="39.45,5.15"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="0"/>
@@ -252,12 +252,13 @@ state pages
         <dia:point val="29.25,4.65"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="29.25,4.055;37.7925,4.8025"/>
+        <dia:rectangle val="29.2314,4.03638;36.8,5.63725"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
           <dia:attribute name="string">
-            <dia:string>#Send State Change to HAS#</dia:string>
+            <dia:string>#Automation Commands
+#</dia:string>
           </dia:attribute>
           <dia:attribute name="font">
             <dia:font family="sans" style="0" name="Helvetica"/>
@@ -285,12 +286,12 @@ state pages
         <dia:point val="5.9,5.7"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="5.9,5.105;13.0475,6.6525"/>
+        <dia:rectangle val="5.9,5.08638;10.8111,6.68725"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
           <dia:attribute name="string">
-            <dia:string>#Receive Device Status
+            <dia:string>#Status Updates
 #</dia:string>
           </dia:attribute>
           <dia:attribute name="font">
@@ -374,7 +375,7 @@ state pages
         <dia:point val="21.1362,1.20375"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="21.1362,0.60875;25.7487,1.35625"/>
+        <dia:rectangle val="21.1362,0.60875;25.7487,1.35375"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -426,42 +427,15 @@ state pages
         <dia:real val="0.5"/>
       </dia:attribute>
       <dia:connections>
-        <dia:connection handle="0" to="O18" connection="6"/>
+        <dia:connection handle="0" to="O16" connection="6"/>
       </dia:connections>
     </dia:object>
-    <dia:object type="Standard - Line" version="0" id="O9">
-      <dia:attribute name="obj_pos">
-        <dia:point val="5.15,-13.425"/>
-      </dia:attribute>
-      <dia:attribute name="obj_bb">
-        <dia:rectangle val="5.09999,-13.782;24.6368,-13.0584"/>
-      </dia:attribute>
-      <dia:attribute name="conn_endpoints">
-        <dia:point val="5.15,-13.425"/>
-        <dia:point val="24.525,-13.42"/>
-      </dia:attribute>
-      <dia:attribute name="numcp">
-        <dia:int val="1"/>
-      </dia:attribute>
-      <dia:attribute name="end_arrow">
-        <dia:enum val="22"/>
-      </dia:attribute>
-      <dia:attribute name="end_arrow_length">
-        <dia:real val="0.5"/>
-      </dia:attribute>
-      <dia:attribute name="end_arrow_width">
-        <dia:real val="0.5"/>
-      </dia:attribute>
-      <dia:connections>
-        <dia:connection handle="1" to="O18" connection="0"/>
-      </dia:connections>
-    </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O10">
+    <dia:object type="Standard - Text" version="1" id="O9">
       <dia:attribute name="obj_pos">
         <dia:point val="29.59,-14.25"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="29.59,-14.845;37.755,-14.0975"/>
+        <dia:rectangle val="29.59,-14.845;37.755,-14.1"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -489,45 +463,12 @@ state pages
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O11">
-      <dia:attribute name="obj_pos">
-        <dia:point val="7,-14.35"/>
-      </dia:attribute>
-      <dia:attribute name="obj_bb">
-        <dia:rectangle val="7,-14.945;19.0425,-14.1975"/>
-      </dia:attribute>
-      <dia:attribute name="text">
-        <dia:composite type="text">
-          <dia:attribute name="string">
-            <dia:string>#Receive EEG command update status#</dia:string>
-          </dia:attribute>
-          <dia:attribute name="font">
-            <dia:font family="sans" style="0" name="Helvetica"/>
-          </dia:attribute>
-          <dia:attribute name="height">
-            <dia:real val="0.80000000000000004"/>
-          </dia:attribute>
-          <dia:attribute name="pos">
-            <dia:point val="7,-14.35"/>
-          </dia:attribute>
-          <dia:attribute name="color">
-            <dia:color val="#000000"/>
-          </dia:attribute>
-          <dia:attribute name="alignment">
-            <dia:enum val="0"/>
-          </dia:attribute>
-        </dia:composite>
-      </dia:attribute>
-      <dia:attribute name="valign">
-        <dia:enum val="3"/>
-      </dia:attribute>
-    </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O12">
+    <dia:object type="Standard - Text" version="1" id="O10">
       <dia:attribute name="obj_pos">
         <dia:point val="31.74,0.8"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="31.74,0.205;38.0575,0.9525"/>
+        <dia:rectangle val="31.74,0.205;38.0925,0.95"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -555,12 +496,12 @@ state pages
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O13">
+    <dia:object type="Standard - Text" version="1" id="O11">
       <dia:attribute name="obj_pos">
         <dia:point val="6.04,-0.35"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="6.04,-0.945;9.465,-0.1975"/>
+        <dia:rectangle val="6.04,-0.945;9.465,-0.2"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -588,12 +529,12 @@ state pages
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O14">
+    <dia:object type="Standard - Text" version="1" id="O12">
       <dia:attribute name="obj_pos">
         <dia:point val="16.59,3.65"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="16.59,3.055;16.59,3.8025"/>
+        <dia:rectangle val="16.59,3.055;16.59,3.8"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -621,12 +562,12 @@ state pages
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O15">
+    <dia:object type="Standard - Text" version="1" id="O13">
       <dia:attribute name="obj_pos">
         <dia:point val="35.3,11.85"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="35.3,11.255;35.3,12.0025"/>
+        <dia:rectangle val="35.3,11.255;35.3,12"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -654,12 +595,12 @@ state pages
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O16">
+    <dia:object type="Standard - Text" version="1" id="O14">
       <dia:attribute name="obj_pos">
         <dia:point val="34.65,15.2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="34.65,14.605;34.65,15.3525"/>
+        <dia:rectangle val="34.65,14.605;34.65,15.35"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -687,12 +628,12 @@ state pages
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O17">
+    <dia:object type="Standard - Text" version="1" id="O15">
       <dia:attribute name="obj_pos">
         <dia:point val="33.05,4.25"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="33.05,3.655;33.05,4.4025"/>
+        <dia:rectangle val="33.05,3.655;33.05,4.4"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -720,7 +661,7 @@ state pages
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="G&amp;S - Process" version="1" id="O18">
+    <dia:object type="G&amp;S - Process" version="1" id="O16">
       <dia:attribute name="obj_pos">
         <dia:point val="24.525,-15.67"/>
       </dia:attribute>
@@ -795,45 +736,12 @@ Routine
         <dia:real val="1"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O19">
-      <dia:attribute name="obj_pos">
-        <dia:point val="4.55,-8.5"/>
-      </dia:attribute>
-      <dia:attribute name="obj_bb">
-        <dia:rectangle val="4.55,-9.095;13.485,-8.3475"/>
-      </dia:attribute>
-      <dia:attribute name="text">
-        <dia:composite type="text">
-          <dia:attribute name="string">
-            <dia:string>#Receive HAS Devices status#</dia:string>
-          </dia:attribute>
-          <dia:attribute name="font">
-            <dia:font family="sans" style="0" name="Helvetica"/>
-          </dia:attribute>
-          <dia:attribute name="height">
-            <dia:real val="0.80000000000000004"/>
-          </dia:attribute>
-          <dia:attribute name="pos">
-            <dia:point val="4.55,-8.5"/>
-          </dia:attribute>
-          <dia:attribute name="color">
-            <dia:color val="#000000"/>
-          </dia:attribute>
-          <dia:attribute name="alignment">
-            <dia:enum val="0"/>
-          </dia:attribute>
-        </dia:composite>
-      </dia:attribute>
-      <dia:attribute name="valign">
-        <dia:enum val="3"/>
-      </dia:attribute>
-    </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O20">
+    <dia:object type="Standard - Text" version="1" id="O17">
       <dia:attribute name="obj_pos">
         <dia:point val="16.5,5.45"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="16.5,4.855;16.5,5.6025"/>
+        <dia:rectangle val="16.5,4.855;16.5,5.6"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -861,12 +769,12 @@ Routine
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O21">
+    <dia:object type="Standard - Text" version="1" id="O18">
       <dia:attribute name="obj_pos">
         <dia:point val="4.8,14.05"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="4.8,13.455;4.8,14.2025"/>
+        <dia:rectangle val="4.8,13.455;4.8,14.2"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -894,17 +802,17 @@ Routine
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O22">
+    <dia:object type="Standard - Text" version="1" id="O19">
       <dia:attribute name="obj_pos">
-        <dia:point val="5.35,-4.75"/>
+        <dia:point val="4.95,-4.75"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="5.35,-5.345;12.9275,-4.5975"/>
+        <dia:rectangle val="4.95,-5.345;13.6125,-4.6"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
           <dia:attribute name="string">
-            <dia:string>#Receive Keyboard input#</dia:string>
+            <dia:string>#Keyboard and mouse input#</dia:string>
           </dia:attribute>
           <dia:attribute name="font">
             <dia:font family="sans" style="0" name="Helvetica"/>
@@ -913,7 +821,7 @@ Routine
             <dia:real val="0.80000000000000004"/>
           </dia:attribute>
           <dia:attribute name="pos">
-            <dia:point val="5.35,-4.75"/>
+            <dia:point val="4.95,-4.75"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#000000"/>
@@ -927,12 +835,12 @@ Routine
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O23">
+    <dia:object type="Standard - Text" version="1" id="O20">
       <dia:attribute name="obj_pos">
         <dia:point val="7.2,5.55"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="7.2,4.955;7.2,5.7025"/>
+        <dia:rectangle val="7.2,4.955;7.2,5.7"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -960,12 +868,12 @@ Routine
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O24">
+    <dia:object type="Standard - Text" version="1" id="O21">
       <dia:attribute name="obj_pos">
         <dia:point val="5.9,9.2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="5.9,8.605;5.9,9.3525"/>
+        <dia:rectangle val="5.9,8.605;5.9,9.35"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -993,12 +901,12 @@ Routine
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O25">
+    <dia:object type="Standard - Text" version="1" id="O22">
       <dia:attribute name="obj_pos">
         <dia:point val="9,11.8"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="9,11.205;9,11.9525"/>
+        <dia:rectangle val="9,11.205;9,11.95"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -1026,12 +934,12 @@ Routine
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O26">
+    <dia:object type="Standard - Text" version="1" id="O23">
       <dia:attribute name="obj_pos">
         <dia:point val="28.2,5.8"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="28.2,5.205;28.2,5.9525"/>
+        <dia:rectangle val="28.2,5.205;28.2,5.95"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -1059,12 +967,12 @@ Routine
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O27">
+    <dia:object type="Standard - Text" version="1" id="O24">
       <dia:attribute name="obj_pos">
         <dia:point val="30.6,1.65"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="30.6,1.055;30.6,1.8025"/>
+        <dia:rectangle val="30.6,1.055;30.6,1.8"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -1092,12 +1000,12 @@ Routine
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Text" version="1" id="O28">
+    <dia:object type="Standard - Text" version="1" id="O25">
       <dia:attribute name="obj_pos">
         <dia:point val="33.7,12.85"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="33.7,12.255;33.7,13.0025"/>
+        <dia:rectangle val="33.7,12.255;33.7,13"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -1125,7 +1033,7 @@ Routine
         <dia:enum val="3"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - PolyLine" version="0" id="O29">
+    <dia:object type="Standard - PolyLine" version="0" id="O26">
       <dia:attribute name="obj_pos">
         <dia:point val="5.4,0.275"/>
       </dia:attribute>
@@ -1148,10 +1056,10 @@ Routine
         <dia:real val="0.5"/>
       </dia:attribute>
       <dia:connections>
-        <dia:connection handle="3" to="O18" connection="1"/>
+        <dia:connection handle="3" to="O16" connection="1"/>
       </dia:connections>
     </dia:object>
-    <dia:object type="Standard - PolyLine" version="0" id="O30">
+    <dia:object type="Standard - PolyLine" version="0" id="O27">
       <dia:attribute name="obj_pos">
         <dia:point val="14.8,5.125"/>
       </dia:attribute>
@@ -1176,7 +1084,7 @@ Routine
         <dia:connection handle="2" to="O0" connection="1"/>
       </dia:connections>
     </dia:object>
-    <dia:object type="Standard - PolyLine" version="0" id="O31">
+    <dia:object type="Standard - PolyLine" version="0" id="O28">
       <dia:attribute name="obj_pos">
         <dia:point val="27,3.025"/>
       </dia:attribute>
@@ -1198,7 +1106,7 @@ Routine
         <dia:real val="0.5"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Line" version="0" id="O32">
+    <dia:object type="Standard - Line" version="0" id="O29">
       <dia:attribute name="obj_pos">
         <dia:point val="27.05,-0.825"/>
       </dia:attribute>
@@ -1213,7 +1121,7 @@ Routine
         <dia:int val="1"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Line" version="0" id="O33">
+    <dia:object type="Standard - Line" version="0" id="O30">
       <dia:attribute name="obj_pos">
         <dia:point val="15.45,-4.225"/>
       </dia:attribute>
@@ -1240,7 +1148,7 @@ Routine
         <dia:connection handle="1" to="O0" connection="0"/>
       </dia:connections>
     </dia:object>
-    <dia:object type="Standard - PolyLine" version="0" id="O34">
+    <dia:object type="Standard - PolyLine" version="0" id="O31">
       <dia:attribute name="obj_pos">
         <dia:point val="15.65,-7.925"/>
       </dia:attribute>
@@ -1265,7 +1173,7 @@ Routine
         <dia:connection handle="2" to="O0" connection="2"/>
       </dia:connections>
     </dia:object>
-    <dia:object type="Standard - Line" version="0" id="O35">
+    <dia:object type="Standard - Line" version="0" id="O32">
       <dia:attribute name="obj_pos">
         <dia:point val="14.85,5.125"/>
       </dia:attribute>
@@ -1292,7 +1200,7 @@ Routine
         <dia:connection handle="1" to="O1" connection="0"/>
       </dia:connections>
     </dia:object>
-    <dia:object type="Standard - Arc" version="0" id="O36">
+    <dia:object type="Standard - Arc" version="0" id="O33">
       <dia:attribute name="obj_pos">
         <dia:point val="15.6,-7.875"/>
       </dia:attribute>
@@ -1307,7 +1215,7 @@ Routine
         <dia:real val="1"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Line" version="0" id="O37">
+    <dia:object type="Standard - Line" version="0" id="O34">
       <dia:attribute name="obj_pos">
         <dia:point val="5.05,-7.975"/>
       </dia:attribute>
@@ -1322,12 +1230,12 @@ Routine
         <dia:int val="1"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Arc" version="0" id="O38">
+    <dia:object type="Standard - Arc" version="0" id="O35">
       <dia:attribute name="obj_pos">
         <dia:point val="15.4276,-4.1601"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="13.525,-5.26;15.4855,-4.10748"/>
+        <dia:rectangle val="13.525,-5.26;15.4855,-4.10747"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
         <dia:point val="15.4276,-4.1601"/>
@@ -1337,12 +1245,12 @@ Routine
         <dia:real val="1"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - Line" version="0" id="O39">
+    <dia:object type="Standard - Line" version="0" id="O36">
       <dia:attribute name="obj_pos">
         <dia:point val="4.82528,-4.25972"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="4.775,-4.36;13.6256,-4.20943"/>
+        <dia:rectangle val="4.775,-4.36;13.6256,-4.20944"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
         <dia:point val="4.82528,-4.25972"/>
@@ -1352,7 +1260,7 @@ Routine
         <dia:int val="1"/>
       </dia:attribute>
     </dia:object>
-    <dia:object type="Standard - PolyLine" version="0" id="O40">
+    <dia:object type="Standard - PolyLine" version="0" id="O37">
       <dia:attribute name="obj_pos">
         <dia:point val="27.3375,-10.045"/>
       </dia:attribute>
@@ -1366,8 +1274,74 @@ Routine
         <dia:point val="30.85,1.175"/>
       </dia:attribute>
       <dia:connections>
-        <dia:connection handle="0" to="O18" connection="5"/>
+        <dia:connection handle="0" to="O16" connection="5"/>
       </dia:connections>
+    </dia:object>
+    <dia:object type="Standard - Text" version="1" id="O38">
+      <dia:attribute name="obj_pos">
+        <dia:point val="9.35,5.05"/>
+      </dia:attribute>
+      <dia:attribute name="obj_bb">
+        <dia:rectangle val="9.35,4.455;9.35,5.2"/>
+      </dia:attribute>
+      <dia:attribute name="text">
+        <dia:composite type="text">
+          <dia:attribute name="string">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="font">
+            <dia:font family="sans" style="0" name="Helvetica"/>
+          </dia:attribute>
+          <dia:attribute name="height">
+            <dia:real val="0.80000000000000004"/>
+          </dia:attribute>
+          <dia:attribute name="pos">
+            <dia:point val="9.35,5.05"/>
+          </dia:attribute>
+          <dia:attribute name="color">
+            <dia:color val="#000000"/>
+          </dia:attribute>
+          <dia:attribute name="alignment">
+            <dia:enum val="0"/>
+          </dia:attribute>
+        </dia:composite>
+      </dia:attribute>
+      <dia:attribute name="valign">
+        <dia:enum val="3"/>
+      </dia:attribute>
+    </dia:object>
+    <dia:object type="Standard - Text" version="1" id="O39">
+      <dia:attribute name="obj_pos">
+        <dia:point val="5.6,-8.9"/>
+      </dia:attribute>
+      <dia:attribute name="obj_bb">
+        <dia:rectangle val="5.6,-9.51363;12.3811,-8.71275"/>
+      </dia:attribute>
+      <dia:attribute name="text">
+        <dia:composite type="text">
+          <dia:attribute name="string">
+            <dia:string>#Available Commands#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="font">
+            <dia:font family="sans" style="0" name="Helvetica"/>
+          </dia:attribute>
+          <dia:attribute name="height">
+            <dia:real val="0.80000000000000004"/>
+          </dia:attribute>
+          <dia:attribute name="pos">
+            <dia:point val="5.6,-8.9"/>
+          </dia:attribute>
+          <dia:attribute name="color">
+            <dia:color val="#000000"/>
+          </dia:attribute>
+          <dia:attribute name="alignment">
+            <dia:enum val="0"/>
+          </dia:attribute>
+        </dia:composite>
+      </dia:attribute>
+      <dia:attribute name="valign">
+        <dia:enum val="3"/>
+      </dia:attribute>
     </dia:object>
   </dia:layer>
 </dia:diagram>
