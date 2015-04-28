@@ -8,6 +8,7 @@
 
     <path id="classpath">
         <pathelement location="${build}/"/>
+        <pathelement location="${lib}/"/>
         <fileset dir="${lib}" includes="**/*.jar"/>
     </path>
 
@@ -27,6 +28,16 @@
             includeantruntime="false" classpathref="classpath">
             <compilerarg value="-Xlint:unchecked"/>
         </javac>
+    </target>
+
+    <target name="run" depends="compile">
+        <java classpathref="classpath" classname="edu.drexel.cci.hiyh.controller.Controller"/>
+    </target>
+
+    <target name="run-nobci" depends="compile">
+        <java classpathref="classpath" classname="edu.drexel.cci.hiyh.controller.Controller">
+            <arg value="-nobci"/>
+        </java>
     </target>
 
     <target name="clean">
