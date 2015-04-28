@@ -1,5 +1,6 @@
 package edu.drexel.cci.hiyh.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import edu.drexel.cci.hiyh.bci.BCIInputSource;
@@ -45,21 +46,27 @@ public class Controller {
     }
 
     public static void main(String[] args) {
-        /*
-        BooleanInputSource insrc;
-        if (args.length > 0 && args[0].equals("-nobci"))
-            insrc = new MouseInputSource();
-        else
-            insrc = new MultiInputSource(
-                        new BCIInputSource(),
-                        new MouseInputSource()
-                    );
-        */
+        List<String> argsList = Arrays.asList(args);
+
+        InputUI ui;
+
+        if (argsList.contains("-cli")) {
+            ui = new ConsoleUI();
+        } else {
+            BooleanInputSource insrc;
+            if (argsList.contains("-nobci"))
+                insrc = new MouseInputSource();
+            else
+                insrc = new MultiInputSource(
+                            new BCIInputSource(),
+                            new MouseInputSource()
+                        );
+            ui = new ScrollUI(insrc);
+        }
 
         Controller mainController = new Controller(
                 new DeviceManager(),
-                //new ScrollUI(insrc)
-                new ConsoleUI()
+                ui
         );
 
         mainController.loop();
