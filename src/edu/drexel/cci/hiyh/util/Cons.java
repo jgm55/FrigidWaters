@@ -27,21 +27,20 @@ public final class Cons<T> extends AbstractCollection<T> {
         this(car, new Cons<T>());
     }
 
-    private Cons(T[] elements, int start) {
-        if (start == elements.length) {
+    public Cons(Iterator<T> elements) {
+        if (elements.hasNext()) {
+            T car = elements.next();
+            Cons<T> cdr = new Cons<T>(elements);
+            head = Optional.of(new Pair<T,Cons<T>>(car, cdr));
+            len = cdr.len + 1;
+        } else {
             head = Optional.empty();
             len = 0;
         }
-        else {
-            T car = elements[start];
-            Cons<T> cdr = new Cons<T>(elements, start+1);
-            head = Optional.of(new Pair<T,Cons<T>>(car, cdr));
-            len = cdr.len + 1;
-        }
     }
 
-    public Cons(T[] elements) {
-        this(elements, 0);
+    public Cons(Iterable<T> elements) {
+        this(elements.iterator());
     }
 
     public Optional<T> car() {

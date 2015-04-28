@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import edu.drexel.cci.hiyh.has.device.ParamType;
+
 public class ScrollUI implements InputUI {
 
     private final BooleanInputSource inputsrc;
@@ -152,8 +154,8 @@ public class ScrollUI implements InputUI {
     }
 
     @Override
-    public synchronized <T> Optional<T> get(Class<T> c) throws InterruptedException {
-        throw new IllegalArgumentException("Not supported: " + c);
+    public synchronized <T> Optional<T> get(ParamType<T> p) throws InterruptedException {
+        throw new IllegalArgumentException("Not supported: " + p);
     }
 
     @Override

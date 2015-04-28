@@ -22,15 +22,15 @@ public class Controller {
         this.ui = ui;
     }
 
-    private static UserInput<Pair<Device.Action, Object[]>> chooseDeviceAction(List<Device> devices) {
+    private static UserInput<Pair<Device.Action, List<Object>>> chooseDeviceAction(List<Device> devices) {
         // choose a device
         return UserInput.fromList(devices)
                  // given the device, choose an action
-                 .flatMap(d -> UserInput.fromList(d.getActions()))
+                 .flatMap(d -> UserInput.fromList(d.getAvailableActions()))
                  // choose parameter values
-                 .flatMap(a -> UserInput.ofClasses(a.getParameterTypes())
+                 .flatMap(a -> UserInput.ofParamTypes(a.getParameterTypes())
                                 // tack on the Action--we'll need that too
-                                        .map(params -> new Pair<Device.Action, Object[]>(a, params)));
+                                        .map(params -> new Pair<Device.Action, List<Object>>(a, params)));
     }
 
     public void loop() {
@@ -45,6 +45,7 @@ public class Controller {
     }
 
     public static void main(String[] args) {
+        /*
         BooleanInputSource insrc;
         if (args.length > 0 && args[0].equals("-nobci"))
             insrc = new MouseInputSource();
@@ -53,10 +54,12 @@ public class Controller {
                         new BCIInputSource(),
                         new MouseInputSource()
                     );
+        */
 
         Controller mainController = new Controller(
                 new DeviceManager(),
-                new ScrollUI(insrc)
+                //new ScrollUI(insrc)
+                new ConsoleUI()
         );
 
         mainController.loop();
