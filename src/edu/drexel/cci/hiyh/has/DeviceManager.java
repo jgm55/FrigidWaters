@@ -17,8 +17,7 @@ public class DeviceManager {
     private final List<Device> devices = new ArrayList<Device>();
 
     public DeviceManager() {
-        devices.add(new DummyDevice("Dummy Device 1"));
-
+    	
         String[] portNames = SerialPortList.getPortNames();
         if (portNames.length > 0) {
             PLM plm = new PLM(portNames[0]);
@@ -28,12 +27,23 @@ public class DeviceManager {
                 e.printStackTrace();
                 System.exit(1);
             }
-            Dimmer driver = new Dimmer(plm, new byte[] {0x26, (byte)0x98, (byte)0x87});
-            devices.add(new DimmerLight("Light", driver));
+            ConfigReader cf = new ConfigReader(plm,"Config");
+            try {
+				for (Device d :cf.read()) {
+					devices.add(d);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.err.println("Could not process config. Adding two Dummy Devices");
+				devices.add(new DummyDevice("Dummy Device 1"));
+	            devices.add(new DummyDevice("Dummy Device 2"));
+			}
         } else {
-            System.err.println("PLM not found. Adding another Dummy Device.");
+            System.err.println("PLM not found. Adding two Dummy Devices.");
+            devices.add(new DummyDevice("Dummy Device 1"));
             devices.add(new DummyDevice("Dummy Device 2"));
         }
+        
     }
 
     public List<Device> getDevices() {
