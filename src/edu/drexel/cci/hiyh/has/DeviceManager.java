@@ -12,7 +12,7 @@ import edu.drexel.cci.hiyh.has.device.DummyDevice;
 import edu.drexel.cci.hiyh.has.device.insteon.DimmerLight;
 import edu.drexel.cci.hiyh.has.driver.insteon.PLM;
 import edu.drexel.cci.hiyh.has.driver.insteon.Dimmer;
-
+//11D3C0
 public class DeviceManager {
     private final List<Device> devices = new ArrayList<Device>();
 
@@ -28,7 +28,7 @@ public class DeviceManager {
                 e.printStackTrace();
                 System.exit(1);
             }
-            Dimmer driver = new Dimmer(plm, new byte[] {0x26, (byte)0x98, (byte)0x87});
+            Dimmer driver = new Dimmer(plm, new byte[] {0x11, (byte)0xD3, (byte)0xC0});//{0x26, (byte)0x98, (byte)0x87});
             devices.add(new DimmerLight("Light", driver));
         } else {
             System.err.println("PLM not found. Adding another Dummy Device.");
