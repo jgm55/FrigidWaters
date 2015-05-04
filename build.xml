@@ -40,6 +40,12 @@
         </java>
     </target>
 
+    <target name="run-cli" depends="compile">
+        <java classpathref="classpath" classname="edu.drexel.cci.hiyh.controller.Controller">
+            <arg value="-cli"/>
+        </java>
+    </target>
+
     <target name="clean">
         <delete dir="${build}"/>
     </target>

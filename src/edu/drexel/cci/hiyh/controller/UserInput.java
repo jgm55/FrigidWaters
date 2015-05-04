@@ -1,13 +1,14 @@
 package edu.drexel.cci.hiyh.controller;
 
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+import edu.drexel.cci.hiyh.has.device.ParamType;
 import edu.drexel.cci.hiyh.ui.Displayable;
 import edu.drexel.cci.hiyh.ui.InputUI;
+import edu.drexel.cci.hiyh.util.Cons;
 
 /**
  * Class for obtaining input of type T from the user. They can be chained, so
@@ -78,36 +79,53 @@ public abstract class UserInput<T> {
      * @param c Class of object to choose
      * @return UserInput representing a choice from c
      */
-    public static <T> UserInput<T> ofClass(final Class<T> c) {
+    public static <T> UserInput<T> ofParamType(final ParamType<T> p) {
         return new UserInput<T>() {
             public Optional<T> get(InputUI ui) throws InterruptedException {
-                return ui.get(c);
+                return ui.get(p);
             }
         };
     }
     
-    // TODO move to utility
-    private static <T> T[] prepend(T first, T[] rest) {
-        LinkedList<T> ll = new LinkedList<T>(Arrays.asList(rest));
-        ll.addFirst(first);
-        // rest is too small for the new array, so a new one will be allocated
-        // it is supplied to maintain type correctness
-        return ll.toArray(rest);
-    }
-
     /**
      * Have the user select an object from each of several classes.
      *
      * @param cs Classes of objects to choose
      * @return UserInput representing a choice from each class
      */
-    public static UserInput<Object[]> ofClasses(final Class<?>[] cs) {
-        if (cs.length == 0)
-            return of(new Object[0]);
-        final Class<?> first = cs[0];
-        final Class<?>[] rest = Arrays.copyOfRange(cs, 1, cs.length);
-        return ofClass(first).flatMap(o -> ofClasses(rest).map(os -> prepend(o, os)));
+    public static <T> UserInput<List<Object>> ofParamTypes(final List<ParamType<?>> ps) {
+        return ofParamTypes(new Cons<ParamType<?>>(ps)).map(os -> new ArrayList<Object>(os));
     }
+
+    public static <T> UserInput<Cons<Object>> ofParamTypes(final Cons<ParamType<?>> ps) {
+        if (ps.isEmpty())
+            return of(new Cons<Object>());
+        return ofParamType(ps.car().get()).flatMap(o -> ofParamTypes(ps.cdr().get()).map(os -> new Cons<Object>(o, os)));
+    }
+
+    /*
+    private static class FMUserInput<T,R> extends UserInput<R> {
+        private UserInput<T> parent;
+        private Function<T, UserInput<R>> f;
+        public FMUserInput(UserInput<T> parent, Function<T, UserInput<R>> f) {
+            this.parent = parent;
+            this.f = f;
+        }
+        @Override
+        public Optional<R> get(InputUI ui) throws InterruptedException {
+            Optional<T> os;
+            while ((os = parent.get(ui)).isPresent()) {
+                Optional<R> ot = f.apply(os.get()).get(ui);
+                if (ot.isPresent())
+                    return ot;
+            }
+            return Optional.empty();
+        }
+        @Override
+        public <Q> UserInput<Q> flatMap(final Function<T, UserInput<Q>> g) {
+            return new FMUserInput<T,Q>(FMUserInput
+        }
+    }*/
 
     /**
      * Compose with another UserInput, potentially generated from the result
@@ -119,7 +137,6 @@ public abstract class UserInput<T> {
      * @return UserInput representing the two sequential choices
      */
     public <R> UserInput<R> flatMap(final Function<T, UserInput<R>> f) {
-        //return new FlatMapUserInput<T,R>(this, f);
         return new UserInput<R>() {
             @Override
             public Optional<R> get(InputUI ui) throws InterruptedException {
@@ -130,6 +147,12 @@ public abstract class UserInput<T> {
                         return ot;
                 }
                 return Optional.empty();
+            }
+            @Override
+            public <Q> UserInput<Q> flatMap(final Function<R, UserInput<Q>> g) {
+                // Unless we do this, we'll get the "tree" built in the wrong
+                // order--with "left-associativity."
+                return UserInput.this.flatMap(t -> f.apply(t).flatMap(g));
             }
         };
     }
@@ -146,6 +169,10 @@ public abstract class UserInput<T> {
             @Override
             public Optional<R> get(InputUI ui) throws InterruptedException {
                 return UserInput.this.get(ui).map(f);
+            }
+            @Override
+            public <Q> UserInput<Q> flatMap(final Function<R, UserInput<Q>> g) {
+                return UserInput.this.flatMap(t -> of(f.apply(t)).flatMap(g));
             }
         };
     }
