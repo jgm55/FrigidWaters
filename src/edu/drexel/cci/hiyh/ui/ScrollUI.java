@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import edu.drexel.cci.hiyh.has.device.ParamType;
+import edu.drexel.cci.hiyh.has.device.BoundedInt;
 
 public class ScrollUI implements InputUI {
 
@@ -153,15 +153,18 @@ public class ScrollUI implements InputUI {
         return rv;
     }
     
-    public void testInt() throws InterruptedException {
-    	final AwaitableValue<Integer> val = new AwaitableValue<Integer>();
-    	switchTo(new ScrollInteger(inputsrc, 0,100,val::set,val::cancel));
-    	val.get();
-    }
-
     @Override
-    public synchronized <T> Optional<T> get(ParamType<T> p) throws InterruptedException {
-        throw new IllegalArgumentException("Not supported: " + p);
+    public Optional<Integer> get(BoundedInt b) throws InterruptedException {
+        interruptLock.registerThread();
+
+        final AwaitableValue<Integer> val = new AwaitableValue<Integer>();
+        switchTo(new ScrollInteger(inputsrc, b.lower, b.upper, val::set, val::cancel));
+
+        Optional<Integer> rv = val.get();
+        switchTo(idlePanel);
+
+        interruptLock.deregisterThread();
+        return rv;
     }
 
     @Override
