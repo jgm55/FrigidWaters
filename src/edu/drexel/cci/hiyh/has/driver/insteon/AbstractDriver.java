@@ -22,4 +22,5 @@ public abstract class AbstractDriver {
     protected void command(byte cmd1, byte cmd2) throws IOException {
         plm.directMessage(Util.concat(address, new byte[] {0x0F, cmd1, cmd2}));
     }
+
 }

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+import edu.drexel.cci.hiyh.has.device.BoundedInt;
+
 /**
  * Demonstration/testing UI that uses the command line.
  */
@@ -37,20 +39,11 @@ public class ConsoleUI implements InputUI {
             return Optional.empty();
     }
 
-    @Override
-    public <T> Optional<T> get(Class<T> c) {
-        // Note that this doesn't actually include a cancel option.
-        if (c.equals(Byte.class))
-            return Optional.of(c.cast(getByte()));
-        else
-            throw new IllegalArgumentException("Can't handle class: " + c);
-    }
-
-    private Byte getByte() {
-        System.out.println("Enter a byte: ");
-        Byte b = reader.nextByte();
+    public Optional<Integer> get(BoundedInt b) {
+        System.out.printf("Enter an int between %d and %d, or outside the range to cancel:\n", b.lower, b.upper);
+        int i = reader.nextInt();
         // grab and discard newline
         reader.nextLine();
-        return b;
+        return Optional.of(i).filter(a -> a >= b.lower && a <= b.upper);
     }
 }
