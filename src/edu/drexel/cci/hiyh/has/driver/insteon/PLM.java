@@ -48,6 +48,11 @@ public class PLM {
         final byte[] hdr = new byte[] { 0x02, 0x62 };
         write(Util.concat(hdr, msg));
     }
+    
+    public void x10Message(byte[] msg) throws IOException {
+        final byte[] hdr = new byte[] { 0x02, 0x63 };
+        write(Util.concat(hdr, msg));
+    }
 
     // TODO ???
     // public List<Device> discoverDevices()

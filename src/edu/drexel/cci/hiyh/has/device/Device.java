@@ -1,7 +1,6 @@
 package edu.drexel.cci.hiyh.has.device;
 
-import java.lang.reflect.Method;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,33 +8,28 @@ import edu.drexel.cci.hiyh.ui.Displayable;
 
 public abstract class Device implements Displayable {
     public final String name;
+    private final List<Action> actions = new ArrayList<Action>();
 
     protected Device(String name) {
         this.name = name;
     }
 
-    public class Action implements Displayable {
+    public abstract class Action implements Displayable {
         public final String name;
-        private final Method method;
 
-        private Action(Method method) {
-            this.name = method.getAnnotation(ActionMethod.class).name();
-            this.method = method;
+        protected Action(String name) {
+            this.name = name;
         }
 
-        public Class<?>[] getParameterTypes() {
-            return method.getParameterTypes();
+        public List<ParamType<?>> getParameterTypes() {
+            return new ArrayList<ParamType<?>>();
         }
 
-        public void invoke(Object... args) {
-            // FIXME There are probably some exceptions that should be passed
-            // through here.
-            try {
-                method.invoke(Device.this, args);
-            } catch (ReflectiveOperationException e) {
-                e.printStackTrace();
-            }
+        public boolean isAvailable() {
+            return true;
         }
+
+        public abstract void invoke(List<Object> args);
 
         @Override
         public String toString() {
@@ -49,12 +43,13 @@ public abstract class Device implements Displayable {
         }
     }
 
-    // FIXME Is there any way to make this list be built statically per
-    // subclass of Device?
-    public List<Action> getActions() {
-        return Arrays.stream(getClass().getMethods())
-               .filter(m -> m.isAnnotationPresent(ActionMethod.class))
-               .map(Action::new)
+    protected void addAction(Action a) {
+        actions.add(a);
+    }
+
+    public List<Action> getAvailableActions() {
+        return actions.stream()
+               .filter(Action::isAvailable)
                .collect(Collectors.toList());
     }
 
