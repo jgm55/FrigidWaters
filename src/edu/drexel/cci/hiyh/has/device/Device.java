@@ -60,7 +60,7 @@ public abstract class Device implements Displayable {
 
     @Override
     public java.awt.Image getDisplayImage() {
-        // TODO
+        // TODO: Add Image and properly configure it to fit in the window.
         return null;
     }
 }

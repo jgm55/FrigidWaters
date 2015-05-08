@@ -1,9 +1,16 @@
 package edu.drexel.cci.hiyh.ui;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Consumer;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -16,6 +23,8 @@ public class ScrollSelector<T extends Displayable> extends JPanel implements Boo
     private final Runnable cancel;
 
     private final JLabel headerLabel = new JLabel();
+    private JLabel imageLabel = new JLabel();
+    
     private int index = 0, counter = 0;
     private boolean active = true;
 
@@ -39,6 +48,7 @@ public class ScrollSelector<T extends Displayable> extends JPanel implements Boo
 
     private void buildUI() {
 		add(headerLabel);
+		add(imageLabel);
 		updateDisplay();
     }
 
@@ -50,7 +60,29 @@ public class ScrollSelector<T extends Displayable> extends JPanel implements Boo
 
     private void updateDisplay() {
         headerLabel.setText(items.get(index).getDisplayText());
+        addMessageImage();
     }
+    
+    private void addMessageImage(){
+    	Image icon = items.get(index).getDisplayImage();
+    	if(icon != null){
+    		imageLabel.setIcon(new ImageIcon(icon));
+    	}
+
+//		Uncomment to test while getDisplayImage still returns null
+//    	
+//        BufferedImage myPicture;
+//        String imagePath = "Path/to/image.jpg";
+//		try {
+//			myPicture = ImageIO.read(new File(imagePath));			
+//			imageLabel.setIcon(new ImageIcon(myPicture));
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+
+    }
+
 
     private void startTimer() {
         timer.schedule(new TimerTask() {
