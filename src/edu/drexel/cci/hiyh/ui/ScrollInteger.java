@@ -13,10 +13,12 @@ import javax.swing.SwingUtilities;
 public class ScrollInteger extends JPanel implements
 		BooleanInputSource.Listener {
 	private static final int ITERATIONS_BEFORE_CANCEL = 2;
-	private static int MAX_NUMBER_OF_DIGITS = 3;
+	private static int MAX_NUMBER_OF_DIGITS;
 
 	private final int lowerBound;
-	private final int upperBound;
+	private int upperBound;
+	
+	private int MOD_NUMBER = 10;
 
 	private final Consumer<Integer> success;
 	private final Runnable cancel;
@@ -49,7 +51,9 @@ public class ScrollInteger extends JPanel implements
 
 		int range = upper - lower;
 		MAX_NUMBER_OF_DIGITS = (int)Math.log10(lower + range) + 1;
-		
+		int order = MAX_NUMBER_OF_DIGITS - 1;
+		MOD_NUMBER = (int) (upperBound / (Math.pow(10, order))) + 1;
+
 		SwingUtilities.invokeLater(this::buildUI);
 		inputsrc.addListener(this);
 		startTimer();
@@ -121,7 +125,7 @@ public class ScrollInteger extends JPanel implements
 			cleanup();
 			cancel.run();
 		} else {
-			index = counter % (10); // Mod 10 because this is number if digits
+			index = counter % (MOD_NUMBER); // Mod 10 because this is number if digits
 									// we cycle through
 			updateCurrentDigitValue();
 			// updateDisplay();
@@ -140,12 +144,17 @@ public class ScrollInteger extends JPanel implements
 
 	private synchronized void select() {
 		// Move cycle to next digit
+		int order = MAX_NUMBER_OF_DIGITS - activeSlotIndex - 1;
+
 		activeSlotIndex++;
 		if (!(activeSlotIndex >= MAX_NUMBER_OF_DIGITS)) {
 			counter = 0;
 			index = 0;
 			updateCurrentDigitValue();
 			updateDisplay();
+			upperBound = (int) (upperBound - finalDigitValues.get(activeSlotIndex-1) * Math.pow(10, order));
+			order--;
+			MOD_NUMBER = Math.min(10,(int) (upperBound / (Math.pow(10, order))) + 1);
 		} else {
 			// Only call when DONE or entire number is entered
 			if (!active)
