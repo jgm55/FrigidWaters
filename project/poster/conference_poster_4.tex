@@ -78,7 +78,7 @@ linewidth=2pt % Width of the border lines around content boxes
 {\includegraphics[height=4em]{drexel.png}} % First university/lab logo on the left
 {\bf\textsc{House in Your Head}\vspace{0.5em}} % Poster title
 {\textsc{\{ Sam Bever, Mike Conway, Joe Muoio, Kyle Patron, Kevin Zakszewski\} \hspace{12pt} Drexel University: CCI}} % Author names and institution
-{\includegraphics[height=4em]{drexel.png}} % Second university/lab logo on the right
+{\includegraphics[height=4em]{logo.png}} % Second university/lab logo on the right
 
 %----------------------------------------------------------------------------------------
 %	OBJECTIVES
@@ -119,7 +119,7 @@ with conventional assistive technologies. \cite{ALSsource}
 \break
 \break
 The goal of the project is to build a system which people afflicted with ALS
-can use to interact with their houses through the Insteon Home Automation Systems (HAS).
+can use to interact with their houses through the Insteon \cite{Insteon} Home Automation Systems (HAS) and an Emotiv\cite{Emotiv} EEG reader.
 This includes controlling the thermostat, lights, stereo, and television as
 well as interfacing with social media. By having a Brain Computer Interface
 (BCI) to their automated house, individuals with ALS can still interact with
@@ -157,6 +157,15 @@ Depending on what is displayed on the GUI at the time of the accept thought, the
 }
 
 %----------------------------------------------------------------
+% Machine Learning Methods
+%-----------------------------------------------------------------
+\headerbox{Machine Learning Method}{name=machinelearning,column=0,above=bottom}{
+
+
+
+}
+
+%----------------------------------------------------------------
 % PROGRAM FLOW
 %-----------------------------------------------------------------
 \headerbox{Program Flow}{name=flow,column=0,row=1,below=objectives}{
@@ -189,11 +198,31 @@ At the application selection screen, the user will cycle through the options of 
 \end{thebibliography}
 }
 
+
+%----------------------------------------------------------------------------------------
+%	CONCLUSION
+%----------------------------------------------------------------------------------------
+
+\headerbox{Conclusion}{name=conclusion,column=2,span=2,row=0,below=architecture}{
+
+%------------------------------------------------
+
+\begin{itemize}\compresslist
+\item Patients with ALS can achieve a huge quality of life improvement with a BCI by automating their house
+\item The UI supports house automation through the input of the Emotiv Headset
+\item We showed that the Insteon home automation system can be used without movement from the user.
+\end{itemize}
+}
+
+%----------------------------------------------------------------------------------------
+
+
+
 %----------------------------------------------------------------------------------------
 %	FUTURE RESEARCH
 %----------------------------------------------------------------------------------------
 
-\headerbox{Future Work}{name=futureresearch,column=0,span=1,above=bottom}{ % This block is as tall as the references block
+\headerbox{Future Work}{name=futureresearch,column=3,span=1,below=conclusion}{ % This block is as tall as the references block
 
 \begin{itemize}\compresslist
 \item More devices can be tested with the HAS. (ie: anything using an IR sensor)
@@ -206,31 +235,15 @@ At the application selection screen, the user will cycle through the options of 
 %	CONTACT INFORMATION
 %----------------------------------------------------------------------------------------
 
-\headerbox{Contact Information}{name=contact,column=3,aligned=futureresearch,above=bottom}{ % This block is as tall as the references block
+\headerbox{Contact Information}{name=contact,column=3,above=bottom, below=futureresearch}{ % This block is as tall as the references block
 
 \begin{description}\compresslist
 \item[Email] jgm55@drexel.edu
 \item[url] http://drexel.edu/cci/resources/current-students/undergraduate/senior-design-challenge/
-\item
 \end{description}
 }
 
-%----------------------------------------------------------------------------------------
-%	CONCLUSION
-%----------------------------------------------------------------------------------------
 
-\headerbox{Conclusion}{name=conclusion,column=2,span=2,row=0,below=architecture,above=references}{
-
-%------------------------------------------------
-
-\begin{itemize}\compresslist
-\item Patients with ALS can achieve a huge quality of life improvement with a BCI by automating their house
-\item The UI supports house automation through the input of the Emotiv Headset
-\item We showed that the Insteon home automation system can be used without movement from the user.
-\end{itemize}
-}
-
-%----------------------------------------------------------------------------------------
 
 \end{poster}
 
