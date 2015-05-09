@@ -1,6 +1,7 @@
 package edu.drexel.cci.hiyh.bci;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import weka.classifiers.Classifier;
 import weka.classifiers.trees.J48;
@@ -14,13 +15,25 @@ public class SignalDetector {
 	private final int NUM_SAMPLES = 1240 * 2;
 	ArrayList<double[]> totalData = new ArrayList<double[]>();
 	
-    private static final FastVector attributes = new FastVector(14);
+	private static FastVector classVals =new FastVector(2);
 	static {
-	    for (int i = 0; i < 15; i++)
-	        attributes.addElement(new Attribute("" + i));
+		classVals.addElement("negative");
+		classVals.addElement("positive");
 	}
+	
+    private static final FastVector attributes = new FastVector(45);
+	static {
+	    for (int i = 0; i < 45; i++)
+	        attributes.addElement(new Attribute("" + i));
+	    attributes.addElement(new Attribute("theClass", classVals));
+	}
+	
 
-	private Instances trainingSet = new Instances("trainingSet", attributes, 1000);
+	private static Instances trainingSet = new Instances("trainingSet", attributes, 0);
+	
+	static{
+		trainingSet.setClassIndex(45);
+	}
 
 	private Classifier classifier = new J48();
 	
@@ -38,6 +51,7 @@ public class SignalDetector {
 		notifyAll();
 	}
 	
+	boolean first = true;
 	public synchronized boolean process(double[][] data) {
 		if (!calibrated) {			
 			//Left is odd, right is even
@@ -52,21 +66,26 @@ public class SignalDetector {
 			for(double[] d: data){
 				totalData.add(d);
 			}
-			if(totalData.size() >= NUM_SAMPLES ){
+			
+			if (totalData.size() >= NUM_SAMPLES /2 && first ) {
+				System.out.println("done training neutral");
+				first=false;
+			}
+			if(totalData.size() >= NUM_SAMPLES ){	
+				System.out.println(totalData.size());
 				double[][] listOfFeatureListsNuetral = new double[45][10];
 				double[][] listOfFeatureListsAccept = new double[45][10];
-				getFeatureList(data,0,NUM_SAMPLES / 2, listOfFeatureListsNuetral);
-				getFeatureList(data,NUM_SAMPLES / 2,NUM_SAMPLES, listOfFeatureListsAccept);
+				getFeatureList(totalData, 0, NUM_SAMPLES/2, listOfFeatureListsNuetral);
+				getFeatureList(totalData, NUM_SAMPLES/2, NUM_SAMPLES, listOfFeatureListsAccept);
 				
 				for(double[] d : listOfFeatureListsNuetral){
-					Instance inst = new Instance(1,d);
-					inst.setValue(45, 0);
-					
+					Instance inst = makeInstance(d);
+					inst.setValue(45, "negative");
 					trainingSet.add(inst);
 				}
 				for(double[] d : listOfFeatureListsAccept){
-					Instance inst = new Instance(1,d);
-					inst.setValue(45, 0);
+					Instance inst = makeInstance(d);
+					inst.setValue(45, "positive");
 					trainingSet.add(inst);
 				}
 				
@@ -74,26 +93,44 @@ public class SignalDetector {
 		            classifier.buildClassifier(trainingSet);
 		        } catch (Exception e) {
 		            // TODO What???
+		        	e.printStackTrace();
 		        	System.err.println("CLASSIFIER FAILED");
 		        }
 		        setCalibrated(true);
-				System.err.println("calibrated");
+				System.out.println("calibrated");
 			}
 			
 			return false;
 		}
 		for (double[] d : data) {
 		    try {
-		        if (classifier.classifyInstance(new Instance(1, d)) == 1)
+		    	//Instances instances = new Instances("testingSet", attributes, 0);
+		    	Instance inst = makeInstance(d);
+		    	inst.setDataset(trainingSet);
+		    	inst.setClassValue(45);
+		    	if (classifier.classifyInstance(inst) == 1)
 		            return true;
+		        
+		        
 		    } catch (Exception e) {
 		        // TODO What???
+		    	//e.printStackTrace();
 		    }
 		}
 		return false;
 	}
 
-	private void getFeatureList(double[][] data, int start, int end,
+	private Instance makeInstance(double[] d) {
+		Instance inst = new Instance(46);
+		for(int i=0;i<d.length;i++){
+			inst.setValue(i, d[i]);
+		}
+		inst.setDataset(trainingSet);
+		//inst.setClassValue(45);BAD MAYBE
+		return inst;
+	}
+
+	private void getFeatureList(List<double[]> data, int start, int end,
 			double[][] listOfFeatureLists) {
 		
 		ExtractFeatures extractor = new ExtractFeatures();
@@ -101,13 +138,13 @@ public class SignalDetector {
 			double[][]left = new double[3][128];
 			double[][]right = new double[3][128];
 			for(int i=0;i<128; i++){
-				right[i][0] = data[i][7];
-				right[i][1] = data[i][8];
-				right[i][2] = data[i][10];
+				right[0][i] = data.get(i)[7];
+				right[1][i] = data.get(i)[8];
+				right[2][i] = data.get(i)[10];
 				
-				left[i][0] = data[i][6];
-				left[i][1] = data[i][5];
-				left[i][2] = data[i][3];
+				left[0][i] = data.get(i)[6];
+				left[1][i] = data.get(i)[5];
+				left[2][i] = data.get(i)[3];
 			}
 			double[] listOfFeatures = extractor.extractFeatures(left, right);
 			listOfFeatureLists[j-start] = listOfFeatures;
