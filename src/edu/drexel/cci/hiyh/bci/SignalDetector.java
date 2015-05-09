@@ -53,6 +53,9 @@ public class SignalDetector {
 	
 	boolean first = true;
 	public synchronized boolean process(double[][] data) {
+		for(double[] d: data){
+			totalData.add(d);
+		}
 		if (!calibrated) {			
 			//Left is odd, right is even
 			//Indexes we are using:
@@ -63,10 +66,6 @@ public class SignalDetector {
 				c3 = FC5 = 3
 				c4 = FC6 = 10
 			*/
-			for(double[] d: data){
-				totalData.add(d);
-			}
-			
 			if (totalData.size() >= NUM_SAMPLES /2 && first ) {
 				System.out.println("done training neutral");
 				first=false;
@@ -102,21 +101,23 @@ public class SignalDetector {
 			
 			return false;
 		}
-		for (double[] d : data) {
-		    try {
-		    	//Instances instances = new Instances("testingSet", attributes, 0);
-		    	Instance inst = makeInstance(d);
-		    	inst.setDataset(trainingSet);
-		    	inst.setClassValue(45);
-		    	if (classifier.classifyInstance(inst) == 1)
-		            return true;
-		        
-		        
-		    } catch (Exception e) {
-		        // TODO What???
-		    	//e.printStackTrace();
-		    }
-		}
+		try {
+	    	//Instances instances = new Instances("testingSet", attributes, 0);
+	    	double[][] listOfFeatures = new double[3][1];
+	    	getFeatureList(totalData,totalData.size() - 128, totalData.size(), listOfFeatures);
+	    	Instance inst = makeInstance(listOfFeatures[0]);
+	    	inst.setDataset(trainingSet);
+	    	inst.setClassValue(45);
+	    	if (classifier.classifyInstance(inst) == 1){
+	    		return true;
+	    	} else {	        
+
+	    	}
+	        
+	    } catch (Exception e) {
+	        // TODO What???
+	    	e.printStackTrace();
+	    }
 		return false;
 	}
 
@@ -132,22 +133,21 @@ public class SignalDetector {
 
 	private void getFeatureList(List<double[]> data, int start, int end,
 			double[][] listOfFeatureLists) {
-		
 		ExtractFeatures extractor = new ExtractFeatures();
-		for(int j=start;j<end / 128;j++){
+		for(int j=0;j<(end - start) / 128;j++){
 			double[][]left = new double[3][128];
 			double[][]right = new double[3][128];
 			for(int i=0;i<128; i++){
-				right[0][i] = data.get(i)[7];
-				right[1][i] = data.get(i)[8];
-				right[2][i] = data.get(i)[10];
+				right[0][i] = data.get(start + i + 128 * j)[7];
+				right[1][i] = data.get(start + i+ 128 * j)[8];
+				right[2][i] = data.get(start + i+ 128 * j)[10];
 				
-				left[0][i] = data.get(i)[6];
-				left[1][i] = data.get(i)[5];
-				left[2][i] = data.get(i)[3];
+				left[0][i] = data.get(start + i+ 128 * j)[6];
+				left[1][i] = data.get(start + i+ 128 * j)[5];
+				left[2][i] = data.get(start + i+ 128 * j)[3];
 			}
 			double[] listOfFeatures = extractor.extractFeatures(left, right);
-			listOfFeatureLists[j-start] = listOfFeatures;
+			listOfFeatureLists[j] = listOfFeatures;
 		}
 		
 	}
