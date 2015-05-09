@@ -99,7 +99,9 @@ public class BCICollector extends Thread {
                         for(int j = 0; j < col.length;j++)
                             combinedData[j][i]=col[j];
                     }
-                    setSignal(sd.process(combinedData));
+                    if(sd.process(combinedData)){
+                    	setSignal(true);
+                    }
                 }
             }
         }

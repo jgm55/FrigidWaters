@@ -95,29 +95,30 @@ public class SignalDetector {
 		        	e.printStackTrace();
 		        	System.err.println("CLASSIFIER FAILED");
 		        }
+				totalData.clear();
 		        setCalibrated(true);
 				System.out.println("calibrated");
 			}
-			
 			return false;
 		}
-		try {
-	    	//Instances instances = new Instances("testingSet", attributes, 0);
-	    	double[][] listOfFeatures = new double[3][1];
-	    	getFeatureList(totalData,totalData.size() - 128, totalData.size(), listOfFeatures);
-	    	Instance inst = makeInstance(listOfFeatures[0]);
-	    	inst.setDataset(trainingSet);
-	    	inst.setClassValue(45);
-	    	if (classifier.classifyInstance(inst) == 1){
-	    		return true;
-	    	} else {	        
-
-	    	}
-	        
-	    } catch (Exception e) {
-	        // TODO What???
-	    	e.printStackTrace();
-	    }
+		if(totalData.size() >= 128){
+			try {
+		    	//Instances instances = new Instances("testingSet", attributes, 0);
+		    	double[][] listOfFeatures = new double[3][1];
+		    	getFeatureList(totalData,totalData.size() - 128, totalData.size(), listOfFeatures);
+		    	Instance inst = makeInstance(listOfFeatures[0]);
+		    	inst.setDataset(trainingSet);
+		    	inst.setClassValue(45);
+		    	if (classifier.classifyInstance(inst) == 1){
+					totalData.clear();
+		    		return true;
+		    	}
+		    } catch (Exception e) {
+		        // TODO What???
+		    	e.printStackTrace();
+		    }
+			totalData.clear();
+		}
 		return false;
 	}
 
