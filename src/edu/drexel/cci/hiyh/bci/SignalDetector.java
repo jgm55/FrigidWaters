@@ -39,7 +39,9 @@ public class SignalDetector extends AbstractBooleanInputSource {
 	// in order to generate a signal.
 	private static final int LISTENING_MIN_POSITIVE = 4;
 	
-    private static final FastVector attributes = new FastVector(45);
+	private Instances trainingSet;
+	
+    private static final FastVector attributes = new FastVector(46);
 	static {
 	    // FIXME Do we really need a nominal field for the class value?
 	    FastVector classVals = new FastVector(2);
@@ -91,10 +93,10 @@ public class SignalDetector extends AbstractBooleanInputSource {
      */
 	private Instance makeInstance(double[] d) {
 		// FIXME magic number of features
-		Instance inst = new Instance(45);
+		Instance inst = new Instance(46);
 		for(int i = 0; i < d.length; i++)
 			inst.setValue(i, d[i]);
-		inst.setClassValue(44);
+		inst.setDataset(trainingSet);
 		return inst;
 	}
 
@@ -130,7 +132,7 @@ public class SignalDetector extends AbstractBooleanInputSource {
      * Trains the classifier on sample data.
      */
     private void train(List<double[]> neutral, List<double[]> active) {
-	    Instances trainingSet = new Instances("trainingSet", attributes, 0);
+	    trainingSet = new Instances("trainingSet", attributes, 0);
 		trainingSet.setClassIndex(45);
 
         for (int i = 0; i+TRAINING_WINDOW < neutral.size(); i += TRAINING_OFFSET) {
@@ -165,6 +167,7 @@ public class SignalDetector extends AbstractBooleanInputSource {
 	        awaitData(data, LISTENING_WINDOW);
 	        // TODO
             Instance inst = makeInstance(convertToFeatures(data.subList(0, LISTENING_WINDOW)));
+            inst.setClassValue(45);
             int klass = 0;
             try {
                 klass = (int)classifier.classifyInstance(inst);
