@@ -3,71 +3,31 @@ package edu.drexel.cci.hiyh.bci;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 
-public class BCICollector extends Thread {
-    private boolean alive = true;
-    private Boolean signal = false;
-    private long storedTime = 0;
-    private SignalDetector sd = new SignalDetector();
+/**
+ * Interfaces with the EDK to collect data upon request.
+ */
+public class BCICollector extends Thread implements AutoCloseable {
+    private final Pointer hData;
 
-    public SignalDetector getSignalDetector() {
-        return sd;
-    }
-
-    public synchronized boolean getSignal() {
-        boolean sig = signal;
-        signal = false;
-        return sig;
-    }
-
-    public synchronized boolean getSignalWhenTrue() throws InterruptedException {
-        while(!signal)
-            wait();
-        signal = false;
-        return true;
-    }
-
-    private void setSignal(boolean sig) {
-        long now = System.currentTimeMillis();
-        if (now - storedTime > 3000) {
-            synchronized(this){
-                signal = sig;
-                if (signal)
-                    notifyAll();
-            }
-            storedTime = now;
-        }
-    }
-
-    public void stopSampling() {
-        alive=false;
-    }
-
-    @Override
-    public void run() {
-        Pointer eEvent = Edk.INSTANCE.EE_EmoEngineEventCreate();
-        Pointer eState = Edk.INSTANCE.EE_EmoStateCreate();
-        IntByReference userID = null;
-        IntByReference nSamplesTaken = null;
-        IntByReference gx = null;
-        IntByReference gy = null;
-        int state = 0;
-        float secs = 1;
-        boolean readytocollect = false;
-
-        userID = new IntByReference(0);
-        nSamplesTaken = new IntByReference(0);
-
+    public BCICollector() {
         if (Edk.INSTANCE.EE_EngineConnect("Emotiv Systems-5") != EdkErrorCode.EDK_OK
                 .ToInt()) {
-            System.out.println("Emotiv Engine start up failed.");
+            System.err.println("Emotiv Engine start up failed.");
+            // TODO exception?
+            hData = null;
             return;
         }
 
-        Pointer hData = Edk.INSTANCE.EE_DataCreate();
-        Edk.INSTANCE.EE_DataSetBufferSizeInSec(secs);
-
-        while (alive) {
-            state = Edk.INSTANCE.EE_EngineGetNextEvent(eEvent);
+        // We seem to need to enable data acquisition per userid.
+        // To get a userid, we wait for a "user added" event and grab it from
+        // there.
+        // TODO Can we just pass 0 as a userid, like we can for
+        // DataUpdateHandle?
+        IntByReference userID = new IntByReference(0);
+        Pointer eEvent = Edk.INSTANCE.EE_EmoEngineEventCreate();
+        boolean readytocollect = false;
+        do {
+            int state = Edk.INSTANCE.EE_EngineGetNextEvent(eEvent);
 
             // New event needs to be handled
             if (state == EdkErrorCode.EDK_OK.ToInt()) {
@@ -82,32 +42,52 @@ public class BCICollector extends Thread {
                         readytocollect = true;
                     }
             } else if (state != EdkErrorCode.EDK_NO_EVENT.ToInt()) {
-                System.out.println("Internal error in Emotiv Engine!");
+                System.err.println("Internal error in Emotiv Engine!");
                 break;
             }
+        } while (!readytocollect);
+        Edk.INSTANCE.EE_EmoEngineEventFree(eEvent);
 
-            if (readytocollect) {
-                Edk.INSTANCE.EE_DataUpdateHandle(0, hData);
+        // Create our data buffer handle
+        hData = Edk.INSTANCE.EE_DataCreate();
+        Edk.INSTANCE.EE_DataSetBufferSizeInSec(1);
+    }
 
-                Edk.INSTANCE.EE_DataGetNumberOfSample(hData, nSamplesTaken);
-                Edk.INSTANCE.EE_HeadsetGetGyroDelta(0, gx, gy);
-                if (nSamplesTaken != null && nSamplesTaken.getValue() != 0) {
-                    double[][] combinedData = new double[nSamplesTaken.getValue()][14];
-                    double[] col = new double[nSamplesTaken.getValue()];
-                    for (int i = 0; i < 14; i++) {
-                        Edk.INSTANCE.EE_DataGet(hData, i, col, nSamplesTaken.getValue());
-                        for(int j = 0; j < col.length;j++)
-                            combinedData[j][i]=col[j];
-                    }
-                    if(sd.process(combinedData)){
-                    	setSignal(true);
-                    }
-                }
+    /**
+     * Collect available data from the device.
+     *
+     * @return 2d array of sensor data. First index is over the samples (i.e.
+     *         time steps), second is over the available sensors.
+     */
+    public double[][] getData() {
+        //IntByReference gx = null;
+        //IntByReference gy = null;
+        //Edk.INSTANCE.EE_HeadsetGetGyroDelta(0, gx, gy);
+
+        IntByReference nSamplesTaken = new IntByReference(0);
+        Edk.INSTANCE.EE_DataUpdateHandle(0, hData);
+        Edk.INSTANCE.EE_DataGetNumberOfSample(hData, nSamplesTaken);
+
+        double[][] combinedData = new double[nSamplesTaken.getValue()][14];
+
+        // We have to query for all of the data per sensor and transpose the
+        // resulting data so that the first index is to the sample and the
+        // second to the sensor.
+        if (nSamplesTaken.getValue() > 0) {
+            double[] col = new double[nSamplesTaken.getValue()];
+            for (int i = 0; i < 14; i++) {
+                Edk.INSTANCE.EE_DataGet(hData, i, col, nSamplesTaken.getValue());
+                for(int j = 0; j < col.length;j++)
+                    combinedData[j][i]=col[j];
             }
         }
 
+        return combinedData;
+    }
+
+    @Override
+    public void close() {
         Edk.INSTANCE.EE_EngineDisconnect();
-        Edk.INSTANCE.EE_EmoStateFree(eState);
-        Edk.INSTANCE.EE_EmoEngineEventFree(eEvent);
+        Edk.INSTANCE.EE_DataFree(hData);
     }
 }

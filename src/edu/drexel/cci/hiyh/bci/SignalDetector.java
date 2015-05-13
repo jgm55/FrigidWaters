@@ -1,155 +1,191 @@
 package edu.drexel.cci.hiyh.bci;
 
+import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import edu.drexel.cci.hiyh.ui.AbstractBooleanInputSource;
+import edu.drexel.cci.hiyh.ui.InputUI;
+
 import weka.classifiers.Classifier;
-import weka.classifiers.trees.J48;
+import weka.classifiers.bayes.NaiveBayes;
 import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
 
-public class SignalDetector {
-	private boolean calibrated = false;
-	private final int NUM_SAMPLES = 1240 * 2;
-	ArrayList<double[]> totalData = new ArrayList<double[]>();
-	
-	private static FastVector classVals =new FastVector(2);
-	static {
-		classVals.addElement("negative");
-		classVals.addElement("positive");
-	}
+/**
+ * Main interface into the BCI. Reports a signal whenever it detects an
+ * "active" thought/state from the user.
+ */
+public class SignalDetector extends AbstractBooleanInputSource {
+    // "Training" is the calibration phase, where we train our classifier on
+    // the user's BCI input.
+    // "Listening" is when we use the classifier to detect active thoughts
+    // from the user.
+    //
+    // A "window" is the set of samples that we pass to the feature extractor.
+    // The "offset" is the number of samples we advance past between windows.
+    // If offset < window size, then we have overlapping windows.
+	private static final int TRAINING_WINDOW = 128;
+	private static final int TRAINING_OFFSET = 64;
+	// Number of windows we use for training each state (neutral and active).
+	private static final int TRAINING_WINDOWS_PER_STATE = 10;
+
+	private static final int LISTENING_WINDOW = 128;
+	private static final int LISTENING_OFFSET = 128;
+	// The minimum number of consecutive windows that must classify positive
+	// in order to generate a signal.
+	private static final int LISTENING_MIN_POSITIVE = 4;
 	
     private static final FastVector attributes = new FastVector(45);
 	static {
+	    // FIXME Do we really need a nominal field for the class value?
+	    FastVector classVals = new FastVector(2);
+		classVals.addElement("negative");
+		classVals.addElement("positive");
+		// FIXME magic number of features
 	    for (int i = 0; i < 45; i++)
 	        attributes.addElement(new Attribute("" + i));
 	    attributes.addElement(new Attribute("theClass", classVals));
 	}
-	
 
-	private static Instances trainingSet = new Instances("trainingSet", attributes, 0);
-	
-	static{
-		trainingSet.setClassIndex(45);
-	}
+	private final Classifier classifier = new NaiveBayes();
+	private final BCICollector collector = new BCICollector();
+	    // TODO Close this at some point
 
-	private Classifier classifier = new J48();
-	
-	public synchronized boolean getCalibrated() {
-		return calibrated;
-	}
+    @Override
+    public void initAndStart(InputUI ui) {
+        calibrate(ui);
 
-	public synchronized void awaitCalibrated() throws InterruptedException {
-		while(!calibrated)
-			wait();
-	}
-	
-	private synchronized void setCalibrated(boolean cal) {
-		calibrated = cal;
-		notifyAll();
-	}
-	
-	boolean first = true;
-	public synchronized boolean process(double[][] data) {
-		for(double[] d: data){
-			totalData.add(d);
-		}
-		if (!calibrated) {			
-			//Left is odd, right is even
-			//Indexes we are using:
-			/*  O1 = 6
-				O2 = 7
-				p3 = p7 = 5
-				p4 = p8 = 8
-				c3 = FC5 = 3
-				c4 = FC6 = 10
-			*/
-			if (totalData.size() >= NUM_SAMPLES /2 && first ) {
-				System.out.println("done training neutral");
-				first=false;
-			}
-			if(totalData.size() >= NUM_SAMPLES ){	
-				System.out.println(totalData.size());
-				double[][] listOfFeatureListsNuetral = new double[45][10];
-				double[][] listOfFeatureListsAccept = new double[45][10];
-				getFeatureList(totalData, 0, NUM_SAMPLES/2, listOfFeatureListsNuetral);
-				getFeatureList(totalData, NUM_SAMPLES/2, NUM_SAMPLES, listOfFeatureListsAccept);
-				
-				for(double[] d : listOfFeatureListsNuetral){
-					Instance inst = makeInstance(d);
-					inst.setValue(45, "negative");
-					trainingSet.add(inst);
-				}
-				for(double[] d : listOfFeatureListsAccept){
-					Instance inst = makeInstance(d);
-					inst.setValue(45, "positive");
-					trainingSet.add(inst);
-				}
-				
-				try {
-		            classifier.buildClassifier(trainingSet);
-		        } catch (Exception e) {
-		            // TODO What???
-		        	e.printStackTrace();
-		        	System.err.println("CLASSIFIER FAILED");
-		        }
-				totalData.clear();
-		        setCalibrated(true);
-				System.out.println("calibrated");
-			}
-			return false;
-		}
-		if(totalData.size() >= 128){
-			try {
-		    	//Instances instances = new Instances("testingSet", attributes, 0);
-		    	double[][] listOfFeatures = new double[3][1];
-		    	getFeatureList(totalData,totalData.size() - 128, totalData.size(), listOfFeatures);
-		    	Instance inst = makeInstance(listOfFeatures[0]);
-		    	inst.setDataset(trainingSet);
-		    	inst.setClassValue(45);
-		    	if (classifier.classifyInstance(inst) == 1){
-					totalData.clear();
-		    		return true;
-		    	}
-		    } catch (Exception e) {
-		        // TODO What???
-		    	e.printStackTrace();
-		    }
-			totalData.clear();
-		}
-		return false;
-	}
+        Thread t = new Thread(this::listenLoop);
+        t.setDaemon(true);
+        t.start();
+    }
 
+    /**
+     * Guides the user through the calibration process.
+     *
+     * @param ui Graphical interface to user
+     */
+    public void calibrate(InputUI ui) {
+        final int training_size = TRAINING_WINDOWS_PER_STATE * TRAINING_OFFSET
+                            + (TRAINING_WINDOW - TRAINING_OFFSET);
+
+        ui.showMessage("<html><center>Calibrating.<br>Think a neutral thought.</center></html>");
+        //flush();
+        List<double[]> neutral = new ArrayList<double[]>(training_size);
+        awaitData(neutral, training_size);
+
+        ui.showMessage("<html><center>Calibrating.<br>Think an active thought.</center></html>");
+        //flush();
+        List<double[]> active = new ArrayList<double[]>(training_size);
+        awaitData(active, training_size);
+
+        train(neutral, active);
+    }
+
+    /**
+     * Convert a double[] of features to an Instance.
+     */
 	private Instance makeInstance(double[] d) {
-		Instance inst = new Instance(46);
-		for(int i=0;i<d.length;i++){
+		// FIXME magic number of features
+		Instance inst = new Instance(45);
+		for(int i = 0; i < d.length; i++)
 			inst.setValue(i, d[i]);
-		}
-		inst.setDataset(trainingSet);
-		//inst.setClassValue(45);BAD MAYBE
+		inst.setClassValue(44);
 		return inst;
 	}
 
-	private void getFeatureList(List<double[]> data, int start, int end,
-			double[][] listOfFeatureLists) {
-		ExtractFeatures extractor = new ExtractFeatures();
-		for(int j=0;j<(end - start) / 128;j++){
-			double[][]left = new double[3][128];
-			double[][]right = new double[3][128];
-			for(int i=0;i<128; i++){
-				right[0][i] = data.get(start + i + 128 * j)[7];
-				right[1][i] = data.get(start + i+ 128 * j)[8];
-				right[2][i] = data.get(start + i+ 128 * j)[10];
-				
-				left[0][i] = data.get(start + i+ 128 * j)[6];
-				left[1][i] = data.get(start + i+ 128 * j)[5];
-				left[2][i] = data.get(start + i+ 128 * j)[3];
-			}
-			double[] listOfFeatures = extractor.extractFeatures(left, right);
-			listOfFeatureLists[j] = listOfFeatures;
+    /**
+     * Accepts BCI input and appends it to data until data is at least size
+     * elements long.
+     *
+     * FIXME Should this make it *exactly* size elements long?
+     */
+    private void awaitData(List<double[]> data, int size) {
+        while (data.size() < size)
+            data.addAll(Arrays.asList(collector.getData()));
+    }
+
+    /**
+     * Converts a window of samples to classifier features.
+     */
+    private double[] convertToFeatures(List<double[]> samples) {
+        double[][] left = new double[3][samples.size()];
+        double[][] right = new double[3][samples.size()];
+		for(int i = 0; i < samples.size(); i++){
+			left[0][i] = samples.get(i)[6];
+			left[1][i] = samples.get(i)[5];
+			left[2][i] = samples.get(i)[3];
+			right[0][i] = samples.get(i)[7];
+			right[1][i] = samples.get(i)[8];
+			right[2][i] = samples.get(i)[10];
 		}
-		
+		return ExtractFeatures.extractFeatures(left, right);
+    }
+
+    /**
+     * Trains the classifier on sample data.
+     */
+    private void train(List<double[]> neutral, List<double[]> active) {
+	    Instances trainingSet = new Instances("trainingSet", attributes, 0);
+		trainingSet.setClassIndex(45);
+
+        for (int i = 0; i+TRAINING_WINDOW < neutral.size(); i += TRAINING_OFFSET) {
+            Instance inst = makeInstance(convertToFeatures(neutral.subList(i, i+TRAINING_WINDOW)));
+            inst.setValue(45, "negative");
+            trainingSet.add(inst);
+        }
+        for (int i = 0; i+TRAINING_WINDOW < active.size(); i += TRAINING_OFFSET) {
+            Instance inst = makeInstance(convertToFeatures(active.subList(i, i+TRAINING_WINDOW)));
+            inst.setValue(45, "positive");
+            trainingSet.add(inst);
+        }
+		try {
+		    classifier.buildClassifier(trainingSet);
+		} catch (Exception e) {
+		    // TODO What???
+		    e.printStackTrace();
+		    System.err.println("CLASSIFIER FAILED");
+		}
+    }
+
+    /**
+     * Loop forever, getting input from BCICollector, classifying it, and
+     * reporting active states.
+     */
+	private void listenLoop() {
+	    List<double[]> data = new LinkedList<double[]>();
+	    int numPositive = 0;
+
+        // FIXME stopping condition?
+	    while (true) {
+	        awaitData(data, LISTENING_WINDOW);
+	        // TODO
+            Instance inst = makeInstance(convertToFeatures(data.subList(0, LISTENING_WINDOW)));
+            int klass = 0;
+            try {
+                klass = (int)classifier.classifyInstance(inst);
+            } catch (Exception e) {
+                System.err.println("Failed to classify instance: " + inst);
+                e.printStackTrace();
+            }
+            if (klass == 1) { // positive
+                if (++numPositive >= LISTENING_MIN_POSITIVE) {
+                    notifyListeners();
+                    // TODO cooldown?
+                    numPositive = 0;
+                }
+            } else {
+                numPositive = 0;
+            }
+
+            // To "advance" the data, clear the data at the start of this
+            // window.
+            // Next iteration will pull in more data.
+            data.subList(0, LISTENING_OFFSET).clear();
+	    }
 	}
 }

@@ -3,7 +3,7 @@ package edu.drexel.cci.hiyh.controller;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.drexel.cci.hiyh.bci.BCIInputSource;
+import edu.drexel.cci.hiyh.bci.SignalDetector;
 import edu.drexel.cci.hiyh.has.DeviceManager;
 import edu.drexel.cci.hiyh.has.device.Device;
 import edu.drexel.cci.hiyh.ui.ConsoleUI;
@@ -58,7 +58,7 @@ public class Controller {
                 insrc = new MouseInputSource();
             else
                 insrc = new MultiInputSource(
-                            new BCIInputSource(),
+                            new SignalDetector(),
                             new MouseInputSource()
                         );
             ui = new ScrollUI(insrc);

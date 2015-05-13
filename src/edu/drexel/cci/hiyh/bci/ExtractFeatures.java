@@ -1,19 +1,14 @@
 package edu.drexel.cci.hiyh.bci;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Iterator;
-import java.util.stream.Stream;
 
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.transform.DftNormalization;
 import org.apache.commons.math3.transform.FastFourierTransformer; 
 import org.apache.commons.math3.transform.TransformType;
+
 public class ExtractFeatures {
+	private static final FastFourierTransformer fft = new FastFourierTransformer(DftNormalization.UNITARY);
 	
-	public double[] extractFeatures(double[][] left, double [][] right){
-		FastFourierTransformer fft = new FastFourierTransformer(DftNormalization.UNITARY);
+	public static double[] extractFeatures(double[][] left, double [][] right){
 		Complex [] res;
 		double[] deltaL = new double[left.length];
 		double[] thetaL= new double[left.length];
@@ -95,6 +90,13 @@ public class ExtractFeatures {
 		
 	}
 	
+/* only needed for below
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Iterator;
+import java.util.stream.Stream;
+*/
 	/*public static void main(String [] args) {
 		/*BufferedReader is = null;
 		try {
