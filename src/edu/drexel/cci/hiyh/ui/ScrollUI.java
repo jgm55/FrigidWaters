@@ -71,7 +71,7 @@ public class ScrollUI implements InputUI {
             }
         });
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(400, 300));
+        frame.setPreferredSize(new Dimension(400, 400));
 
         idlePanel.add(new JLabel("Loading..."));
         switchTo(idlePanel);

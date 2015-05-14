@@ -1,5 +1,6 @@
 package edu.drexel.cci.hiyh.ui;
 
+import java.awt.Component;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,6 +11,7 @@ import java.util.TimerTask;
 import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -46,8 +48,13 @@ public class ScrollSelector<T extends Displayable> extends JPanel implements Boo
 		new Thread(this::select).start();
     }
 
+
     private void buildUI() {
-		add(headerLabel);
+    	this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    	headerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    	imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    	add(headerLabel);
 		add(imageLabel);
 		updateDisplay();
     }
@@ -72,8 +79,8 @@ public class ScrollSelector<T extends Displayable> extends JPanel implements Boo
 //		Uncomment to test while getDisplayImage still returns null
 //    	
 //        BufferedImage myPicture;
-//        String imagePath = "Path/to/image.jpg";
-//		try {
+//        String imagePath = "Path/to/image.jpg";    	
+//    	try {
 //			myPicture = ImageIO.read(new File(imagePath));			
 //			imageLabel.setIcon(new ImageIcon(myPicture));
 //		} catch (IOException e1) {
