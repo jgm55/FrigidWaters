@@ -28,6 +28,9 @@
             includeantruntime="false" classpathref="classpath">
             <compilerarg value="-Xlint:unchecked"/>
         </javac>
+        <copy todir="${build}">
+            <fileset dir="." includes="res/**"/>
+        </copy>
     </target>
 
     <target name="run" depends="compile">

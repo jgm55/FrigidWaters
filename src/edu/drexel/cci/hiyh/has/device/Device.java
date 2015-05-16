@@ -28,10 +28,4 @@ public class Device implements Displayable {
     public String toString() {
         return name;
     }
-
-    @Override
-    public java.awt.Image getDisplayImage() {
-        // TODO: Add Image and properly configure it to fit in the window.
-        return null;
-    }
 }

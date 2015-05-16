@@ -1,15 +1,18 @@
 package edu.drexel.cci.hiyh.has.device.insteon;
 
+import java.awt.Image;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.io.IOException;
+import java.util.Optional;
 
 import edu.drexel.cci.hiyh.has.device.Action;
 import edu.drexel.cci.hiyh.has.device.Device;
 import edu.drexel.cci.hiyh.has.device.ParamType;
 import edu.drexel.cci.hiyh.has.device.BoundedInt;
 import edu.drexel.cci.hiyh.has.driver.insteon.Dimmer;
+import edu.drexel.cci.hiyh.util.ImageLoader;
 
 public class DimmerLight extends Device {
     private final Dimmer driver;
@@ -23,6 +26,10 @@ public class DimmerLight extends Device {
                 // TODO ???
             }
         }
+        @Override
+        public Optional<Image> getDisplayImage() {
+            return ImageLoader.load("/res/onState.png");
+        }
     };
 
     private final Action turnOff = new Action("Turn Off") {
@@ -33,6 +40,10 @@ public class DimmerLight extends Device {
             } catch (IOException e) {
                 // TODO ???
             }
+        }
+        @Override
+        public Optional<Image> getDisplayImage() {
+            return ImageLoader.load("/res/offState.png");
         }
     };
 
@@ -59,5 +70,10 @@ public class DimmerLight extends Device {
         addAction(turnOn);
         addAction(turnOff);
         addAction(setLevel);
+    }
+
+    @Override
+    public Optional<Image> getDisplayImage() {
+        return ImageLoader.load("/res/lightbulb.png");
     }
 }

@@ -50,7 +50,7 @@ public class ScrollInteger extends JPanel implements
 		index = lowerBound;
 
 		int range = upper - lower;
-		MAX_NUMBER_OF_DIGITS = (int)Math.log10(lower + range) + 1;
+		MAX_NUMBER_OF_DIGITS = (int)Math.log10(upper) + 1;
 		int order = MAX_NUMBER_OF_DIGITS - 1;
 		MOD_NUMBER = (int) (upperBound / (Math.pow(10, order))) + 1;
 

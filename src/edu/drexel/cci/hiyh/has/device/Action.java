@@ -26,10 +26,4 @@ public abstract class Action implements Displayable {
     public String toString() {
         return name;
     }
-
-    @Override
-    public java.awt.Image getDisplayImage() {
-        // TODO
-        return null;
-    }
 }
