@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import edu.drexel.cci.hiyh.has.device.ComputerDevice;
 import edu.drexel.cci.hiyh.has.device.Device;
 import edu.drexel.cci.hiyh.has.device.DummyDevice;
 import edu.drexel.cci.hiyh.has.device.insteon.DimmerLight;
 import edu.drexel.cci.hiyh.has.device.insteon.IR;
 import edu.drexel.cci.hiyh.has.driver.insteon.Command;
+import edu.drexel.cci.hiyh.has.driver.insteon.ComputerDriver;
 import edu.drexel.cci.hiyh.has.driver.insteon.Dimmer;
 import edu.drexel.cci.hiyh.has.driver.insteon.IRDriver;
 import edu.drexel.cci.hiyh.has.driver.insteon.PLM;
@@ -37,6 +39,9 @@ public class ConfigReader {
 			String[] parts = p.split(line);
 			if((line.startsWith("Dummy") || line.startsWith("dummy")) && parts.length>=2) {
 				devices.add(new DummyDevice(parts[1]));
+			}
+			else if((line.startsWith("Computer") || line.startsWith("computer")) && parts.length>=2) {
+				devices.add(new ComputerDevice(parts[1], new ComputerDriver()));
 			}
 			else if((line.startsWith("Light") || line.startsWith("light")) && parts.length>=3) {
 				String[] address = a.split(parts[2]);
