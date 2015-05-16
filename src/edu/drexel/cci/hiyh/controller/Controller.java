@@ -1,11 +1,14 @@
 package edu.drexel.cci.hiyh.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import edu.drexel.cci.hiyh.bci.SignalDetector;
 import edu.drexel.cci.hiyh.has.DeviceManager;
 import edu.drexel.cci.hiyh.has.device.Device;
+import edu.drexel.cci.hiyh.has.device.Action;
 import edu.drexel.cci.hiyh.ui.ConsoleUI;
 import edu.drexel.cci.hiyh.ui.InputUI;
 import edu.drexel.cci.hiyh.ui.BooleanInputSource;
@@ -17,13 +20,15 @@ import edu.drexel.cci.hiyh.util.Pair;
 public class Controller {
     private final DeviceManager dm;
     private final InputUI ui;
+    private final ArrayList<Device> cache;
 
     public Controller(DeviceManager dm, InputUI ui) {
         this.dm = dm;
         this.ui = ui;
+        cache = new ArrayList<Device>();
     }
 
-    private static UserInput<Pair<Device.Action, List<Object>>> chooseDeviceAction(List<Device> devices) {
+    private static UserInput<Pair<Action, List<Object>>> chooseDeviceAction(List<Device> devices) {
         // choose a device
         return UserInput.fromList(devices)
                  // given the device, choose an action
@@ -31,14 +36,26 @@ public class Controller {
                  // choose parameter values
                  .flatMap(a -> UserInput.ofParamTypes(a.getParameterTypes())
                                 // tack on the Action--we'll need that too
-                                        .map(params -> new Pair<Device.Action, List<Object>>(a, params)));
+                                        .map(params -> new Pair<Action, List<Object>>(a, params)));
     }
 
     public void loop() {
         try {
             while (true) {
                 ui.await("Activate to begin");
-                chooseDeviceAction(dm.getDevices()).get(ui).ifPresent(p -> p.first.invoke(p.second));
+                ArrayList<Device> c = new ArrayList<Device>(cache);
+                c.addAll(dm.getDevices());
+                Optional<Pair<Action, List<Object>>> p = chooseDeviceAction(c).get(ui);
+                if (p.isPresent()) {
+                	if (cache.contains(p.get().first)) {
+                		cache.remove(p.get().first);
+                	}
+                	cache.add(0, p.get().first);
+                	if (cache.size() > 2) {
+                		cache.remove(cache.size()-1);
+                	}
+                	p.get().first.invoke(p.get().second);
+                }
             }
         } catch (InterruptedException e) {
             // Closed by interrupt

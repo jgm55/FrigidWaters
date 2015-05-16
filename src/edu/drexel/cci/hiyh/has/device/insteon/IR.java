@@ -2,6 +2,7 @@ package edu.drexel.cci.hiyh.has.device.insteon;
 
 import java.util.List;
 
+import edu.drexel.cci.hiyh.has.device.Action;
 import edu.drexel.cci.hiyh.has.device.Device;
 import edu.drexel.cci.hiyh.has.driver.insteon.Command;
 import edu.drexel.cci.hiyh.has.driver.insteon.IRDriver;
