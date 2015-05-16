@@ -94,8 +94,8 @@ The goal of this project is to cater to ALS patients, giving them the ability to
 \item Allow users with ALS to perform basic household tasks, such as
     \begin{itemize}
         \item Turning lights on and off
-        \item Adjusting the thermostat
         \item Controlling the television
+        \item Controlling a keyboard
     \end{itemize}
 \end{itemize}
 
@@ -159,9 +159,9 @@ Depending on what is displayed on the GUI at the time of the accept thought, the
 %----------------------------------------------------------------
 % Machine Learning Methods
 %-----------------------------------------------------------------
-\headerbox{Machine Learning Method}{name=machinelearning,column=0,above=bottom}{
+\headerbox{Machine Learning Model}{name=machinelearning,column=0,above=bottom}{
 
-
+Sampled data from the Emotiv at 128 Hz over the course of 5 seconds with intervals of half a second to acquire the nuetral training data. To get the Accept Thought data, the same method was used after displaying a prompt to the user to ``think their Accept Thought''. Using these samples, A Fast Fourier Transformation (FFT) is applied to get 15 features from each sample. (Kyle Elaborate here). A Naiive Bayes Classifier is trained using the features extracted with the FFT. Once the classifier is trained, instances are tested using a rolling window of 128 Hz. When there are four accepted instances in a row, the current thought is considered to be the accept thought and the user selects.
 
 }
 
@@ -170,7 +170,7 @@ Depending on what is displayed on the GUI at the time of the accept thought, the
 %-----------------------------------------------------------------
 \headerbox{Program Flow}{name=flow,column=0,row=1,below=objectives}{
 
-At the application selection screen, the user will cycle through the options of the objects that they can interact with in the home automation system. This is also the screen where the user decides which object they want to interact with. When an object is chosen, the user will be directed to the interactive state screen for the selected object. This screen handles the changing of the state of the object the user selects. This could be some as simple as a state change from "on" to "off" or input that requires integer input. From this screen the user can either change the state or return to the previous screen (the first type where the users cycle through the options). These three types of UI screens will make up the majority of the user interaction in the system. These designs will be modified or extra user interface designs will be implemented as necessary.
+At the application selection screen, the user will cycle through the options of the objects that they can interact with in the home automation system and can decide which object they want to interact with. When an object is chosen, the user will be directed to the interactive state screen for the selected objectwhich handles the changing of the state of the selected object. This could be some as simple as a state change from "on" to "off" or input that requires integer selection. From here, the user can either change the state or return to the previous screen. These three types of UI screens will make up the user interaction in the system. 
 }
 
 
@@ -210,7 +210,7 @@ At the application selection screen, the user will cycle through the options of 
 \begin{itemize}\compresslist
 \item Patients with ALS can achieve a huge quality of life improvement with a BCI by automating their house
 \item The UI supports house automation through the input of the Emotiv Headset
-\item We showed that the Insteon home automation system can be used without movement from the user.
+\item We showed that the Insteon home automation system can be used without movement from the user using a Machine Learning classifer on EEG data
 \end{itemize}
 }
 
