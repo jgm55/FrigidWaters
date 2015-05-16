@@ -46,7 +46,7 @@ public class DimmerLight extends Device {
         @Override
         public void invoke(List<Object> args) {
             try {
-                driver.setIntensity((byte)args.get(0), true);
+                driver.setIntensity((byte)(int)args.get(0), true);
             } catch (IOException e) {
                 // TODO ???
             }
