@@ -8,7 +8,7 @@ import edu.drexel.cci.hiyh.ui.Displayable;
 
 public class Device implements Displayable {
     public final String name;
-    public final List<Action> actions = new ArrayList<Action>();
+    private final List<Action> actions = new ArrayList<Action>();
 
     protected Device(String name) {
         this.name = name;

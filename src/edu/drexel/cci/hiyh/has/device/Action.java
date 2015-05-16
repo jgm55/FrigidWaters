@@ -3,13 +3,13 @@ package edu.drexel.cci.hiyh.has.device;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.drexel.cci.hiyh.ui.Displayable;
 
-public abstract class Action extends Device {
-    //public final String name;
+public abstract class Action implements Displayable {
+    public final String name;
 
     protected Action(String name) {
-        super(name);
-    	actions.add(this);
+        this.name = name;
     }
 
     public List<ParamType<?>> getParameterTypes() {
@@ -31,14 +31,5 @@ public abstract class Action extends Device {
     public java.awt.Image getDisplayImage() {
         // TODO
         return null;
-    }
-    
-    @Override
-    public void addAction(Action a) {
-    }
-    
-    @Override
-    public List<Action> getAvailableActions() {
-    	return actions;
     }
 }
