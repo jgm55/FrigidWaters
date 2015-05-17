@@ -111,7 +111,7 @@ The goal of this project is to cater to ALS patients, giving them the ability to
 Amyotrophic lateral sclerosis (ALS) (also called ``Lou Gehrig's Disease'') is
 a neurodegenerative disease affecting the brain and spinal cord. The motor
 neurons progressively degenerate and die off, leading to the loss of muscle
-control and death. Affected indivuals suffer a spectrum of symptoms
+control and death. Affected individuals suffer a spectrum of symptoms
 culminating in total lock-in. In this state, the patient is aware but cannot
 move their body in any way. They cannot breathe on their own or even blink
 their eyes. Because of this, late-stage ALS patients are unable to interface
@@ -161,7 +161,7 @@ Depending on what is displayed on the GUI at the time of the accept thought, the
 %-----------------------------------------------------------------
 \headerbox{Machine Learning Model}{name=machinelearning,column=0,above=bottom}{
 
-Sampled data from the Emotiv at 128 Hz over the course of 5 seconds with intervals of half a second to acquire the nuetral training data. To get the Accept Thought data, the same method was used after displaying a prompt to the user to ``think their Accept Thought''. Using these samples, A Fast Fourier Transformation (FFT) is applied to get 15 features from each sample. (Kyle Elaborate here). A Naiive Bayes Classifier is trained using the features extracted with the FFT. Once the classifier is trained, instances are tested using a rolling window of 128 Hz. When there are four accepted instances in a row, the current thought is considered to be the accept thought and the user selects.
+We trained a Naive Bayes Classifier by extracting 45 features from each of 6 electrodes in the EEG. The features were extracted by using a fast Fourier transform to convert the signal from each electrode from the time domain to frequency domain. Then we summed over different ranges corresponding to alpha (7-14Hz), beta (14-40Hz), delta (1-4Hz), theta (4-7Hz), and gamma (>40Hz). Once we summed these values for each electrode. We took the percentage difference between each range of each electrode on the right and the corresponding range of each electrode on the left. Since we monitored 6 electrodes, over 5 ranges, we get a total of 45 features. We sample these features over 1 second increments at 128Hz for 5 seconds to get the neutral state and then do it again for the active. Once these samples are used to create the classifier, we can classifier a given 1 second interval by giving the 45 features to the classifier and see what it returns. We do this for a rolling window and if at any point 4 consecutive windows correspond to the active state, we register an event. This is done to decrease the occurrence of false positives.
 
 }
 
@@ -210,7 +210,7 @@ At the application selection screen, the user will cycle through the options of 
 \begin{itemize}\compresslist
 \item Patients with ALS can achieve a huge quality of life improvement with a BCI by automating their house
 \item The UI supports house automation through the input of the Emotiv Headset
-\item We showed that the Insteon home automation system can be used without movement from the user using a Machine Learning classifer on EEG data
+\item We showed that the Insteon home automation system can be used without movement from the user using a Machine Learning classifier on EEG data
 \end{itemize}
 }
 
