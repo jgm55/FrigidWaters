@@ -77,7 +77,7 @@ linewidth=2pt % Width of the border lines around content boxes
 %
 {\includegraphics[height=4em]{drexel.png}} % First university/lab logo on the left
 {\bf\textsc{House in Your Head}\vspace{0.5em}} % Poster title
-{\textsc{\{ Sam Bever, Mike Conway, Joe Muoio, Kyle Patron, Kevin Zakszewski\} \hspace{12pt} Drexel University: CCI}} % Author names and institution
+{\textsc{\{Samuel Bever, Michael Conway, Joseph Muoio, Kyle Patron, Kevin Zakszewski\} \hspace{12pt} Drexel University: CCI}} % Author names and institution
 {\includegraphics[height=4em]{logo.png}} % Second university/lab logo on the right
 
 %----------------------------------------------------------------------------------------
@@ -108,22 +108,21 @@ The goal of this project is to cater to ALS patients, giving them the ability to
 
 \headerbox{Introduction}{name=introduction,column=1,row=0, aligned=objectives}{
 
-Amyotrophic lateral sclerosis (ALS) (also called ``Lou Gehrig's Disease'') is
+Amyotrophic lateral sclerosis (ALS, also called ``Lou Gehrig's Disease'') is
 a neurodegenerative disease affecting the brain and spinal cord. The motor
 neurons progressively degenerate and die off, leading to the loss of muscle
 control and death. Affected individuals suffer a spectrum of symptoms
 culminating in total lock-in. In this state, the patient is aware but cannot
 move their body in any way. They cannot breathe on their own or even blink
 their eyes. Because of this, late-stage ALS patients are unable to interface
-with conventional assistive technologies. \cite{ALSsource}
-\break
-\break
+with conventional assistive technologies. \cite{ALSsource} \\
+
 The goal of the project is to build a system which people afflicted with ALS
-can use to interact with their houses through the Insteon \cite{Insteon} Home Automation Systems (HAS) and an Emotiv\cite{Emotiv} EEG reader.
-This includes controlling the thermostat, lights, stereo, and television as
-well as interfacing with social media. By having a Brain Computer Interface
-(BCI) to their automated house, individuals with ALS can still interact with
-their environment despite full paralysis.
+can use to interact with their houses through an Insteon Home Automation System (HAS) \cite{Insteon} and an Emotiv EEG reader \cite{Emotiv}.
+This includes controlling devices like the thermostat, lights, stereo, and
+television. By having a Brain Computer Interface (BCI) to their automated
+house, individuals with ALS can still interact with their environment despite
+full paralysis.
 }
 
 %----------------------------------------------------------------------------------------
@@ -139,14 +138,20 @@ their environment despite full paralysis.
 \captionof{figure}{Context Diagram of the system}
 \end{center}
 
-The system is broken down into 3 main components. The Graphical User Interface (GUI) component, the electroencephalogram (EEG) processing component, and the Home Automation System (HAS) component. The GUI can be shown on any standard computer display. The GUI scrolls through options one by one until the user makes a selection. This selection is performed by their accept thought. The accept thought is translated to a usable form in the EEG Processing component and can take the form of one of the following: adding numbers, counting, or mentally composing a letter to a friend.
-\end{multicols}
+The system is broken down into 3 main components: the graphical user interface
+(GUI), electroencephalogram (EEG) processing, and the home automation system
+(HAS). The GUI can be shown on any standard computer display. It scrolls
+through options one by one until the user makes a selection by thinking their
+``accepting thought,'' which the EEG processing component is trained to
+recognize; recommended accepting thoughts include adding numbers, counting,
+and mentally composing a letter to a friend.
 
-%------------------------------------------------
-
-\begin{multicols}{2}
-\vspace{1em}
-Depending on what is displayed on the GUI at the time of the accept thought, the option is selected and the appropriate call to the HAS component is made. For instance, if the option to turn on a light was shown in the GUI while the user thought their accept thought, the HAS component will receive the instruction to turn on the light which it will then forward the appropriate commands to the Insteon system. This will in turn, turn the light on. 
+The option that is displayed on the GUI at the time of the accept thought is
+selected and the appropriate call to the HAS component is made. For instance,
+if the option to turn on a light was shown in the GUI while the user thought
+their accept thought, the HAS component will receive the instruction to turn
+on the light. The HAS will then forward the appropriate commands to the
+Insteon system, turning the light on. 
 
 \begin{center}
 \includegraphics[width=0.8\linewidth]{level0DFD}
@@ -170,22 +175,31 @@ We trained a Naive Bayes Classifier by extracting 45 features from each of 6 ele
 %-----------------------------------------------------------------
 \headerbox{Program Flow}{name=flow,column=0,row=1,below=objectives}{
 
-At the application selection screen, the user will cycle through the options of the objects that they can interact with in the home automation system and can decide which object they want to interact with. When an object is chosen, the user will be directed to the interactive state screen for the selected objectwhich handles the changing of the state of the selected object. This could be some as simple as a state change from "on" to "off" or input that requires integer selection. From here, the user can either change the state or return to the previous screen. These three types of UI screens will make up the user interaction in the system. 
+At the application selection screen, the display cycles through the available
+home automation system devices and the user decides which device they want to
+interact with. When a device is chosen, the user is directed to the device's
+interactive state screen, which presents available actions that can be
+performed on that device. These actions include both simple changes, such as
+toggling a light on or off, and also changes which require the user to enter
+an integer, such as changing the television channel. From here, the user can
+either change the state or return to the previous screen.
+
 }
 
 
-\headerbox{Program Flow Image}{name=flowimage,column = 1, below=introduction}{
+\headerbox{Program Flow Image}{name=flowimage,column = 1, above=bottom, below=introduction}{
 
-\includegraphics[width=0.8\linewidth]{ApplicationUI}
+\includegraphics[width=0.9\linewidth]{ApplicationUI}
 \captionof{figure}{General flow of the program}
 
 }
 
-%----------------------------------------------------------------------------------------
-%	REFERENCES
+%---------------------------------------------------------------------------------------- REFERENCES
 %----------------------------------------------------------------------------------------
 
 \headerbox{References}{name=references,column=2,row=2,above=bottom}{
+\begingroup
+\renewcommand{\section}[2]{} % remove section header
 \begin{thebibliography}{1}
     \bibitem{ALSsource} The ALS Association. (2014, October, 5). \textit{What
         is ALS?} [Online]. Available:
@@ -196,6 +210,7 @@ At the application selection screen, the user will cycle through the options of 
         
     \bibitem{Insteon} Insteon \textregistered. (2015, May, 5). \textit{Insteon} [Online]. Available: \url{http://www.insteon.com/}
 \end{thebibliography}
+\endgroup
 }
 
 
@@ -208,9 +223,9 @@ At the application selection screen, the user will cycle through the options of 
 %------------------------------------------------
 
 \begin{itemize}\compresslist
-\item Patients with ALS can achieve a huge quality of life improvement with a BCI by automating their house
+\item ALS patients can achieve a huge quality of life improvement with a BCI by automating their house
 \item The UI supports house automation through the input of the Emotiv Headset
-\item We showed that the Insteon home automation system can be used without movement from the user using a Machine Learning classifier on EEG data
+\item We showed that the Insteon home automation system can be used without movement from the user using machine learning on EEG data
 \end{itemize}
 }
 
@@ -225,9 +240,10 @@ At the application selection screen, the user will cycle through the options of 
 \headerbox{Future Work}{name=futureresearch,column=3,span=1,below=conclusion}{ % This block is as tall as the references block
 
 \begin{itemize}\compresslist
-\item More devices can be tested with the HAS. (ie: anything using an IR sensor)
-\item The UI can be expanded to work with multiple inputs instead of just a singular brain input
-\item Better methods of machine learning can be tried
+\item More devices can be controlled using the HAS (anything that uses an IR sensor,
+    other Insteon devices)
+\item The UI can be expanded to work with additional input types to ease use for users who are not fully locked-in
+\item The machine learning signal-detection method can be refinedimproved
 \end{itemize}
 }
 
