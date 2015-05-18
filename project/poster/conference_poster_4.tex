@@ -26,6 +26,8 @@
 \usepackage{amsmath} % For typesetting math
 \usepackage{amssymb} % Adds new symbols to be used in math mode
 
+\usepackage{lipsum}
+
 \usepackage{booktabs} % Top and bottom rules for tables
 \usepackage{enumitem} % Used to reduce itemize/enumerate spacing
 \usepackage{palatino} % Use the Palatino font
@@ -46,6 +48,13 @@
 \setlength{\parskip}{0pt}
 \setlength{\parsep}{0pt}
 
+}
+
+\let\OLDthebibliography\thebibliography
+\renewcommand\thebibliography[1]{
+  \OLDthebibliography{#1}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{0pt plus 0.3ex}
 }
 
 \definecolor{lightblue}{rgb}{0.145,0.6666,1} % Defines the color used for content box headers
@@ -165,7 +174,7 @@ Insteon system, turning the light on.
 %-----------------------------------------------------------------
 \headerbox{Machine Learning Model}{name=machinelearning,column=2,above=bottom, below=architecture}{
 
-We trained a Naive Bayes Classifier by extracting 45 features from each of 6 electrodes in the EEG. The features were extracted by using a fast Fourier transform to convert the signal from each electrode from the time domain to frequency domain. Then we summed over different ranges corresponding to alpha (7-14Hz), beta (14-40Hz), delta (1-4Hz), theta (4-7Hz), and gamma (>40Hz). Once we summed these values for each electrode. We took the percentage difference between each range of each electrode on the right and the corresponding range of each electrode on the left. Since we monitored 6 electrodes, over 5 ranges, we get a total of 45 features. We sample these features over 1 second increments at 128Hz for 5 seconds to get the neutral state and then do it again for the active. Once these samples are used to create the classifier, we can classifier a given 1 second interval by giving the 45 features to the classifier and see what it returns. We do this for a rolling window and if at any point 4 consecutive windows correspond to the active state, we register an event. This is done to decrease the occurrence of false positives.
+We trained a Naive Bayes Classifier by extracting 45 features from each of 6 electrodes in the EEG. The features were extracted by using a fast Fourier transform to convert the signal from each electrode from the time domain to frequency domain. Then we summed over different ranges corresponding to alpha (7-14Hz), beta (14-40Hz), delta (1-4Hz), theta (4-7Hz), and gamma (>40Hz). Once we summed these values for each electrode. We took the percentage difference between each range of each electrode on the right and the corresponding range of each electrode on the left. Since we monitored 6 electrodes, over 5 ranges, we get a total of 45 features. This is based off a method used by Skinner et. al. \cite{MLSource} We sample these features over 1 second increments at 128Hz for 5 seconds to get the neutral state and then do it again for the active. Once these samples are used to create the classifier, we can classifier a given 1 second interval by giving the 45 features to the classifier and see what it returns. We do this for a rolling window and if at any point 4 consecutive windows correspond to the active state, we register an event. This is done to decrease the occurrence of false positives.
 
 }
 
@@ -199,14 +208,12 @@ either change the state or return to the previous screen.
 \begingroup
 \renewcommand{\section}[2]{} % remove section header
 \begin{thebibliography}{1}
-    \bibitem{ALSsource} The ALS Association. (2014, October, 5). \textit{What
-        is ALS?} [Online]. Available:
-        \url{http://www.alsa.org/about-als/what-is-als.html}
- 
-    \bibitem{Emotiv} Emotiv, Inc. (2015, May, 5). \textit{Emotiv|EEG
-        System} [Online]. Available: \url{http://emotiv.com/}
-        
-    \bibitem{Insteon} Insteon \textregistered. (2015, May, 5). \textit{Insteon} [Online]. Available: \url{http://www.insteon.com/}
+    	\bibitem{ALSsource} The ALS Association. (2014, October, 5). \textit{What is ALS?} [Online]. Available:
+        \url{http://www.alsa.org/about-als/what-is-als.html}       
+        \bibitem{MLSource} B. T. Skinner, H. T. Nguyen, D. K. Liu \textit{ Classification of EEG Signals Using a Genetic-Based Machine Learning Classifier.} Proceedings of the 29th Annual International Conference of the IEEE EMBS Cité Internationale. 2007
+    	\bibitem{Emotiv} Emotiv, Inc. (2015, May, 5). \textit{Emotiv|EEG System} [Online]. Available: \url{http://emotiv.com/}       
+    	\bibitem{Insteon} Insteon \textregistered. (2015, May, 5). \textit{Insteon} [Online]. Available: \url{http://www.insteon.com/}
+
 \end{thebibliography}
 \endgroup
 }
