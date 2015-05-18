@@ -113,13 +113,12 @@ a neurodegenerative disease affecting the brain and spinal cord. The motor
 neurons progressively degenerate and die off, leading to the loss of muscle
 control and death. Affected individuals suffer a spectrum of symptoms
 culminating in total lock-in. In this state, the patient is aware but cannot
-move their body in any way. They cannot breathe on their own or even blink
-their eyes. Because of this, late-stage ALS patients are unable to interface
+move their muscles. Because of this, late-stage ALS patients are unable to interface
 with conventional assistive technologies. \cite{ALSsource} \\
 
 The goal of the project is to build a system which people afflicted with ALS
 can use to interact with their houses through an Insteon Home Automation System (HAS) \cite{Insteon} and an Emotiv EEG reader \cite{Emotiv}.
-This includes controlling devices like the thermostat, lights, stereo, and
+This includes controlling devices like the lights, stereo, and
 television. By having a Brain Computer Interface (BCI) to their automated
 house, individuals with ALS can still interact with their environment despite
 full paralysis.
@@ -164,7 +163,7 @@ Insteon system, turning the light on.
 %----------------------------------------------------------------
 % Machine Learning Methods
 %-----------------------------------------------------------------
-\headerbox{Machine Learning Model}{name=machinelearning,column=0,above=bottom}{
+\headerbox{Machine Learning Model}{name=machinelearning,column=2,above=bottom, below=architecture}{
 
 We trained a Naive Bayes Classifier by extracting 45 features from each of 6 electrodes in the EEG. The features were extracted by using a fast Fourier transform to convert the signal from each electrode from the time domain to frequency domain. Then we summed over different ranges corresponding to alpha (7-14Hz), beta (14-40Hz), delta (1-4Hz), theta (4-7Hz), and gamma (>40Hz). Once we summed these values for each electrode. We took the percentage difference between each range of each electrode on the right and the corresponding range of each electrode on the left. Since we monitored 6 electrodes, over 5 ranges, we get a total of 45 features. We sample these features over 1 second increments at 128Hz for 5 seconds to get the neutral state and then do it again for the active. Once these samples are used to create the classifier, we can classifier a given 1 second interval by giving the 45 features to the classifier and see what it returns. We do this for a rolling window and if at any point 4 consecutive windows correspond to the active state, we register an event. This is done to decrease the occurrence of false positives.
 
@@ -186,7 +185,6 @@ either change the state or return to the previous screen.
 
 }
 
-
 \headerbox{Program Flow Image}{name=flowimage,column = 1, above=bottom, below=introduction}{
 
 \includegraphics[width=0.9\linewidth]{ApplicationUI}
@@ -197,7 +195,7 @@ either change the state or return to the previous screen.
 %---------------------------------------------------------------------------------------- REFERENCES
 %----------------------------------------------------------------------------------------
 
-\headerbox{References}{name=references,column=2,row=2,above=bottom}{
+\headerbox{References}{name=references,column=0,above=bottom, below=flow}{
 \begingroup
 \renewcommand{\section}[2]{} % remove section header
 \begin{thebibliography}{1}
@@ -218,7 +216,7 @@ either change the state or return to the previous screen.
 %	CONCLUSION
 %----------------------------------------------------------------------------------------
 
-\headerbox{Conclusion}{name=conclusion,column=2,span=2,row=0,below=architecture}{
+\headerbox{Conclusion}{name=conclusion,column=3,span=1,row=0,below=architecture}{
 
 %------------------------------------------------
 
@@ -255,7 +253,7 @@ either change the state or return to the previous screen.
 
 \begin{description}\compresslist
 \item[Email] jgm55@drexel.edu
-\item[url] http://drexel.edu/cci/resources/current-students/undergraduate/senior-design-challenge/
+%\item[url] http://drexel.edu/cci/resources/current-students/undergraduate/senior-design-challenge/
 \end{description}
 }
 
