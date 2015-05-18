@@ -113,8 +113,17 @@ public class SignalDetector extends AbstractBooleanInputSource {
 
     /**
      * Converts a window of samples to classifier features.
+     *
      */
     private double[] convertToFeatures(List<double[]> samples) {
+        // Left is odd, right is even.
+        // Indexes we are using:
+        // O1 = 6
+        // O2 = 7
+        // p3 = p7 = 5
+        // p4 = p8 = 8
+        // c3 = FC5 = 3
+        // c4 = FC6 = 10
         double[][] left = new double[3][samples.size()];
         double[][] right = new double[3][samples.size()];
 		for(int i = 0; i < samples.size(); i++){
